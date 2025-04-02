@@ -1,7 +1,10 @@
 package com.aspodev.cli;
 
+import picocli.CommandLine;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello com.aspodev.cli");
+        int exitCode = new CommandLine(new AspoCommand()).execute(args);
+        System.exit(exitCode);
     }
 }

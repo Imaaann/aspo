@@ -18,17 +18,18 @@ if [ $# -lt 1 ]; then
 fi
 
 ACTION=$1
+ARGUMENTS=${@:3}
 
 case "$ACTION" in
   run)
     # Ensure module is specified
-    if [ $# -ne 2 ]; then
+    if [ $# -lt 2 ]; then
       usage
     fi
     MODULE=$2
     if [ "$MODULE" == "cli" ]; then
       echo "Running CLI module..."
-      mvn -pl cli exec:java -Dexec.mainClass="$CLI_MAINCLASS"
+      mvn -pl cli exec:java -Dexec.mainClass="$CLI_MAINCLASS" -Dexec.args="$ARGUMENTS"
     elif [ "$MODULE" == "web" ]; then
       echo "Running Web module..."
       mvn -pl web exec:java -Dexec.mainClass="$WEB_MAINCLASS"
