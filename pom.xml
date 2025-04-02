@@ -11,7 +11,6 @@
     <modules>
         <module>cli</module>
         <module>web</module>
-        <module>shared</module>
     </modules>
 
     <properties>
