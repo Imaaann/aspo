@@ -8,44 +8,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * PathResolver is a utility class that resolves and validates file paths.
+ * It provides methods to get the absolute path, relative path, and all Java file paths in a directory.
+ */
 public class PathResolver {
-    private static boolean isValidPath(Path path) { // this method checks if a path is valid
+    private final Path path;
+
+    public PathResolver(String path) { // Constructor
+        this.path = this.resolvePath(path);
+    }
+
+    private boolean isValidPath(Path path) { // Check if the path is valid
         try {
-            path.toRealPath(); // try to convert the path to a real path
+            path.toRealPath();
             return true;
         } catch (Exception e) {
-            return false; // if an exception is thrown, the path is invalid
+            return false;
         }
     }
 
-    public static Path resolvePath(String path) { // this method is used to resolve the path to a file or directory
-        if (path == null || path.isEmpty()) {
-            return Paths.get(""); // if the path is null or empty, return an empty path
+    private Path resolvePath(String path) { // Resolve the path
+        if (path == null || path.isEmpty()) { // Check if the path is null or empty
+            return Paths.get(""); // Return empty path
         }
-        Path resolvedPath = Paths.get(path).normalize(); // normalize the path to remove redundant elements
-        if (!isValidPath(resolvedPath)) {
-            throw new IllegalArgumentException("Invalid path: " + path); // throw an exception for invalid paths
+        Path resolvedPath = Paths.get(path).toAbsolutePath().normalize(); // Get absolute path
+        if (!isValidPath(resolvedPath)) { // Check if the path is valid
+            throw new IllegalArgumentException("Invalid path: " + path); // Throw exception if invalid
         }
-        return resolvedPath;
+        return resolvedPath; // Return the resolved path
     }
 
-    public static String getAbsolutePath(String path) { // this method is used to resolve the path to a file or directory and return it as an absolute path
-        return resolvePath(path).toAbsolutePath().toString();
-    }
-
-    public static String getRelativePath(String path) { // this method is used to resolve the path to a file or directory and return it as a relative path
-        return resolvePath(path).toString();
-    }
-
-    public static List<String> getJAllJavaPaths(String path) { // this method is used to get all .java files paths in a directory and its subdirectories
-        List<String> javaFilePaths = new ArrayList<>(); // this list will hold the paths of all .java files
-        try (Stream<Path> paths = Files.walk(Paths.get(path))) { // this stream will walk through the directory and its subdirectories
-            paths.filter(Files::isRegularFile) // filter the paths to only include regular files
-                     .filter(p -> p.toString().endsWith(".java")) // filter the paths to only include .java files
-                     .forEach(p -> javaFilePaths.add(p.normalize().toString())); // add the paths to the list
-        } catch (IOException e) { // if an exception is thrown, print the stack trace
+    public List<String> getAllJavaPaths() { // Get all Java file paths in the directory
+        List<String> javaFilePaths = new ArrayList<>(); // List to store Java file paths
+        try (Stream<Path> paths = Files.walk(path)) { // Walk the file tree
+            paths.filter(Files::isRegularFile) // Filter regular files
+                    .filter(p -> p.toString().endsWith(".java")) // Filter Java files
+                    .forEach(p -> javaFilePaths.add(p.normalize().toString())); // Add Java file paths to the list
+        } catch (IOException e) { // Handle IO exception
             e.printStackTrace();
         }
-            return javaFilePaths; // return the list of .java file paths
+        return javaFilePaths; // Return the list of Java file paths
     }
 }
