@@ -1,5 +1,12 @@
 package com.aspodev.cli;
+import java.io.IOException;
 import java.lang.Runnable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+import com.aspodev.cleaner.Cleaner;
+import com.aspodev.resolver.PathResolver;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -24,8 +31,33 @@ public class AspoCommand implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Starting analysis of: " + targetPath);
-        System.out.println("More flag enabled? " + moreMetrics);
-        System.out.println("Hidden output files? " + noFileOutputs);
+        // Temporary Timing for checking the execute time
+        long start = System.currentTimeMillis();
+
+
+        PathResolver pathResolver = new PathResolver(targetPath);
+
+        List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
+
+        for (Path javaPath : javaFilePaths) {
+            
+            StringBuilder contents;
+
+            try {
+                contents = new StringBuilder(Files.readString(javaPath));
+                Cleaner.cleanFile(contents);
+                System.out.println("==========");
+                System.out.println(contents);
+                System.out.println("==========");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        // Temporary Timing for checking the execute time
+        long end  = System.currentTimeMillis();
+        System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
+
     }
 }

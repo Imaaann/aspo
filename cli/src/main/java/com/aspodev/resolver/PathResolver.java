@@ -1,4 +1,4 @@
-package com.aspodev.cli;
+package com.aspodev.resolver;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,12 +39,12 @@ public class PathResolver {
         return resolvedPath; // Return the resolved path
     }
 
-    public List<String> getAllJavaPaths() { // Get all Java file paths in the directory
-        List<String> javaFilePaths = new ArrayList<>(); // List to store Java file paths
+    public List<Path> getAllJavaPaths() { // Get all Java file paths in the directory
+        List<Path> javaFilePaths = new ArrayList<>(); // List to store Java file paths
         try (Stream<Path> paths = Files.walk(path)) { // Walk the file tree
             paths.filter(Files::isRegularFile) // Filter regular files
                     .filter(p -> p.toString().endsWith(".java")) // Filter Java files
-                    .forEach(p -> javaFilePaths.add(p.normalize().toString())); // Add Java file paths to the list
+                    .forEach(p -> javaFilePaths.add(p.normalize())); // Add Java file paths to the list
         } catch (IOException e) { // Handle IO exception
             e.printStackTrace();
         }
