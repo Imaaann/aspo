@@ -54,10 +54,8 @@ public class AspoCommand implements Runnable {
             }
 
         }
-
         // Temporary Timing for checking the execute time
         long end  = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
-
     }
 }
