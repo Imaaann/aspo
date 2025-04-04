@@ -46,9 +46,6 @@ public class AspoCommand implements Runnable {
             try {
                 contents = new StringBuilder(Files.readString(javaPath));
                 Cleaner.cleanFile(contents);
-                System.out.println("==========");
-                System.out.println(contents);
-                System.out.println("==========");
             } catch (IOException e) {
                 e.printStackTrace();
             }
