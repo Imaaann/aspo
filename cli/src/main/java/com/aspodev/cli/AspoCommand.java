@@ -46,18 +46,13 @@ public class AspoCommand implements Runnable {
             try {
                 contents = new StringBuilder(Files.readString(javaPath));
                 Cleaner.cleanFile(contents);
-                System.out.println("==========");
-                System.out.println(contents);
-                System.out.println("==========");
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
-
         // Temporary Timing for checking the execute time
         long end  = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
-
     }
 }
