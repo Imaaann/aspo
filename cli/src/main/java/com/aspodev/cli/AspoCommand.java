@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.resolver.PathResolver;
 
 import picocli.CommandLine.Command;
@@ -32,10 +33,10 @@ public class AspoCommand implements Runnable {
 
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
-        TypeParser testSpace = new TypeParser(javaFilePaths);
-        System.out.println(testSpace.findPackageTypes("com.aspodev"));
-        System.out.println(testSpace.findPackageTypes("com.aspodev.cleaner"));
-        System.out.println(testSpace.isType("Cleaner", "com.aspodev.cleaner"));
+        TypeParser typeParser = new TypeParser(javaFilePaths);
+        TypeSpace testSpace = new TypeSpace();
+        testSpace.addPackage("com.aspodev.TypeParser", typeParser);
+        System.out.println(testSpace);
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
