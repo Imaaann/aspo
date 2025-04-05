@@ -50,6 +50,13 @@ public class TypeParser {
     }
 
     public boolean isType(String token, String pkg) {
+        List<TypeToken> packageTypes = this.findPackageTypes(pkg);
+
+        for (TypeToken type : packageTypes) {
+            if (type.name().equals(token))
+                return true;
+        }
+
         return false;
     }
 

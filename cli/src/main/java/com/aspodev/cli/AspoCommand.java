@@ -34,6 +34,8 @@ public class AspoCommand implements Runnable {
 
         TypeParser testSpace = new TypeParser(javaFilePaths);
         System.out.println(testSpace.findPackageTypes("com.aspodev"));
+        System.out.println(testSpace.findPackageTypes("com.aspodev.cleaner"));
+        System.out.println(testSpace.isType("Cleaner", "com.aspodev.cleaner"));
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
