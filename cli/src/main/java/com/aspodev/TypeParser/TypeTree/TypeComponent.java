@@ -12,4 +12,15 @@ public class TypeComponent implements TypeTreeComponent {
     public boolean checkType(String token) {
         return type.name() == token;
     }
+
+    @Override
+    public String getName() {
+        return type.name();
+    }
+
+    @Override
+    public String getType() {
+        return type.type().toString();
+    }
+    
 }
