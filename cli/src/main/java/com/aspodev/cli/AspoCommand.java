@@ -4,7 +4,7 @@ import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
 
-import com.aspodev.TypeParser.TypeSpace;
+import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.resolver.PathResolver;
 
 import picocli.CommandLine.Command;
@@ -32,7 +32,7 @@ public class AspoCommand implements Runnable {
 
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
-        TypeSpace testSpace = new TypeSpace(javaFilePaths);
+        TypeParser testSpace = new TypeParser(javaFilePaths);
         System.out.println(testSpace.findPackageTypes("com.aspodev"));
 
         // Temporary Timing for checking the execute time

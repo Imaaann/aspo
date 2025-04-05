@@ -9,10 +9,10 @@ import java.util.List;
 
 import com.aspodev.cleaner.Cleaner;
 
-public class TypeSpace {
+public class TypeParser {
     private HashMap<String, List<TypeToken>> typeSpace;
 
-    public TypeSpace(List<Path> paths) {
+    public TypeParser(List<Path> paths) {
         typeSpace = new HashMap<>();
         StringBuilder contents;
         for (Path path : paths) {
