@@ -19,9 +19,9 @@ public class TypeSpace {
             try {
 
                 contents = new StringBuilder(Files.readString(path));
-                
+
                 Cleaner.cleanFile(contents);
-                
+
                 List<TypeToken> typesFound = TypeFinder.findAllTypes(contents);
 
                 String packageName = !typesFound.isEmpty() ? typesFound.get(0).pkg() : "NONE";
@@ -31,16 +31,22 @@ public class TypeSpace {
                 e.printStackTrace();
             }
         }
-
     }
 
-    // Temporary
-    public HashMap<String, List<TypeToken>> getMap() {
-        return typeSpace;
-    }
-    
     public List<TypeToken> findPackageTypes(String pkg) {
-        return null;
+
+        // Get all packages and sub packages by checking the start of packages names
+        List<String> relatedPackages = typeSpace.keySet().stream().filter((p) -> p.startsWith(pkg))
+                .toList();
+
+        ArrayList<TypeToken> result = new ArrayList<>();
+
+        for (String p : relatedPackages) {
+            List<TypeToken> foundTypes = typeSpace.get(p);
+            result.addAll(foundTypes);
+        }
+
+        return result;
     }
 
     public boolean isType(String token, String pkg) {
