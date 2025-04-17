@@ -33,10 +33,13 @@ public class AspoCommand implements Runnable {
 
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
+        List<String> fileNames = javaFilePaths.stream().map((p) -> p.getFileName().toString()).toList();
+        System.out.println(fileNames);
+
         TypeParser typeParser = new TypeParser(javaFilePaths);
-        TypeSpace testSpace = new TypeSpace();
-        testSpace.addPackage("com.aspodev.TypeParser", typeParser);
-        System.out.println(testSpace);
+        // TypeSpace testSpace = new TypeSpace();
+        // testSpace.addPackage("com.aspodev.TypeParser", typeParser);
+        // System.out.println(testSpace);
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
