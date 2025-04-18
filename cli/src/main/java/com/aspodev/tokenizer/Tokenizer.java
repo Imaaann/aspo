@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -15,15 +17,66 @@ import com.aspodev.utils.RegexTools;
 public class Tokenizer {
 	private StringBuilder contents;
 	private List<String> tokens;
+	private HashMap<String, Boolean> CLASS_TREE;// <Name of the class,has extended before or no>
+	private static HashMap<String,String> EXTENSIONS;
+
 	private int index = 0;
 
 	public Tokenizer(Path path) {
 		this.tokens = new ArrayList<>();
+		this.CLASS_TREE = new HashMap<>();
+		EXTENSIONS = new HashMap<>();
 		try {
 			this.contents = new StringBuilder(Files.readString(path));
 			Cleaner.cleanFile(contents);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public HashMap<String, String> getEXTENSIONS() {
+		return EXTENSIONS;
+	}
+
+	public HashMap<String, Boolean> getCLASS_TREE() {
+		return this.CLASS_TREE;
+	}
+// if contents have all tokens on this file
+//	public void extensionsMap() {
+//		for (String content : contents.toString().split("\n")) {
+//			if (content.equals("extends")) {
+//				EXTENSIONS.put(content.before,content.after);
+//			}
+//		}
+//	}
+
+	private static void processFile(Path file) {
+		try {
+			// Read file content
+			String content = new String(Files.readAllBytes(file));
+
+			// Regex to find classes with "extends"
+			Pattern pattern = Pattern.compile("class\\s+(\\w+)\\s+extends\\s+(\\w+)");
+			Matcher matcher = pattern.matcher(content);
+
+			while (matcher.find()) {
+				String className = matcher.group(1);   // Get class name
+				String parentClass = matcher.group(2); // Get parent class
+
+				// Add to the EXTENSIONS map
+				EXTENSIONS.put(className, parentClass);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void class_Tree() {
+		for(String key : EXTENSIONS.keySet()) {
+			if(EXTENSIONS.get(key) != null) {
+				CLASS_TREE.put(EXTENSIONS.get(key),true);
+				CLASS_TREE.put(key,false);
+			}
 		}
 	}
 
@@ -73,6 +126,12 @@ public class Tokenizer {
 
 		return resultList;
 	}
+
+	private void FILLING_CLASS_TREE(HashMap<String,String> extensions) {
+
+	}
+
+
 
 	public String toString() {
 		String result = "";
