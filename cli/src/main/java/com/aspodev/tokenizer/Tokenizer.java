@@ -30,21 +30,15 @@ public class Tokenizer {
 	public void tokenize() {
 		splitAcrossWhiteSpace();
 
-		String STRING_LITTERAL_PATTERN = "\\\"(?:\\\\.|[^\\\"\\\\])*\\\"";
-		String HEX_FLOAT_PATTERN = "(?:0[xX](?:(?:[0-9A-Fa-f](?:_*[0-9A-Fa-f])*)(?:\\.(?:[0-9A-Fa-f](?:_*[0-9A-Fa-f])*)?)?|\\.(?:[0-9A-Fa-f](?:_*[0-9A-Fa-f])*))[pP][+-]?[0-9](?:_*[0-9])*[fFdD]?)";
-		String DEC_FLOAT_PATTERN = "(?:[0-9](?:_*[0-9])*\\.(?:[0-9](?:_*[0-9])*)?(?:[eE][+-]?[0-9](?:_*[0-9])*)?[fFdD]?|\\.[0-9](?:_*[0-9])*(?:[eE][+-]?[0-9](?:_*[0-9])*)?[fFdD]?|[0-9](?:_*[0-9])*(?:[eE][+-]?[0-9](?:_*[0-9])*)(?:[fFdD])?|[0-9](?:_*[0-9])*(?:[eE][+-]?[0-9](?:_*[0-9])*)?[fFdD])";
-		String INTEGER_PATTERN = "(?:0[xX][0-9A-Fa-f](?:_*[0-9A-Fa-f])*|0[bB][01](?:_*[01])*|0[0-7](?:_*[0-7])*|[1-9](?:_*[0-9])*)[lL]?";
-
 		List<String> OPERATORS = Arrays.asList(">>>=", ">>>", "<<=", ">>=", "...", "->", "==", ">=", "<=", "!=", "&&",
 				"||", "++", "--", "<<", ">>", "+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "::", "=", ">", "<", "!",
-				"~", "?", ":", "+", "-", "*", "/", "&", "|", "^", "%", "(", ")", "{", "}", "[", "]", ";", ",", ".",
-				"@");
+				"~", "?", ":", "+", "-", "*", "/", "&", "|", "^", "%", "(", ")", "{", "}", "[", "]", ";", ",", ".", "@",
+				"\"\"\"", "\"", "\'");
 
 		String OperatorsPattern = OPERATORS.stream().sorted((a, b) -> Integer.compare(b.length(), a.length()))
 				.map(Pattern::quote).collect(Collectors.joining("|"));
 
-		String fullRegex = STRING_LITTERAL_PATTERN + "|" + HEX_FLOAT_PATTERN + "|" + DEC_FLOAT_PATTERN + "|"
-				+ INTEGER_PATTERN + "|" + OperatorsPattern;
+		String fullRegex = OperatorsPattern;
 
 		this.tokens = this.splitAroundRegex(fullRegex);
 	}
