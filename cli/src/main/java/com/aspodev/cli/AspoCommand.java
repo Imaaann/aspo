@@ -39,9 +39,6 @@ public class AspoCommand implements Runnable {
 
         Tokenizer tokino = new Tokenizer(javaFilePaths.get(0));
         tokino.tokenize();
-        System.out.println("FINAL RESULT FOR cleaner.java");
-        System.out.println("=============================");
-        System.out.println(tokino);
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

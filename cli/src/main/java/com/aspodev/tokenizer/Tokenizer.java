@@ -63,13 +63,10 @@ public class Tokenizer {
 		List<String> resultList = new ArrayList<>();
 
 		for (String token : this.tokens) {
-			System.out.println("Tokenizing [" + token + "]");
 			if (RegexTools.stringContainsRegex(token, regex)) {
 				List<String> splitTokens = RegexTools.splitAround(token, regex);
-				System.out.println("\t-\tAdded: " + splitTokens);
 				resultList.addAll(splitTokens);
 			} else {
-				System.out.println("\t-\tAdded: " + token);
 				resultList.add(token);
 			}
 		}
