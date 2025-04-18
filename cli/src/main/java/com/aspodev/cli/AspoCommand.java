@@ -37,9 +37,6 @@ public class AspoCommand implements Runnable {
         TypeParser typeParser = new TypeParser(javaFilePaths);
         List<TypeToken> defaultList = TypeSpace.loadStandardTypes();
 
-        Tokenizer tokino = new Tokenizer(javaFilePaths.get(0));
-        tokino.tokenize();
-
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
