@@ -9,14 +9,17 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * PathResolver is a utility class that resolves and validates file paths.
- * It provides methods to get the absolute path, relative path, and all Java file paths in a directory.
+ * PathResolver is a utility class that resolves and validates file paths. It
+ * provides methods to get the absolute path, relative path, and all Java file
+ * paths in a directory.
  */
 public class PathResolver {
     private final Path path;
+    private List<Path> javaFilePaths;
 
     public PathResolver(String path) { // Constructor
         this.path = this.resolvePath(path);
+        this.javaFilePaths = new ArrayList<>();
     }
 
     private boolean isValidPath(Path path) { // Check if the path is valid
@@ -40,7 +43,7 @@ public class PathResolver {
     }
 
     public List<Path> getAllJavaPaths() { // Get all Java file paths in the directory
-        List<Path> javaFilePaths = new ArrayList<>(); // List to store Java file paths
+        // List to store Java file paths
         try (Stream<Path> paths = Files.walk(path)) { // Walk the file tree
             paths.filter(Files::isRegularFile) // Filter regular files
                     .filter(p -> p.toString().endsWith(".java")) // Filter Java files
@@ -48,6 +51,11 @@ public class PathResolver {
         } catch (IOException e) { // Handle IO exception
             e.printStackTrace();
         }
+        removeModuleInfo();
         return javaFilePaths; // Return the list of Java file paths
+    }
+
+    private void removeModuleInfo() {
+        javaFilePaths.removeIf((p) -> p.getFileName().toString().equals("module-info.java"));
     }
 }

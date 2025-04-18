@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
+import com.aspodev.TypeParser.TypeToken;
 import com.aspodev.resolver.PathResolver;
+import com.aspodev.tokenizer.Tokenizer;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -30,13 +32,10 @@ public class AspoCommand implements Runnable {
         long start = System.currentTimeMillis();
 
         PathResolver pathResolver = new PathResolver(targetPath);
-
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
         TypeParser typeParser = new TypeParser(javaFilePaths);
-        TypeSpace testSpace = new TypeSpace();
-        testSpace.addPackage("com.aspodev.TypeParser", typeParser);
-        System.out.println(testSpace);
+        List<TypeToken> defaultList = TypeSpace.loadStandardTypes();
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

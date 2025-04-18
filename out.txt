@@ -1,0 +1,216 @@
+Running CLI module...
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aspodev:cli >---------------------------
+[INFO] Building cli 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec:3.5.0:java (default-cli) @ cli ---
+Tokenizing [package]
+	-	Added: package
+Tokenizing [com.aspodev.cleaner;]
+	-	Added: [com, ., aspodev, ., cleaner, ;]
+Tokenizing [import]
+	-	Added: import
+Tokenizing [com.aspodev.utils.RegexTools;]
+	-	Added: [com, ., aspodev, ., utils, ., RegexTools, ;]
+Tokenizing [public]
+	-	Added: public
+Tokenizing [class]
+	-	Added: class
+Tokenizing [Cleaner]
+	-	Added: Cleaner
+Tokenizing [{]
+	-	Added: [{]
+Tokenizing [public]
+	-	Added: public
+Tokenizing [static]
+	-	Added: static
+Tokenizing [void]
+	-	Added: void
+Tokenizing [cleanFile(StringBuilder]
+	-	Added: [cleanFile, (, StringBuilder]
+Tokenizing [contents)]
+	-	Added: [contents, )]
+Tokenizing [{]
+	-	Added: [{]
+Tokenizing [cleanComments(contents);]
+	-	Added: [cleanComments, (, contents, ), ;]
+Tokenizing [cleanAnnotations(contents);]
+	-	Added: [cleanAnnotations, (, contents, ), ;]
+Tokenizing [}]
+	-	Added: [}]
+Tokenizing [private]
+	-	Added: private
+Tokenizing [static]
+	-	Added: static
+Tokenizing [void]
+	-	Added: void
+Tokenizing [cleanComments(StringBuilder]
+	-	Added: [cleanComments, (, StringBuilder]
+Tokenizing [contents)]
+	-	Added: [contents, )]
+Tokenizing [{]
+	-	Added: [{]
+Tokenizing [String]
+	-	Added: String
+Tokenizing [multiLineComment]
+	-	Added: multiLineComment
+Tokenizing [=]
+	-	Added: [=]
+Tokenizing ["/\\*.*?\\*/";]
+	-	Added: ["/\\*.*?\\*/", ;]
+Tokenizing [String]
+	-	Added: String
+Tokenizing [singleLineComment]
+	-	Added: singleLineComment
+Tokenizing [=]
+	-	Added: [=]
+Tokenizing ["^(?<!\")//.*?$";]
+	-	Added: ["^(?<!\")//.*?$", ;]
+Tokenizing [RegexTools.removePattern(contents,]
+	-	Added: [RegexTools, ., removePattern, (, contents, ,]
+Tokenizing [singleLineComment);]
+	-	Added: [singleLineComment, ), ;]
+Tokenizing [RegexTools.removePattern(contents,]
+	-	Added: [RegexTools, ., removePattern, (, contents, ,]
+Tokenizing [multiLineComment);]
+	-	Added: [multiLineComment, ), ;]
+Tokenizing [}]
+	-	Added: [}]
+Tokenizing [private]
+	-	Added: private
+Tokenizing [static]
+	-	Added: static
+Tokenizing [void]
+	-	Added: void
+Tokenizing [cleanAnnotations(StringBuilder]
+	-	Added: [cleanAnnotations, (, StringBuilder]
+Tokenizing [contents)]
+	-	Added: [contents, )]
+Tokenizing [{]
+	-	Added: [{]
+Tokenizing [String]
+	-	Added: String
+Tokenizing [annotations]
+	-	Added: annotations
+Tokenizing [=]
+	-	Added: [=]
+Tokenizing ["@\\w+\\s*(\\(.*?\\))?";]
+	-	Added: ["@\\w+\\s*(\\(.*?\\))?", ;]
+Tokenizing [RegexTools.removePattern(contents,]
+	-	Added: [RegexTools, ., removePattern, (, contents, ,]
+Tokenizing [annotations);]
+	-	Added: [annotations, ), ;]
+Tokenizing [}]
+	-	Added: [}]
+Tokenizing [}]
+	-	Added: [}]
+FINAL RESULT FOR cleaner.java
+=============================
+package
+com
+.
+aspodev
+.
+cleaner
+;
+import
+com
+.
+aspodev
+.
+utils
+.
+RegexTools
+;
+public
+class
+Cleaner
+{
+public
+static
+void
+cleanFile
+(
+StringBuilder
+contents
+)
+{
+cleanComments
+(
+contents
+)
+;
+cleanAnnotations
+(
+contents
+)
+;
+}
+private
+static
+void
+cleanComments
+(
+StringBuilder
+contents
+)
+{
+String
+multiLineComment
+=
+"/\\*.*?\\*/"
+;
+String
+singleLineComment
+=
+"^(?<!\")//.*?$"
+;
+RegexTools
+.
+removePattern
+(
+contents
+,
+singleLineComment
+)
+;
+RegexTools
+.
+removePattern
+(
+contents
+,
+multiLineComment
+)
+;
+}
+private
+static
+void
+cleanAnnotations
+(
+StringBuilder
+contents
+)
+{
+String
+annotations
+=
+"@\\w+\\s*(\\(.*?\\))?"
+;
+RegexTools
+.
+removePattern
+(
+contents
+,
+annotations
+)
+;
+}
+}
+
+[DEBUG] == EXECUTION TIME: 451
