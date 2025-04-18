@@ -1,0 +1,92 @@
+package com.aspodev.tokenizer;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import com.aspodev.cleaner.Cleaner;
+import com.aspodev.utils.RegexTools;
+
+public class Tokenizer {
+	private StringBuilder contents;
+	private List<String> tokens;
+	private int index = 0;
+
+	public Tokenizer(Path path) {
+		this.tokens = new ArrayList<>();
+		try {
+			this.contents = new StringBuilder(Files.readString(path));
+			Cleaner.cleanFile(contents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void tokenize() {
+		splitAcrossWhiteSpace();
+
+		String STRING_LITTERAL_PATTERN = "\\\"(?:\\\\.|[^\\\"\\\\])*\\\"";
+		String HEX_FLOAT_PATTERN = "(?:0[xX](?:(?:[0-9A-Fa-f](?:_*[0-9A-Fa-f])*)(?:\\.(?:[0-9A-Fa-f](?:_*[0-9A-Fa-f])*)?)?|\\.(?:[0-9A-Fa-f](?:_*[0-9A-Fa-f])*))[pP][+-]?[0-9](?:_*[0-9])*[fFdD]?)";
+		String DEC_FLOAT_PATTERN = "(?:[0-9](?:_*[0-9])*\\.(?:[0-9](?:_*[0-9])*)?(?:[eE][+-]?[0-9](?:_*[0-9])*)?[fFdD]?|\\.[0-9](?:_*[0-9])*(?:[eE][+-]?[0-9](?:_*[0-9])*)?[fFdD]?|[0-9](?:_*[0-9])*(?:[eE][+-]?[0-9](?:_*[0-9])*)(?:[fFdD])?|[0-9](?:_*[0-9])*(?:[eE][+-]?[0-9](?:_*[0-9])*)?[fFdD])";
+		String INTEGER_PATTERN = "(?:0[xX][0-9A-Fa-f](?:_*[0-9A-Fa-f])*|0[bB][01](?:_*[01])*|0[0-7](?:_*[0-7])*|[1-9](?:_*[0-9])*)[lL]?";
+
+		List<String> OPERATORS = Arrays.asList(">>>=", ">>>", "<<=", ">>=", "...", "->", "==", ">=", "<=", "!=", "&&",
+				"||", "++", "--", "<<", ">>", "+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "::", "=", ">", "<", "!",
+				"~", "?", ":", "+", "-", "*", "/", "&", "|", "^", "%", "(", ")", "{", "}", "[", "]", ";", ",", ".",
+				"@");
+
+		String OperatorsPattern = OPERATORS.stream().sorted((a, b) -> Integer.compare(b.length(), a.length()))
+				.map(Pattern::quote).collect(Collectors.joining("|"));
+
+		String fullRegex = STRING_LITTERAL_PATTERN + "|" + HEX_FLOAT_PATTERN + "|" + DEC_FLOAT_PATTERN + "|"
+				+ INTEGER_PATTERN + "|" + OperatorsPattern;
+
+		this.tokens = this.splitAroundRegex(fullRegex);
+	}
+
+	public int getTokenNumber() {
+		return this.tokens.size();
+	}
+
+	public String getNextToken() {
+		String token = index < getTokenNumber() ? tokens.get(index) : "";
+		index++;
+		return token;
+	}
+
+	private List<String> splitAroundRegex(String regex) {
+		List<String> resultList = new ArrayList<>();
+
+		for (String token : this.tokens) {
+			System.out.println("Tokenizing [" + token + "]");
+			if (RegexTools.stringContainsRegex(token, regex)) {
+				List<String> splitTokens = RegexTools.splitAround(token, regex);
+				System.out.println("\t-\tAdded: " + splitTokens);
+				resultList.addAll(splitTokens);
+			} else {
+				System.out.println("\t-\tAdded: " + token);
+				resultList.add(token);
+			}
+		}
+
+		return resultList;
+	}
+
+	public String toString() {
+		String result = "";
+		for (String token : tokens) {
+			result = result + token + "\n";
+		}
+		return result;
+	}
+
+	private void splitAcrossWhiteSpace() {
+		this.tokens = RegexTools.splitAcross(contents.toString(), "\\s+");
+	}
+
+}

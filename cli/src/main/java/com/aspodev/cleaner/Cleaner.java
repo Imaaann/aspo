@@ -3,7 +3,7 @@ package com.aspodev.cleaner;
 import com.aspodev.utils.RegexTools;
 
 public class Cleaner {
-   
+
     /**
      * @param contents the contents to the file that will be cleaned
      */
@@ -13,8 +13,9 @@ public class Cleaner {
     }
 
     private static void cleanComments(StringBuilder contents) {
-        String singleLineComment = "//.*?$";
+
         String multiLineComment = "/\\*.*?\\*/";
+        String singleLineComment = "^(?<!\")//.*?$";
 
         RegexTools.removePattern(contents, singleLineComment);
         RegexTools.removePattern(contents, multiLineComment);
@@ -24,6 +25,6 @@ public class Cleaner {
         String annotations = "@\\w+\\s*(\\(.*?\\))?";
 
         RegexTools.removePattern(contents, annotations);
-    }  
+    }
 
 }

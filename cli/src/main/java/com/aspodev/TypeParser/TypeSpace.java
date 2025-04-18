@@ -38,7 +38,7 @@ public class TypeSpace {
 		// TODO: Read from the LibraryJSON file to resolve wild card packages
 	}
 
-	private static List<TypeToken> loadStandardTypes() {
+	public static List<TypeToken> loadStandardTypes() {
 		List<TypeToken> standardList = new ArrayList<>();
 
 		try {
