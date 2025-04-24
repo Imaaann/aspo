@@ -36,10 +36,8 @@ public class TypeSpace {
 
 	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
 	    try {
-	        // Read the library JSON file
 	        LibraryTypes libraryTypes = JsonTools.readJsonObject("/LibraryJSON.json", LibraryTypes.class);
 
-	        // Filter and add types matching the wildcard package
 	        libraryTypes.classes().stream()
 	            .filter(className -> className.startsWith(pkg.replace(".*", "")))
 	            .forEach(className -> typeSpace.add(new TypeToken(className, pkg, TypeTokenEnum.CLASS)));
