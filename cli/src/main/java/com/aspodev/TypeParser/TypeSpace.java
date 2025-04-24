@@ -35,7 +35,26 @@ public class TypeSpace {
 	}
 
 	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
-		// TODO: Read from the LibraryJSON file to resolve wild card packages
+	    try {
+	        // Read the library JSON file
+	        LibraryTypes libraryTypes = JsonTools.readJsonObject("/LibraryJSON.json", LibraryTypes.class);
+
+	        // Filter and add types matching the wildcard package
+	        libraryTypes.classes().stream()
+	            .filter(className -> className.startsWith(pkg.replace(".*", "")))
+	            .forEach(className -> typeSpace.add(new TypeToken(className, pkg, TypeTokenEnum.CLASS)));
+
+	        libraryTypes.interfaces().stream()
+	            .filter(interfaceName -> interfaceName.startsWith(pkg.replace(".*", "")))
+	            .forEach(interfaceName -> typeSpace.add(new TypeToken(interfaceName, pkg, TypeTokenEnum.INTERFACE)));
+
+	        libraryTypes.enums().stream()
+	            .filter(enumName -> enumName.startsWith(pkg.replace(".*", "")))
+	            .forEach(enumName -> typeSpace.add(new TypeToken(enumName, pkg, TypeTokenEnum.ENUM)));
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	public static List<TypeToken> loadStandardTypes() {
