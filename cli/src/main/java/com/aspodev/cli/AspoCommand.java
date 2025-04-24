@@ -7,6 +7,7 @@ import java.util.List;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.TypeParser.TypeToken;
+import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
 import com.aspodev.tokenizer.Tokenizer;
 
@@ -35,11 +36,10 @@ public class AspoCommand implements Runnable {
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
         TypeParser typeParser = new TypeParser(javaFilePaths);
-        List<TypeToken> defaultList = TypeSpace.loadStandardTypes();
 
-        Tokenizer tokens = new Tokenizer(javaFilePaths.get(0));
-        tokens.tokenize();
-        System.out.println(tokens);
+        for (Path path : javaFilePaths) {
+            Parser parser = new Parser(path, typeParser);
+        }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

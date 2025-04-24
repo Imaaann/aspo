@@ -10,13 +10,9 @@ import com.aspodev.utils.JsonTools;
 
 public class TypeSpace {
 	private Set<TypeToken> typeSpace;
+	private static final List<TypeToken> defaultTypes = TypeSpace.loadStandardTypes();
 
 	public TypeSpace() {
-		this(TypeSpace.loadStandardTypes());
-		System.out.println(this.typeSpace.size());
-	}
-
-	public TypeSpace(List<TypeToken> defaultTypes) {
 		this.typeSpace = new HashSet<TypeToken>(256);
 		this.typeSpace.addAll(defaultTypes);
 	}
