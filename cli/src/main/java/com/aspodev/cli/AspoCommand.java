@@ -5,12 +5,8 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.aspodev.TypeParser.TypeParser;
-import com.aspodev.TypeParser.TypeSpace;
-import com.aspodev.TypeParser.TypeToken;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
-import com.aspodev.tokenizer.Tokenizer;
-
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
