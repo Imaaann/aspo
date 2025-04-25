@@ -1,10 +1,7 @@
 package com.aspodev.TypeParser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.aspodev.utils.JsonTools;
 
@@ -35,24 +32,36 @@ public class TypeSpace {
 	}
 
 	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
-	    try {
-	        LibraryTypes libraryTypes = JsonTools.readJsonObject("/LibraryJSON.json", LibraryTypes.class);
+		String basePkg = pkg.replace(".*", "");
+		String jsonResourcePath = "/Library.json";
 
-	        libraryTypes.classes().stream()
-	            .filter(className -> className.startsWith(pkg.replace(".*", "")))
-	            .forEach(className -> typeSpace.add(new TypeToken(className, pkg, TypeTokenEnum.CLASS)));
+		try {
+			// 1) Read the entire root as a Map<packageName, LibraryTypes>
+			Map<String, LibraryTypes> allPackages = JsonTools.readJsonObject(jsonResourcePath,
+					new com.fasterxml.jackson.core.type.TypeReference<Map<String, LibraryTypes>>() {});
 
-	        libraryTypes.interfaces().stream()
-	            .filter(interfaceName -> interfaceName.startsWith(pkg.replace(".*", "")))
-	            .forEach(interfaceName -> typeSpace.add(new TypeToken(interfaceName, pkg, TypeTokenEnum.INTERFACE)));
+			// 2) For each entry whose key startsWith our basePkg, extract and add
+			allPackages.entrySet().stream()
+					.filter(entry -> entry.getKey().startsWith(basePkg))
+					.forEach(entry -> {
+						LibraryTypes lib = entry.getValue();
 
-	        libraryTypes.enums().stream()
-	            .filter(enumName -> enumName.startsWith(pkg.replace(".*", "")))
-	            .forEach(enumName -> typeSpace.add(new TypeToken(enumName, pkg, TypeTokenEnum.ENUM)));
+						lib.classes().forEach(className ->
+								this.addType(className, basePkg, TypeTokenEnum.CLASS)
+						);
 
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+						lib.interfaces().forEach(interfaceName ->
+								this.addType(interfaceName, basePkg, TypeTokenEnum.INTERFACE)
+						);
+
+						lib.enums().forEach(enumName ->
+								this.addType(enumName, basePkg, TypeTokenEnum.ENUM)
+						);
+					});
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static List<TypeToken> loadStandardTypes() {

@@ -28,4 +28,14 @@ public class JsonTools {
 
 		return objectMapper.readValue(is, clazz);
 	}
+	public static <T> T readJsonObject(String jsonResourcePath, com.fasterxml.jackson.core.type.TypeReference<T> typeReference) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		InputStream is = JsonTools.class.getResourceAsStream(jsonResourcePath);
+
+		if (is == null) {
+			throw new IOException("Resource not found!");
+		}
+
+		return objectMapper.readValue(is, typeReference);
+	}
 }
