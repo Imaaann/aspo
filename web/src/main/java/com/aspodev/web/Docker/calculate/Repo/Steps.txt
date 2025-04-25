@@ -1,0 +1,3 @@
+cd .../Docker
+docker build -t git-cloner .
+docker run git-cloner
