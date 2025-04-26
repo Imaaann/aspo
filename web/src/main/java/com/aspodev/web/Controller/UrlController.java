@@ -14,7 +14,6 @@ public class UrlController {
 
     private final UrlService urlService;
 
-    // Use constructor injection
     @Autowired
     public UrlController(UrlService urlService) {
         this.urlService = urlService;
