@@ -14,7 +14,7 @@ public class UrlService {
     private final ObjectMapper objectMapper;
     private final String filePath;
 
-    // Use constructor injection and make path configurable
+
     public UrlService(ObjectMapper objectMapper, 
                      @Value("${url.storage.path:url.json}") String filePath) {
         this.objectMapper = objectMapper;
@@ -43,6 +43,4 @@ public class UrlService {
             throw new IOException("Failed to read URL from file", e);
         }
     }
-
-    // Remove unused fetch_store method
 }
