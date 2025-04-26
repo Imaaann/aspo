@@ -1,58 +1,46 @@
 package com.aspodev.web.Controller;
 
+import com.aspodev.web.Exception.UrlException;
 import com.aspodev.web.Service.UrlService;
+import com.aspodev.web.model.Url;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.io.IOException;
 
 @RestController
-@RequestMapping("/calculate/url")  
-public class UrlController {  
+@RequestMapping("/api/url")
+public class UrlController {
 
-    private final UrlService urlService;
+    private final UrlService url;
 
     @Autowired
-    public UrlController(UrlService urlService) {
-        this.urlService = urlService;
-    }
-
-    @PostMapping
-    public ResponseEntity<?> setUrl(@RequestParam String url) {
-        try {
-            urlService.saveUrl(url);
-            return ResponseEntity.ok(Map.of(
-                "Here where we need to print the files name",
-                    ""
-            ));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of(
-                "Error saving URL", e.getMessage()
-            ));
-        }
+    public UrlController(UrlService url) {
+        this.url = url;
     }
 
     @GetMapping
-    public ResponseEntity<?> getUrl() {
+    public ResponseEntity<Url> getText() {
         try {
-            String url = urlService.getUrl();
-            if (url == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                    "not_found", 
-                    "No URL has been stored yet"
-                ));
-            }
-            return ResponseEntity.ok(Map.of(
-                "url",
-                url
-            ));
+            String uRl = url.getUrl();
+            return ResponseEntity.ok(new Url(uRl));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(Map.of(
-                "Error fetching URL",
-                e.getMessage()
-            ));
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Url> postUrl() throws IOException {
+        try {
+            String uRl = url.getUrl();
+            return ResponseEntity.ok(new Url(uRl));
+        } catch (IOException | UrlException e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }
