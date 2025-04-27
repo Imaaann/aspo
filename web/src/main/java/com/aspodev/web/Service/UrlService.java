@@ -10,10 +10,12 @@ import java.io.InputStream;
 
 @Service
 public class UrlService {
+
+    private final String file = "url.json";
     public String getUrl() throws IOException {
         try {
             ObjectMapper OM = new ObjectMapper();
-            InputStream input = new ClassPathResource("/data/url.json").getInputStream();
+            InputStream input = new ClassPathResource("/data/"+"files.json").getInputStream();
             return OM.readValue(input, Url.class).getUrl();
         } catch (IOException e) {
             e.printStackTrace();
