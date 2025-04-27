@@ -21,6 +21,8 @@ public class Tokenizer {
 		try {
 			this.contents = new StringBuilder(Files.readString(path));
 			Cleaner.cleanFile(contents);
+			System.out.println("[DEBUG] == Cleanfile (inside tokenizer)");
+			System.out.println(contents);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

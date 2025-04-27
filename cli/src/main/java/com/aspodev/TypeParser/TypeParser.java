@@ -36,8 +36,7 @@ public class TypeParser {
     public List<TypeToken> findPackageTypes(String pkg) {
 
         // Get all packages and sub packages by checking the start of packages names
-        List<String> relatedPackages = typeSpace.keySet().stream().filter((p) -> p.startsWith(pkg))
-                .toList();
+        List<String> relatedPackages = typeSpace.keySet().stream().filter((p) -> p.startsWith(pkg)).toList();
 
         ArrayList<TypeToken> result = new ArrayList<>();
 
