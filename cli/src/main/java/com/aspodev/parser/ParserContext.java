@@ -26,10 +26,8 @@ public class ParserContext {
 		String identifier = "";
 		String token = "";
 
-		/**
-		 * TODO: make the loop escape on ANY reserved tokens in JAVA 17 except . also
-		 * more shit, you can also probably make this a stream instead
-		 */
+		// TODO: make this method 100% reliable to find identifiers and their type
+		// (var/type)
 
 		while (!token.equals(";")) {
 			identifier += token;
@@ -37,6 +35,10 @@ public class ParserContext {
 		}
 
 		return identifier;
+	}
+
+	public Iterator<String> getIterator() {
+		return this.iterator;
 	}
 
 	public void addType(String typeName, String pkg, TypeTokenEnum type) {

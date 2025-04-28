@@ -38,6 +38,9 @@ public class Parser {
 		if (token.equals("package"))
 			return ParserBehaviors.PACKAGE_STATEMENT;
 
+		if (token.equals("\"") || token.equals("\"\"\""))
+			return ParserBehaviors.STRING_LITERAL;
+
 		return ParserBehaviors.SKIP;
 	}
 

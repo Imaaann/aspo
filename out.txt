@@ -7,61 +7,201 @@ Running CLI module...
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ cli ---
-[DEBUG] == Cleanfile (inside tokenizer)
-package com.aspodev.parser;
-
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import com.aspodev.TypeParser.TypeToken;
-import com.aspodev.TypeParser.TypeTokenEnum;
-
-public class BehaviorManager {
-	private final Map<ParserBehaviors, Behavior> registry = new EnumMap<>(ParserBehaviors.class);
-
-	private static class Holder {
-		private static final BehaviorManager instance = new BehaviorManager();
-	}
-
-	private BehaviorManager() {
-
-
-		registry.put(ParserBehaviors.SKIP, (c) -> {
-		});
-
-		registry.put(ParserBehaviors.IMPORT_STATEMENT, (c) -> {
-			String identifier = c.getIdentifier();
-			List<String> components = Arrays.asList(identifier.split("\\."));
-			String typeName = components.get(components.size() - 1);
-			String pkgName = components.stream().limit(components.size() - 1).collect(Collectors.joining("."));
-
-			System.out.println(new TypeToken(typeName, pkgName, TypeTokenEnum.IMPORTED));
-			c.addType(typeName, pkgName, TypeTokenEnum.IMPORTED);
-		});
-
-	}
-
-	public static BehaviorManager getInstance() {
-		return Holder.instance;
-	}
-
-	public void execute(ParserBehaviors behavior, ParserContext context) {
-		registry.getOrDefault(behavior, c -> {
-		}).apply(context);
-	}
-
-}
-
+[DEBUG] == File Parsing (Cleaner.java)
+TypeToken[name=RegexTools, pkg=com.aspodev.utils, type=IMPORTED]
+"/\\*.*?\\*/"
+"^(?<!\")\\s+//.*?$"
+"@\\w+\\s*(\\(.*?\\))?"
+[DEBUG] == File Parsing (AspoCommand.java)
+TypeToken[name=Runnable, pkg=java.lang, type=IMPORTED]
+TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
+TypeToken[name=Parser, pkg=com.aspodev.parser, type=IMPORTED]
+TypeToken[name=PathResolver, pkg=com.aspodev.resolver, type=IMPORTED]
+TypeToken[name=Command, pkg=picocli.CommandLine, type=IMPORTED]
+TypeToken[name=Option, pkg=picocli.CommandLine, type=IMPORTED]
+TypeToken[name=Parameters, pkg=picocli.CommandLine, type=IMPORTED]
+"[DEBUG]==FileParsing("
+")"
+"[DEBUG]==EXECUTIONTIME:"
+[DEBUG] == File Parsing (Main.java)
+TypeToken[name=CommandLine, pkg=picocli, type=IMPORTED]
+[DEBUG] == File Parsing (Behavior.java)
+[DEBUG] == File Parsing (BehaviorManager.java)
 TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
 TypeToken[name=EnumMap, pkg=java.util, type=IMPORTED]
+TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
 TypeToken[name=List, pkg=java.util, type=IMPORTED]
 TypeToken[name=Map, pkg=java.util, type=IMPORTED]
-TypeToken[name=Collector, pkg=java.util.stream, type=IMPORTED]
 TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
 TypeToken[name=TypeToken, pkg=com.aspodev.TypeParser, type=IMPORTED]
 TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] == EXECUTION TIME: 235
+"\\."
+"."
+""
+"\""
+"\\"
+"\""
+"\"\"\""
+[DEBUG] == File Parsing (Parser.java)
+TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
+TypeToken[name=Tokenizer, pkg=com.aspodev.tokenizer, type=IMPORTED]
+"import"
+"package"
+"\""
+"\"\"\""
+[DEBUG] == File Parsing (ParserBehaviors.java)
+[DEBUG] == File Parsing (ParserContext.java)
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
+TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
+TypeToken[name=TypeSpace, pkg=com.aspodev.TypeParser, type=IMPORTED]
+TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
+""
+""
+""
+";"
+"*"
+[DEBUG] == File Parsing (PathResolver.java)
+TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
+TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=Paths, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=Stream, pkg=java.util.stream, type=IMPORTED]
+""
+"Invalidpath:"
+".java"
+"module-info.java"
+[DEBUG] == File Parsing (Tokenizer.java)
+TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
+TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
+TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
+TypeToken[name=Cleaner, pkg=com.aspodev.cleaner, type=IMPORTED]
+TypeToken[name=RegexTools, pkg=com.aspodev.utils, type=IMPORTED]
+">>>="
+">>>"
+"<<="
+">>="
+"..."
+"->"
+"=="
+">="
+"<="
+"!="
+"&&"
+"||"
+"++"
+"--"
+"<<"
+">>"
+"+="
+"-="
+"*="
+"/="
+"&="
+"|="
+"^="
+"%="
+"::"
+"="
+">"
+"<"
+"!"
+"~"
+"?"
+":"
+"+"
+"-"
+"*"
+"/"
+"&"
+"|"
+"^"
+"%"
+"("
+")"
+"{"
+"}"
+"["
+"]"
+";"
+","
+"."
+"@"
+"\"\"\""
+"\""
+"\'"
+"|"
+""
+"\n"
+"\\s+"
+[DEBUG] == File Parsing (LibraryTypes.java)
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=JsonProperty, pkg=com.fasterxml.jackson.annotation, type=IMPORTED]
+[DEBUG] == File Parsing (TypeFinder.java)
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=Matcher, pkg=java.util.regex, type=IMPORTED]
+TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
+"package\\s+([\\w|\\.]+)"
+"NONE"
+"class\\s+(\\w+)"
+"interface\\s+(\\w+)"
+"enum\\s+(\\w+)"
+"record\\s+(\\w+)"
+[DEBUG] == File Parsing (TypeParser.java)
+TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
+TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=HashMap, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=Cleaner, pkg=com.aspodev.cleaner, type=IMPORTED]
+"NONE"
+[DEBUG] == File Parsing (TypeSpace.java)
+TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=HashSet, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=Set, pkg=java.util, type=IMPORTED]
+TypeToken[name=JsonTools, pkg=com.aspodev.utils, type=IMPORTED]
+"/StandardTypes.json"
+"java.lang"
+"java.lang"
+"java.lang"
+"byte"
+"short"
+"int"
+"long"
+"float"
+"double"
+"char"
+"boolean"
+"special.primitve"
+[DEBUG] == File Parsing (TypeToken.java)
+"."
+[DEBUG] == File Parsing (TypeTokenEnum.java)
+[DEBUG] == File Parsing (JsonTools.java)
+TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
+TypeToken[name=InputStream, pkg=java.io, type=IMPORTED]
+TypeToken[name=ObjectMapper, pkg=com.fasterxml.jackson.databind, type=IMPORTED]
+"Resourcenotfound!"
+[DEBUG] == File Parsing (RegexTools.java)
+TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
+TypeToken[name=List, pkg=java.util, type=IMPORTED]
+TypeToken[name=Matcher, pkg=java.util.regex, type=IMPORTED]
+TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
+[DEBUG] == File Parsing (MainWeb.java)
+"Hellocom.aspodev.web"
+[DEBUG] == EXECUTION TIME: 554
