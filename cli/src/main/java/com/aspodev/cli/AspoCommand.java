@@ -20,6 +20,9 @@ public class AspoCommand implements Runnable {
     @Option(names = { "-m", "--more" }, description = "Adds more statistics to the analysis")
     private boolean moreMetrics;
 
+    @Option(names = { "--dev", "-d" }, arity = "1", description = "Enables parsing of a certain file via index")
+    private Integer devMode;
+
     @Parameters(index = "0", description = "The PATH/URL of the repository to scan")
     private String targetPath;
 
@@ -33,15 +36,17 @@ public class AspoCommand implements Runnable {
 
         TypeParser typeParser = new TypeParser(javaFilePaths);
 
-        System.out.println("[DEBUG] == File Parsing (" + javaFilePaths.get(4).getFileName() + ")");
-        Parser parser = new Parser(javaFilePaths.get(4), typeParser);
-        parser.parse();
-
-        // for (Path p : javaFilePaths) {
-        // System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
-        // Parser parser = new Parser(p, typeParser);
-        // parser.parse();
-        // }
+        if (devMode != null) {
+            System.out.println("[DEBUG] == File Parsing (" + javaFilePaths.get(devMode).getFileName() + ")");
+            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser);
+            parser.parse();
+        } else {
+            for (Path p : javaFilePaths) {
+                System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
+                Parser parser = new Parser(p, typeParser);
+                parser.parse();
+            }
+        }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

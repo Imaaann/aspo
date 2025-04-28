@@ -3,6 +3,7 @@ package com.aspodev.parser;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.tokenizer.Tokenizer;
@@ -27,13 +28,17 @@ public class Parser {
 		while (iterator.hasNext()) {
 			String token = iterator.next();
 			ParserBehaviors behavior = this.classify(token);
-			manager.execute(behavior, context);
+			manager.execute(behavior, context, token);
 		}
 
-		System.out.println(context);
 	}
 
 	public ParserBehaviors classify(String token) {
+
+		Set<String> modifiers = Set.of("final", "abstract", "static", "native", "synchronized", "transient",
+				"volatile");
+		Set<String> accessors = Set.of("public", "protected", "private");
+
 		if (token.equals("import"))
 			return ParserBehaviors.IMPORT_STATEMENT;
 
@@ -42,6 +47,12 @@ public class Parser {
 
 		if (token.equals("\"") || token.equals("\"\"\""))
 			return ParserBehaviors.STRING_LITERAL;
+
+		if (modifiers.contains(token))
+			return ParserBehaviors.MODIFIER;
+
+		if (accessors.contains(token))
+			return ParserBehaviors.ACCESSOR;
 
 		return ParserBehaviors.SKIP;
 	}

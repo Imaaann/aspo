@@ -13,6 +13,7 @@ public class ParserContext {
 	private Iterator<String> iterator;
 	private String identifier;
 	private ArrayList<String> modifiers;
+	private String accessor;
 
 	public ParserContext(Iterator<String> tokensIterator, TypeParser globalParser) {
 		this.typeSpace = new TypeSpace();
@@ -20,6 +21,7 @@ public class ParserContext {
 		this.iterator = tokensIterator;
 		this.modifiers = new ArrayList<>();
 		this.identifier = "";
+		this.accessor = "";
 	}
 
 	public String getIdentifier() {
@@ -50,6 +52,16 @@ public class ParserContext {
 
 	public void addPackage(String pkgName) {
 		typeSpace.addPackage(pkgName, globalParser);
+	}
+
+	public void addModifier(String modifier) {
+		modifiers.add(modifier);
+		System.out.println("[DEBUG] Added: " + modifier);
+	}
+
+	public void setAccessor(String accessor) {
+		this.accessor = accessor;
+		System.out.println("[DEBUG] Added: " + accessor);
 	}
 
 	public String toString() {

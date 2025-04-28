@@ -64,12 +64,14 @@ public class TypeSpace {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("TypeSpace {\n");
+		sb.append("TypeSpace [").append(typeSpace.size()).append(" entries]\n");
+		sb.append("{\n");
 
-		typeSpace.stream().sorted(Comparator.comparing(TypeToken::toString))
-				.forEach(token -> sb.append("  - ").append(token.toString()).append("\n"));
+		typeSpace.stream().sorted(Comparator.comparing(TypeToken::pkg))
+				.forEach(t -> sb.append(String.format("  - %-40s pkg=%-25s kind=%s%n", t.name(), t.pkg(), t.type())));
 
 		sb.append("}");
 		return sb.toString();
 	}
+
 }
