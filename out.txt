@@ -7,201 +7,156 @@ Running CLI module...
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ cli ---
-[DEBUG] == File Parsing (Cleaner.java)
-TypeToken[name=RegexTools, pkg=com.aspodev.utils, type=IMPORTED]
-"/\\*.*?\\*/"
-"^(?<!\")\\s+//.*?$"
-"@\\w+\\s*(\\(.*?\\))?"
-[DEBUG] == File Parsing (AspoCommand.java)
-TypeToken[name=Runnable, pkg=java.lang, type=IMPORTED]
-TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
-TypeToken[name=Parser, pkg=com.aspodev.parser, type=IMPORTED]
-TypeToken[name=PathResolver, pkg=com.aspodev.resolver, type=IMPORTED]
-TypeToken[name=Command, pkg=picocli.CommandLine, type=IMPORTED]
-TypeToken[name=Option, pkg=picocli.CommandLine, type=IMPORTED]
-TypeToken[name=Parameters, pkg=picocli.CommandLine, type=IMPORTED]
-"[DEBUG]==FileParsing("
-")"
-"[DEBUG]==EXECUTIONTIME:"
-[DEBUG] == File Parsing (Main.java)
-TypeToken[name=CommandLine, pkg=picocli, type=IMPORTED]
-[DEBUG] == File Parsing (Behavior.java)
 [DEBUG] == File Parsing (BehaviorManager.java)
-TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
-TypeToken[name=EnumMap, pkg=java.util, type=IMPORTED]
-TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Map, pkg=java.util, type=IMPORTED]
-TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
-TypeToken[name=TypeToken, pkg=com.aspodev.TypeParser, type=IMPORTED]
-TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
-"\\."
-"."
-""
-"\""
-"\\"
-"\""
-"\"\"\""
-[DEBUG] == File Parsing (Parser.java)
-TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
-TypeToken[name=Tokenizer, pkg=com.aspodev.tokenizer, type=IMPORTED]
-"import"
-"package"
-"\""
-"\"\"\""
-[DEBUG] == File Parsing (ParserBehaviors.java)
-[DEBUG] == File Parsing (ParserContext.java)
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
-TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
-TypeToken[name=TypeSpace, pkg=com.aspodev.TypeParser, type=IMPORTED]
-TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
-""
-""
-""
-";"
-"*"
-[DEBUG] == File Parsing (PathResolver.java)
-TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=Paths, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Stream, pkg=java.util.stream, type=IMPORTED]
-""
-"Invalidpath:"
-".java"
-"module-info.java"
-[DEBUG] == File Parsing (Tokenizer.java)
-TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
-TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
-TypeToken[name=Cleaner, pkg=com.aspodev.cleaner, type=IMPORTED]
-TypeToken[name=RegexTools, pkg=com.aspodev.utils, type=IMPORTED]
-">>>="
-">>>"
-"<<="
-">>="
-"..."
-"->"
-"=="
-">="
-"<="
-"!="
-"&&"
-"||"
-"++"
-"--"
-"<<"
-">>"
-"+="
-"-="
-"*="
-"/="
-"&="
-"|="
-"^="
-"%="
-"::"
-"="
-">"
-"<"
-"!"
-"~"
-"?"
-":"
-"+"
-"-"
-"*"
-"/"
-"&"
-"|"
-"^"
-"%"
-"("
-")"
-"{"
-"}"
-"["
-"]"
-";"
-","
-"."
-"@"
-"\"\"\""
-"\""
-"\'"
-"|"
-""
-"\n"
-"\\s+"
-[DEBUG] == File Parsing (LibraryTypes.java)
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=JsonProperty, pkg=com.fasterxml.jackson.annotation, type=IMPORTED]
-[DEBUG] == File Parsing (TypeFinder.java)
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Matcher, pkg=java.util.regex, type=IMPORTED]
-TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
-"package\\s+([\\w|\\.]+)"
-"NONE"
-"class\\s+(\\w+)"
-"interface\\s+(\\w+)"
-"enum\\s+(\\w+)"
-"record\\s+(\\w+)"
-[DEBUG] == File Parsing (TypeParser.java)
-TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=HashMap, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Cleaner, pkg=com.aspodev.cleaner, type=IMPORTED]
-"NONE"
-[DEBUG] == File Parsing (TypeSpace.java)
-TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=HashSet, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Set, pkg=java.util, type=IMPORTED]
-TypeToken[name=JsonTools, pkg=com.aspodev.utils, type=IMPORTED]
-"/StandardTypes.json"
-"java.lang"
-"java.lang"
-"java.lang"
-"byte"
-"short"
-"int"
-"long"
-"float"
-"double"
-"char"
-"boolean"
-"special.primitve"
-[DEBUG] == File Parsing (TypeToken.java)
-"."
-[DEBUG] == File Parsing (TypeTokenEnum.java)
-[DEBUG] == File Parsing (JsonTools.java)
-TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-TypeToken[name=InputStream, pkg=java.io, type=IMPORTED]
-TypeToken[name=ObjectMapper, pkg=com.fasterxml.jackson.databind, type=IMPORTED]
-"Resourcenotfound!"
-[DEBUG] == File Parsing (RegexTools.java)
-TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-TypeToken[name=List, pkg=java.util, type=IMPORTED]
-TypeToken[name=Matcher, pkg=java.util.regex, type=IMPORTED]
-TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
-[DEBUG] == File Parsing (MainWeb.java)
-"Hellocom.aspodev.web"
-[DEBUG] == EXECUTION TIME: 554
+[DEBUG] == found import: TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=EnumMap, pkg=java.util, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=Map, pkg=java.util, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=TypeToken, pkg=com.aspodev.TypeParser, type=IMPORTED]
+[DEBUG] == found import: TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
+[DEBUG] == skipped literal: "\\."
+[DEBUG] == skipped literal: "."
+[DEBUG] == skipped literal: "[DEBUG]==foundimport:"
+[DEBUG] == skipped literal: ""
+[DEBUG] == skipped literal: "\""
+[DEBUG] == skipped literal: "\\"
+[DEBUG] == skipped literal: "\""
+[DEBUG] == skipped literal: "\"\"\""
+[DEBUG] == skipped literal: "[DEBUG]==skippedliteral:"
+[TypeSpace]: TypeSpace {
+  - TypeToken[name=AbstractMethodError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Appendable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=ArithmeticException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ArrayIndexOutOfBoundsException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ArrayStoreException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
+  - TypeToken[name=AssertionError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=AutoCloseable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Behavior, pkg=com.aspodev.parser, type=INTERFACE]
+  - TypeToken[name=BehaviorManager, pkg=com.aspodev.parser, type=CLASS]
+  - TypeToken[name=Boolean, pkg=java.lang, type=CLASS]
+  - TypeToken[name=BootstrapMethodError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Byte, pkg=java.lang, type=CLASS]
+  - TypeToken[name=CharSequence, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Character, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Character.Subset, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Character.UnicodeBlock, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Character.UnicodeScript, pkg=java.lang, type=ENUM]
+  - TypeToken[name=Class, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ClassCastException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ClassCircularityError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ClassFormatError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ClassLoader, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ClassNotFoundException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ClassValue, pkg=java.lang, type=CLASS]
+  - TypeToken[name=CloneNotSupportedException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Cloneable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
+  - TypeToken[name=Comparable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Compiler, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Double, pkg=java.lang, type=CLASS]
+  - TypeToken[name=EnumConstantNotPresentException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=EnumMap, pkg=java.util, type=IMPORTED]
+  - TypeToken[name=ExceptionInInitializerError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Float, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Holder, pkg=com.aspodev.parser, type=CLASS]
+  - TypeToken[name=IllegalAccessError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IllegalAccessException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IllegalArgumentException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IllegalCallerException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IllegalMonitorStateException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IllegalStateException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IllegalThreadStateException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=IncompatibleClassChangeError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=InheritableThreadLocal, pkg=java.lang, type=CLASS]
+  - TypeToken[name=InstantiationError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=InstantiationException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Integer, pkg=java.lang, type=CLASS]
+  - TypeToken[name=InternalError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=InterruptedException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Iterable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
+  - TypeToken[name=LayerInstantiationException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=LinkageError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=List, pkg=java.util, type=IMPORTED]
+  - TypeToken[name=Long, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Map, pkg=java.util, type=IMPORTED]
+  - TypeToken[name=Math, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Module, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ModuleLayer, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ModuleLayer.Controller, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NegativeArraySizeException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NoClassDefFoundError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NoSuchFieldError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NoSuchFieldException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NoSuchMethodError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NoSuchMethodException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NullPointerException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Number, pkg=java.lang, type=CLASS]
+  - TypeToken[name=NumberFormatException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Object, pkg=java.lang, type=CLASS]
+  - TypeToken[name=OutOfMemoryError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Package, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Parser, pkg=com.aspodev.parser, type=CLASS]
+  - TypeToken[name=ParserBehaviors, pkg=com.aspodev.parser, type=ENUM]
+  - TypeToken[name=ParserContext, pkg=com.aspodev.parser, type=CLASS]
+  - TypeToken[name=Process, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ProcessBuilder, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ProcessBuilder.Redirect, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ProcessBuilder.Redirect.Type, pkg=java.lang, type=ENUM]
+  - TypeToken[name=ProcessHandle, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=ProcessHandle.Info, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Readable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Record, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ReflectiveOperationException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Runnable, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=Runtime, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Runtime.Version, pkg=java.lang, type=CLASS]
+  - TypeToken[name=RuntimeException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=RuntimePermission, pkg=java.lang, type=CLASS]
+  - TypeToken[name=SecurityException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=SecurityManager, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Short, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StackOverflowError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StackTraceElement, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StackWalker, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StackWalker.Option, pkg=java.lang, type=ENUM]
+  - TypeToken[name=StackWalker.StackFrame, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=StrictMath, pkg=java.lang, type=CLASS]
+  - TypeToken[name=String, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StringBuffer, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StringBuilder, pkg=java.lang, type=CLASS]
+  - TypeToken[name=StringIndexOutOfBoundsException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=System, pkg=java.lang, type=CLASS]
+  - TypeToken[name=System.Logger, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=System.Logger.Level, pkg=java.lang, type=ENUM]
+  - TypeToken[name=System.LoggerFinder, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Thread, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Thread.State, pkg=java.lang, type=ENUM]
+  - TypeToken[name=Thread.UncaughtExceptionHandler, pkg=java.lang, type=INTERFACE]
+  - TypeToken[name=ThreadDeath, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ThreadGroup, pkg=java.lang, type=CLASS]
+  - TypeToken[name=ThreadLocal, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Throwable, pkg=java.lang, type=CLASS]
+  - TypeToken[name=TypeNotPresentException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=TypeToken, pkg=com.aspodev.TypeParser, type=IMPORTED]
+  - TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
+  - TypeToken[name=UnknownError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=UnsatisfiedLinkError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=UnsupportedClassVersionError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=UnsupportedOperationException, pkg=java.lang, type=CLASS]
+  - TypeToken[name=VerifyError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=VirtualMachineError, pkg=java.lang, type=CLASS]
+  - TypeToken[name=Void, pkg=java.lang, type=CLASS]
+  - TypeToken[name=boolean, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=byte, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=char, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=double, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=float, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=int, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=long, pkg=special.primitve, type=PRIMITVE]
+  - TypeToken[name=short, pkg=special.primitve, type=PRIMITVE]
+}
+[DEBUG] == EXECUTION TIME: 494

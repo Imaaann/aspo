@@ -29,6 +29,8 @@ public class Parser {
 			ParserBehaviors behavior = this.classify(token);
 			manager.execute(behavior, context);
 		}
+
+		System.out.println(context);
 	}
 
 	public ParserBehaviors classify(String token) {

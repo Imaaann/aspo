@@ -35,6 +35,12 @@ public class BehaviorManager {
 			c.addType(typeName, pkgName, TypeTokenEnum.IMPORTED);
 		});
 
+		// Behavior: add package to typeSpace
+		registry.put(ParserBehaviors.PACKAGE_STATEMENT, (c) -> {
+			String identifier = c.getIdentifier();
+			c.addPackage(identifier);
+		});
+
 		// Behavior: skip string literals
 		registry.put(ParserBehaviors.STRING_LITERAL, (c) -> {
 			Iterator<String> it = c.getIterator();

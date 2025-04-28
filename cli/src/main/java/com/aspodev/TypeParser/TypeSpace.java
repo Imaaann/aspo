@@ -2,6 +2,7 @@ package com.aspodev.TypeParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,7 +61,15 @@ public class TypeSpace {
 		return standardList;
 	}
 
+	@Override
 	public String toString() {
-		return typeSpace.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("TypeSpace {\n");
+
+		typeSpace.stream().sorted(Comparator.comparing(TypeToken::toString))
+				.forEach(token -> sb.append("  - ").append(token.toString()).append("\n"));
+
+		sb.append("}");
+		return sb.toString();
 	}
 }

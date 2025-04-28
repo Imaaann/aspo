@@ -48,4 +48,11 @@ public class ParserContext {
 		typeSpace.addType(typeName, pkg, type);
 	}
 
+	public void addPackage(String pkgName) {
+		typeSpace.addPackage(pkgName, globalParser);
+	}
+
+	public String toString() {
+		return "[TypeSpace]: " + typeSpace;
+	}
 }

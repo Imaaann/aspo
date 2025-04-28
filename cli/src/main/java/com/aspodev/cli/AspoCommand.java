@@ -33,14 +33,15 @@ public class AspoCommand implements Runnable {
 
         TypeParser typeParser = new TypeParser(javaFilePaths);
 
-        // Parser parser = new Parser(javaFilePaths.get(4), typeParser);
-        // parser.parse();
+        System.out.println("[DEBUG] == File Parsing (" + javaFilePaths.get(4).getFileName() + ")");
+        Parser parser = new Parser(javaFilePaths.get(4), typeParser);
+        parser.parse();
 
-        for (Path p : javaFilePaths) {
-            System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
-            Parser parser = new Parser(p, typeParser);
-            parser.parse();
-        }
+        // for (Path p : javaFilePaths) {
+        // System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
+        // Parser parser = new Parser(p, typeParser);
+        // parser.parse();
+        // }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
