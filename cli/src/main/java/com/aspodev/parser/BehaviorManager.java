@@ -26,19 +26,27 @@ public class BehaviorManager {
 
 		// Behavior: add type to typeSpace
 		registry.put(ParserBehaviors.IMPORT_STATEMENT, (c, t) -> {
-			String identifier = c.getIdentifier();
-			List<String> components = Arrays.asList(identifier.split("\\."));
-			String typeName = components.get(components.size() - 1);
-			String pkgName = components.stream().limit(components.size() - 1).collect(Collectors.joining("."));
 
-			System.out.println("[DEBUG] == found import: " + new TypeToken(typeName, pkgName, TypeTokenEnum.IMPORTED));
-			c.addType(typeName, pkgName, TypeTokenEnum.IMPORTED);
+			c.setIdentifierPending(true);
+
+			c.setIdentifierBehavior((context, identifier) -> {
+				List<String> components = Arrays.asList(identifier.split("\\."));
+				String typeName = components.get(components.size() - 1);
+				String pkgName = components.stream().limit(components.size() - 1).collect(Collectors.joining("."));
+
+				System.out.println(
+						"[DEBUG] == found import: " + new TypeToken(typeName, pkgName, TypeTokenEnum.IMPORTED));
+				c.addType(typeName, pkgName, TypeTokenEnum.IMPORTED);
+			});
+
 		});
 
 		// Behavior: add package to typeSpace
 		registry.put(ParserBehaviors.PACKAGE_STATEMENT, (c, t) -> {
-			String identifier = c.getIdentifier();
-			c.addPackage(identifier);
+			c.setIdentifierPending(true);
+			c.setIdentifierBehavior((context, identifier) -> {
+				context.addPackage(identifier);
+			});
 		});
 
 		// Behavior: add modifier to list

@@ -11,32 +11,29 @@ public class ParserContext {
 	private TypeSpace typeSpace;
 	private TypeParser globalParser;
 	private Iterator<String> iterator;
-	private String identifier;
+
 	private ArrayList<String> modifiers;
 	private String accessor;
+
+	private Identifier identifier;
+	private boolean identifierPending;
+	private Behavior onIdentifierrBehavior;
 
 	public ParserContext(Iterator<String> tokensIterator, TypeParser globalParser) {
 		this.typeSpace = new TypeSpace();
 		this.globalParser = globalParser;
 		this.iterator = tokensIterator;
 		this.modifiers = new ArrayList<>();
-		this.identifier = "";
 		this.accessor = "";
+		this.identifierPending = false;
 	}
 
-	public String getIdentifier() {
-		String identifier = "";
-		String token = "";
-
-		// TODO: make this method 100% reliable to find identifiers and their type
-		// (var/type)
-
-		while (!token.equals(";")) {
-			identifier += token;
-			token = iterator.next();
-		}
-
+	public Identifier getIdentifier() {
 		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+
 	}
 
 	public Iterator<String> getIterator() {
@@ -62,6 +59,18 @@ public class ParserContext {
 	public void setAccessor(String accessor) {
 		this.accessor = accessor;
 		System.out.println("[DEBUG] Added: " + accessor);
+	}
+
+	public void setIdentifierBehavior(Behavior behavior) {
+		this.onIdentifierrBehavior = behavior;
+	}
+
+	public void identifierCaught() {
+		this.onIdentifierrBehavior.apply(this, identifier.id());
+	}
+
+	public void setIdentifierPending(boolean val) {
+		this.identifierPending = val;
 	}
 
 	public String toString() {

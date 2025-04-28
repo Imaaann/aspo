@@ -35,10 +35,6 @@ public class Parser {
 
 	public ParserBehaviors classify(String token) {
 
-		Set<String> modifiers = Set.of("final", "abstract", "static", "native", "synchronized", "transient",
-				"volatile");
-		Set<String> accessors = Set.of("public", "protected", "private");
-
 		if (token.equals("import"))
 			return ParserBehaviors.IMPORT_STATEMENT;
 
@@ -48,13 +44,26 @@ public class Parser {
 		if (token.equals("\"") || token.equals("\"\"\""))
 			return ParserBehaviors.STRING_LITERAL;
 
-		if (modifiers.contains(token))
+		if (ParserConstants.modifiers.contains(token))
 			return ParserBehaviors.MODIFIER;
 
-		if (accessors.contains(token))
+		if (ParserConstants.accessors.contains(token))
 			return ParserBehaviors.ACCESSOR;
+
+		// TODO: Create the isIdentifier method, the behavior and the classification
+		// method
+		if (isIdentifier(token))
+			return ParserBehaviors.IDENTIFIER;
 
 		return ParserBehaviors.SKIP;
 	}
 
+	public boolean isIdentifier(String token) {
+		if (ParserConstants.keywords.contains(token))
+			return false;
+		if (ParserConstants.operators.contains(token))
+			return false;
+
+		return true;
+	}
 }
