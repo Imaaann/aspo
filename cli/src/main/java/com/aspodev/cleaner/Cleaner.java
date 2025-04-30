@@ -11,8 +11,6 @@ public class Cleaner {
         cleanComments(contents);
         cleanAnnotations(contents);
         cleanStrings(contents);
-        System.out.println("[DEBUG] == printing cleaned contents...");
-        System.out.println(contents);
     }
 
     private static void cleanStrings(StringBuilder contents) {
