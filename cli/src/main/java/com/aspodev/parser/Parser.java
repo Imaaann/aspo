@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Instructions.InstructionBuilder;
+import com.aspodev.parser.Instructions.InstructionClassifier;
 import com.aspodev.tokenizer.Tokenizer;
 
 public class Parser {
@@ -31,7 +32,11 @@ public class Parser {
 			InstructionBuilder builder = new InstructionBuilder(iterator);
 			builder.build();
 			builder.clean();
-			System.out.println("[DEBUG] == instruction found & cleaned: " + builder);
+			List<String> instruction = builder.getInstruction();
+
+			// Classify the tokens and instruction
+			InstructionClassifier classifier = new InstructionClassifier(instruction);
+			System.out.println(classifier.classify());
 		}
 	}
 }

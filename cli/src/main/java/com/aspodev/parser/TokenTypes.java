@@ -1,0 +1,5 @@
+package com.aspodev.parser;
+
+public enum TokenTypes {
+	KEYWORD, SEPERATOR, OPERATOR, LITERAL, IDENTIFIER, CHAINED_IDENTIFIER, TYPE_IDENTIFIER
+}
