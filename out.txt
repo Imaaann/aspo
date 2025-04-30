@@ -1,5 +1,11 @@
 Running CLI module...
 [INFO] Scanning for projects...
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Progress (1): 1.4/14 kBProgress (2): 1.4/14 kB | 1.4/21 kBProgress (2): 2.8/14 kB | 1.4/21 kBProgress (2): 2.8/14 kB | 2.8/21 kBProgress (2): 2.8/14 kB | 4.1/21 kBProgress (2): 4.1/14 kB | 4.1/21 kBProgress (2): 4.1/14 kB | 5.5/21 kBProgress (2): 5.5/14 kB | 5.5/21 kBProgress (2): 5.5/14 kB | 6.9/21 kBProgress (2): 6.9/14 kB | 6.9/21 kBProgress (2): 6.9/14 kB | 8.3/21 kBProgress (2): 8.3/14 kB | 8.3/21 kBProgress (2): 9.7/14 kB | 8.3/21 kBProgress (2): 9.7/14 kB | 9.7/21 kBProgress (2): 9.7/14 kB | 11/21 kB Progress (2): 11/14 kB | 11/21 kB Progress (2): 11/14 kB | 12/21 kBProgress (2): 11/14 kB | 14/21 kBProgress (2): 12/14 kB | 14/21 kBProgress (2): 14/14 kB | 14/21 kBProgress (2): 14 kB | 14/21 kB                                 Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 19 kB/s)
+Progress (1): 15/21 kBProgress (1): 16/21 kBProgress (1): 18/21 kBProgress (1): 19/21 kBProgress (1): 21/21 kBProgress (1): 21 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 26 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/exec-maven-plugin/maven-metadata.xml
+Progress (1): 989 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/exec-maven-plugin/maven-metadata.xml (989 B at 14 kB/s)
 [INFO] 
 [INFO] --------------------------< com.aspodev:cli >---------------------------
 [INFO] Building cli 1.0.0
@@ -7,351 +13,8 @@ Running CLI module...
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ cli ---
-[DEBUG] == File Parsing (Cleaner.java)
-[DEBUG] == found import: TypeToken[name=RegexTools, pkg=com.aspodev.utils, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "/\\*.*?\\*/"
-[DEBUG] == skipped literal: "^(?<!\")\\s+//.*?$"
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "@\\w+\\s*(\\(.*?\\))?"
-[DEBUG] == File Parsing (AspoCommand.java)
-[DEBUG] == found import: TypeToken[name=Runnable, pkg=java.lang, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Parser, pkg=com.aspodev.parser, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=PathResolver, pkg=com.aspodev.resolver, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Command, pkg=picocli.CommandLine, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Option, pkg=picocli.CommandLine, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Parameters, pkg=picocli.CommandLine, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "[DEBUG]==FileParsing("
-[DEBUG] == skipped literal: ")"
-[DEBUG] == skipped literal: "[DEBUG]==FileParsing("
-[DEBUG] == skipped literal: ")"
-[DEBUG] == skipped literal: "[DEBUG]==EXECUTIONTIME:"
-[DEBUG] == File Parsing (Main.java)
-[DEBUG] == found import: TypeToken[name=CommandLine, pkg=picocli, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
 [DEBUG] == File Parsing (Behavior.java)
 [DEBUG] Added: public
 [DEBUG] Added: public
 [DEBUG] Added: abstract
-[DEBUG] == File Parsing (BehaviorManager.java)
-[DEBUG] == found import: TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=EnumMap, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Map, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeToken, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: final
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] Added: final
-[DEBUG] Added: private
-[DEBUG] == skipped literal: "\\."
-[DEBUG] == skipped literal: "."
-[DEBUG] == skipped literal: "[DEBUG]==foundimport:"
-[DEBUG] == skipped literal: ""
-[DEBUG] == skipped literal: "\\"
-[DEBUG] == skipped literal: "\""
-[DEBUG] == skipped literal: "\"\"\""
-[DEBUG] == skipped literal: "[DEBUG]==skippedliteral:"
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] Added: public
-[DEBUG] == File Parsing (Parser.java)
-[DEBUG] == found import: TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Set, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Tokenizer, pkg=com.aspodev.tokenizer, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: final
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "final"
-[DEBUG] == skipped literal: "abstract"
-[DEBUG] == skipped literal: "static"
-[DEBUG] == skipped literal: "native"
-[DEBUG] == skipped literal: "synchronized"
-[DEBUG] == skipped literal: "transient"
-[DEBUG] == skipped literal: "volatile"
-[DEBUG] == skipped literal: "public"
-[DEBUG] == skipped literal: "protected"
-[DEBUG] == skipped literal: "private"
-[DEBUG] == skipped literal: "import"
-[DEBUG] == skipped literal: "package"
-[DEBUG] == skipped literal: "\""
-[DEBUG] == skipped literal: "\"\"\""
-[DEBUG] == File Parsing (ParserBehaviors.java)
-[DEBUG] Added: public
-[DEBUG] == File Parsing (ParserContext.java)
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Iterator, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeParser, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeSpace, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=TypeTokenEnum, pkg=com.aspodev.TypeParser, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] == skipped literal: ""
-[DEBUG] == skipped literal: ""
-[DEBUG] Added: public
-[DEBUG] == skipped literal: ""
-[DEBUG] == skipped literal: ""
-[DEBUG] == skipped literal: ";"
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "*"
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "[DEBUG]Added:"
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "[DEBUG]Added:"
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "[TypeSpace]:"
-[DEBUG] == File Parsing (PathResolver.java)
-[DEBUG] == found import: TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Paths, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Stream, pkg=java.util.stream, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: final
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] == skipped literal: ""
-[DEBUG] == skipped literal: "Invalidpath:"
-[DEBUG] Added: public
-[DEBUG] == skipped literal: ".java"
-[DEBUG] Added: private
-[DEBUG] == skipped literal: "module-info.java"
-[DEBUG] == File Parsing (Tokenizer.java)
-[DEBUG] == found import: TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Arrays, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Collectors, pkg=java.util.stream, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Cleaner, pkg=com.aspodev.cleaner, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=RegexTools, pkg=com.aspodev.utils, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] == skipped literal: ">>>="
-[DEBUG] == skipped literal: ">>>"
-[DEBUG] == skipped literal: "<<="
-[DEBUG] == skipped literal: ">>="
-[DEBUG] == skipped literal: "..."
-[DEBUG] == skipped literal: "->"
-[DEBUG] == skipped literal: "=="
-[DEBUG] == skipped literal: ">="
-[DEBUG] == skipped literal: "<="
-[DEBUG] == skipped literal: "!="
-[DEBUG] == skipped literal: "&&"
-[DEBUG] == skipped literal: "||"
-[DEBUG] == skipped literal: "++"
-[DEBUG] == skipped literal: "--"
-[DEBUG] == skipped literal: "<<"
-[DEBUG] == skipped literal: ">>"
-[DEBUG] == skipped literal: "+="
-[DEBUG] == skipped literal: "-="
-[DEBUG] == skipped literal: "*="
-[DEBUG] == skipped literal: "/="
-[DEBUG] == skipped literal: "&="
-[DEBUG] == skipped literal: "|="
-[DEBUG] == skipped literal: "^="
-[DEBUG] == skipped literal: "%="
-[DEBUG] == skipped literal: "::"
-[DEBUG] == skipped literal: "="
-[DEBUG] == skipped literal: ">"
-[DEBUG] == skipped literal: "<"
-[DEBUG] == skipped literal: "!"
-[DEBUG] == skipped literal: "~"
-[DEBUG] == skipped literal: "?"
-[DEBUG] == skipped literal: ":"
-[DEBUG] == skipped literal: "+"
-[DEBUG] == skipped literal: "-"
-[DEBUG] == skipped literal: "*"
-[DEBUG] == skipped literal: "/"
-[DEBUG] == skipped literal: "&"
-[DEBUG] == skipped literal: "|"
-[DEBUG] == skipped literal: "^"
-[DEBUG] == skipped literal: "%"
-[DEBUG] == skipped literal: "("
-[DEBUG] == skipped literal: ")"
-[DEBUG] == skipped literal: "{"
-[DEBUG] == skipped literal: "}"
-[DEBUG] == skipped literal: "["
-[DEBUG] == skipped literal: "]"
-[DEBUG] == skipped literal: ";"
-[DEBUG] == skipped literal: ","
-[DEBUG] == skipped literal: "."
-[DEBUG] == skipped literal: "@"
-[DEBUG] == skipped literal: "\"\"\""
-[DEBUG] == skipped literal: "\""
-[DEBUG] == skipped literal: "\'"
-[DEBUG] == skipped literal: "|"
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] == skipped literal: ""
-[DEBUG] == skipped literal: "\n"
-[DEBUG] Added: private
-[DEBUG] == skipped literal: "\\s+"
-[DEBUG] == File Parsing (LibraryTypes.java)
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=JsonProperty, pkg=com.fasterxml.jackson.annotation, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] == File Parsing (TypeFinder.java)
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Matcher, pkg=java.util.regex, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "package\\s+([\\w|\\.]+)"
-[DEBUG] == skipped literal: "NONE"
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "class\\s+(\\w+)"
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "interface\\s+(\\w+)"
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "enum\\s+(\\w+)"
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "record\\s+(\\w+)"
-[DEBUG] == File Parsing (TypeParser.java)
-[DEBUG] == found import: TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Files, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Path, pkg=java.nio.file, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=HashMap, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Cleaner, pkg=com.aspodev.cleaner, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "NONE"
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] == File Parsing (TypeSpace.java)
-[DEBUG] == found import: TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Comparator, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=HashSet, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Set, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=JsonTools, pkg=com.aspodev.utils, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: private
-[DEBUG] Added: private
-[DEBUG] Added: static
-[DEBUG] Added: final
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "/StandardTypes.json"
-[DEBUG] == skipped literal: "java.lang"
-[DEBUG] == skipped literal: "java.lang"
-[DEBUG] == skipped literal: "java.lang"
-[DEBUG] == skipped literal: "byte"
-[DEBUG] == skipped literal: "short"
-[DEBUG] == skipped literal: "int"
-[DEBUG] == skipped literal: "long"
-[DEBUG] == skipped literal: "float"
-[DEBUG] == skipped literal: "double"
-[DEBUG] == skipped literal: "char"
-[DEBUG] == skipped literal: "boolean"
-[DEBUG] == skipped literal: "special.primitve"
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "TypeSpace["
-[DEBUG] == skipped literal: "entries]\n"
-[DEBUG] == skipped literal: "{\n"
-[DEBUG] == skipped literal: "-%-40spkg=%-25skind=%s%n"
-[DEBUG] == skipped literal: "}"
-[DEBUG] == File Parsing (TypeToken.java)
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] == skipped literal: "."
-[DEBUG] == File Parsing (TypeTokenEnum.java)
-[DEBUG] Added: public
-[DEBUG] == File Parsing (JsonTools.java)
-[DEBUG] == found import: TypeToken[name=IOException, pkg=java.io, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=InputStream, pkg=java.io, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=ObjectMapper, pkg=com.fasterxml.jackson.databind, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "Resourcenotfound!"
-[DEBUG] == File Parsing (RegexTools.java)
-[DEBUG] == found import: TypeToken[name=ArrayList, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=List, pkg=java.util, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Matcher, pkg=java.util.regex, type=IMPORTED]
-[DEBUG] == found import: TypeToken[name=Pattern, pkg=java.util.regex, type=IMPORTED]
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] == File Parsing (MainWeb.java)
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: static
-[DEBUG] == skipped literal: "Hellocom.aspodev.web"
-[DEBUG] == EXECUTION TIME: 592
+[DEBUG] == EXECUTION TIME: 379
