@@ -10,6 +10,17 @@ public class Cleaner {
     public static void cleanFile(StringBuilder contents) {
         cleanComments(contents);
         cleanAnnotations(contents);
+        cleanStrings(contents);
+        System.out.println("[DEBUG] == printing cleaned contents...");
+        System.out.println(contents);
+    }
+
+    private static void cleanStrings(StringBuilder contents) {
+        String singleLineString = "\"((?:\\\\.|[^\"\\\\])*)\"";
+        String multiLineString = "\"\"\"((?:\\\\.|[^\\\\\"]|\"(?!\")|\"\"(?!\"))*?)\"\"\"";
+
+        RegexTools.removePattern(contents, multiLineString);
+        RegexTools.removePattern(contents, singleLineString);
     }
 
     private static void cleanComments(StringBuilder contents) {

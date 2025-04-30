@@ -1,11 +1,11 @@
 Running CLI module...
 [INFO] Scanning for projects...
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
-Progress (1): 1.4/14 kBProgress (2): 1.4/14 kB | 1.4/21 kBProgress (2): 2.8/14 kB | 1.4/21 kBProgress (2): 2.8/14 kB | 2.8/21 kBProgress (2): 2.8/14 kB | 4.1/21 kBProgress (2): 4.1/14 kB | 4.1/21 kBProgress (2): 4.1/14 kB | 5.5/21 kBProgress (2): 5.5/14 kB | 5.5/21 kBProgress (2): 5.5/14 kB | 6.9/21 kBProgress (2): 6.9/14 kB | 6.9/21 kBProgress (2): 6.9/14 kB | 8.3/21 kBProgress (2): 8.3/14 kB | 8.3/21 kBProgress (2): 9.7/14 kB | 8.3/21 kBProgress (2): 9.7/14 kB | 9.7/21 kBProgress (2): 9.7/14 kB | 11/21 kB Progress (2): 11/14 kB | 11/21 kB Progress (2): 11/14 kB | 12/21 kBProgress (2): 11/14 kB | 14/21 kBProgress (2): 12/14 kB | 14/21 kBProgress (2): 14/14 kB | 14/21 kBProgress (2): 14 kB | 14/21 kB                                 Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 19 kB/s)
-Progress (1): 15/21 kBProgress (1): 16/21 kBProgress (1): 18/21 kBProgress (1): 19/21 kBProgress (1): 21/21 kBProgress (1): 21 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 26 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Progress (1): 1.4/14 kBProgress (2): 1.4/14 kB | 1.4/21 kBProgress (2): 1.4/14 kB | 2.8/21 kBProgress (2): 2.8/14 kB | 2.8/21 kBProgress (2): 2.8/14 kB | 4.1/21 kBProgress (2): 4.1/14 kB | 4.1/21 kBProgress (2): 4.1/14 kB | 5.5/21 kBProgress (2): 5.5/14 kB | 5.5/21 kBProgress (2): 6.9/14 kB | 5.5/21 kBProgress (2): 6.9/14 kB | 6.9/21 kBProgress (2): 8.3/14 kB | 6.9/21 kBProgress (2): 8.3/14 kB | 8.3/21 kBProgress (2): 8.3/14 kB | 9.7/21 kBProgress (2): 9.7/14 kB | 9.7/21 kBProgress (2): 9.7/14 kB | 11/21 kB Progress (2): 11/14 kB | 11/21 kB Progress (2): 12/14 kB | 11/21 kBProgress (2): 12/14 kB | 12/21 kBProgress (2): 14/14 kB | 12/21 kBProgress (2): 14/14 kB | 14/21 kBProgress (2): 14 kB | 14/21 kB   Progress (2): 14 kB | 15/21 kBProgress (2): 14 kB | 17/21 kBProgress (2): 14 kB | 18/21 kBProgress (2): 14 kB | 19/21 kBProgress (2): 14 kB | 21 kB                              Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 28 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 40 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/exec-maven-plugin/maven-metadata.xml
-Progress (1): 989 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/exec-maven-plugin/maven-metadata.xml (989 B at 14 kB/s)
+Progress (1): 989 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/exec-maven-plugin/maven-metadata.xml (989 B at 23 kB/s)
 [INFO] 
 [INFO] --------------------------< com.aspodev:cli >---------------------------
 [INFO] Building cli 1.0.0
@@ -13,8 +13,1308 @@ Progress (1): 989 B                   Downloaded from central: https://repo.ma
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ cli ---
-[DEBUG] == File Parsing (Behavior.java)
-[DEBUG] Added: public
-[DEBUG] Added: public
-[DEBUG] Added: abstract
-[DEBUG] == EXECUTION TIME: 379
+[DEBUG] == printing cleaned contents...
+package com.aspodev.cleaner;
+
+import com.aspodev.utils.RegexTools;
+
+public class Cleaner {
+
+    
+    public static void cleanFile(StringBuilder contents) {
+        cleanComments(contents);
+        cleanAnnotations(contents);
+        cleanStrings(contents);
+        System.out.println();
+        System.out.println(contents);
+    }
+
+    private static void cleanStrings(StringBuilder contents) {
+        String singleLineString = ;
+        String multiLineString = ;
+
+        RegexTools.removePattern(contents, multiLineString);
+        RegexTools.removePattern(contents, singleLineString);
+    }
+
+    private static void cleanComments(StringBuilder contents) {
+
+        String multiLineComment = ;
+        String singleLineComment = ;
+
+        RegexTools.removePattern(contents, singleLineComment);
+        RegexTools.removePattern(contents, multiLineComment);
+    }
+
+    private static void cleanAnnotations(StringBuilder contents) {
+        String annotations = ;
+
+        RegexTools.removePattern(contents, annotations);
+    }
+
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.cli;
+
+import java.lang.Runnable;
+import java.nio.file.Path;
+import java.util.List;
+
+import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.parser.Parser;
+import com.aspodev.resolver.PathResolver;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+
+public class AspoCommand implements Runnable {
+
+    
+    private boolean noFileOutputs;
+
+    
+    private boolean moreMetrics;
+
+    
+    private Integer devMode;
+
+    
+    private String targetPath;
+
+    public void run() {
+
+        long start = System.currentTimeMillis();
+
+        PathResolver pathResolver = new PathResolver(targetPath);
+        List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
+
+        TypeParser typeParser = new TypeParser(javaFilePaths);
+
+        if (devMode != null) {
+            System.out.println( + javaFilePaths.get(devMode).getFileName() + );
+            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser);
+            parser.parse();
+        } else {
+            for (Path p : javaFilePaths) {
+                System.out.println( + p.getFileName() + );
+                Parser parser = new Parser(p, typeParser);
+                parser.parse();
+            }
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println( + (end - start));
+    }
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.cli;
+
+import picocli.CommandLine;
+
+public class Main {
+    public static void main(String[] args) {
+        int exitCode = new CommandLine(new AspoCommand()).execute(args);
+        System.exit(exitCode);
+    }
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.parser.Instructions;
+
+import java.util.Iterator;
+import java.util.List;
+
+public class InstructionBuilder {
+	private Iterator<String> iterator;
+	private List<String> instruction;
+
+	public InstructionBuilder(Iterator<String> iterator) {
+		this.iterator = iterator;
+
+	}
+
+	public void build() {
+		while (iterator.hasNext()) {
+			String token = iterator.next();
+
+			if (token.equals() || token.equals() || token.equals()) {
+				instruction.add(token);
+				break;
+			}
+
+			instruction.add(token);
+		}
+	}
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.parser;
+
+import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.List;
+
+import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.tokenizer.Tokenizer;
+
+public class Parser {
+	private TypeParser parser;
+	private List<String> tokens;
+	private Iterator<String> iterator;
+
+	public Parser(Path path, TypeParser parser) {
+		this.parser = parser;
+
+		Tokenizer tokenizer = new Tokenizer(path);
+		tokenizer.tokenize();
+
+		this.tokens = tokenizer.getTokens();
+		this.iterator = tokens.iterator();
+	}
+
+	public void parse() {
+
+	}
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.resolver;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+
+public class PathResolver {
+    private final Path path;
+    private List<Path> javaFilePaths;
+
+    public PathResolver(String path) { // Constructor
+        this.path = this.resolvePath(path);
+        this.javaFilePaths = new ArrayList<>();
+    }
+
+    private boolean isValidPath(Path path) { // Check if the path is valid
+        try {
+            path.toRealPath();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Path resolvePath(String path) { // Resolve the path
+        if (path == null || path.isEmpty()) { // Check if the path is null or empty
+            return Paths.get(); // Return empty path
+        }
+        Path resolvedPath = Paths.get(path).toAbsolutePath().normalize(); // Get absolute path
+        if (!isValidPath(resolvedPath)) { // Check if the path is valid
+            throw new IllegalArgumentException( + path); // Throw exception if invalid
+        }
+        return resolvedPath; // Return the resolved path
+    }
+
+    public List<Path> getAllJavaPaths() { // Get all Java file paths in the directory
+
+        try (Stream<Path> paths = Files.walk(path)) { // Walk the file tree
+            paths.filter(Files::isRegularFile) // Filter regular files
+                    .filter(p -> p.toString().endsWith()) // Filter Java files
+                    .forEach(p -> javaFilePaths.add(p.normalize())); // Add Java file paths to the list
+        } catch (IOException e) { // Handle IO exception
+            e.printStackTrace();
+        }
+        removeModuleInfo();
+        return javaFilePaths; // Return the list of Java file paths
+    }
+
+    private void removeModuleInfo() {
+        javaFilePaths.removeIf((p) -> p.getFileName().toString().equals());
+    }
+}
+[DEBUG] == printing cleaned contents...
+package com.aspodev.tokenizer;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import com.aspodev.cleaner.Cleaner;
+import com.aspodev.utils.RegexTools;
+
+public class Tokenizer {
+	private StringBuilder contents;
+	private List<String> tokens;
+
+	public Tokenizer(Path path) {
+		this.tokens = new ArrayList<>();
+		try {
+			this.contents = new StringBuilder(Files.readString(path));
+			Cleaner.cleanFile(contents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void tokenize() {
+		splitAcrossWhiteSpace();
+
+		List<String> OPERATORS = Arrays.asList(, , , , , , , , , , ,
+				, , , , , , , , , , , , , , , , , ,
+				, , , , , , , , , , , , , , , , , , , , ,
+				, , );
+
+		String OperatorsPattern = OPERATORS.stream().sorted((a, b) -> Integer.compare(b.length(), a.length()))
+				.map(Pattern::quote).collect(Collectors.joining());
+
+		String fullRegex = OperatorsPattern;
+
+		this.tokens = this.splitAroundRegex(fullRegex);
+	}
+
+	public List<String> getTokens() {
+		return tokens;
+	}
+
+	private List<String> splitAroundRegex(String regex) {
+		List<String> resultList = new ArrayList<>();
+
+		for (String token : this.tokens) {
+			if (RegexTools.stringContainsRegex(token, regex)) {
+				List<String> splitTokens = RegexTools.splitAround(token, regex);
+				resultList.addAll(splitTokens);
+			} else {
+				resultList.add(token);
+			}
+		}
+
+		return resultList;
+	}
+
+	public String toString() {
+		String result = ;
+		for (String token : tokens) {
+			result = result + token + ;
+		}
+		return result;
+	}
+
+	private void splitAcrossWhiteSpace() {
+		this.tokens = RegexTools.splitAcross(contents.toString(), );
+	}
+
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record LibraryTypes( List<String> classes,
+		 List<String> interfaces,
+		 List<String> enums,
+		 List<String> annotations) {
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TypeFinder {
+
+    public static List<TypeToken> findAllTypes(StringBuilder contents) {
+        String pkg  = findPackage(contents);
+        ArrayList<TypeToken> result = new ArrayList<>();
+
+        result.addAll(findClasses(contents, pkg));
+        result.addAll(findInterfaces(contents, pkg));
+        result.addAll(findEnums(contents, pkg));
+        result.addAll(findRecords(contents, pkg));
+
+        return result;
+    }
+
+    private static String findPackage(StringBuilder contents) {
+        String packageRegex = ;
+
+        Pattern pattern = Pattern.compile(packageRegex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(contents);
+
+        return matcher.find() ? matcher.group(1) : ;
+    }
+
+    private static List<TypeToken> findType(StringBuilder contents, String pkg, String regex, TypeTokenEnum type) {
+        ArrayList<TypeToken> result = new ArrayList<TypeToken>();
+
+
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(contents);
+
+        while (matcher.find()) {
+            String className = matcher.group(1);
+            TypeToken classToken = new TypeToken(className, pkg, type);
+            result.add(classToken);
+        }
+
+        return result;
+    }
+
+    private static List<TypeToken> findClasses(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.CLASS);
+    } 
+
+    private static List<TypeToken> findInterfaces(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.INTERFACE);
+    }  
+
+    private static List<TypeToken> findEnums(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.ENUM);
+    }  
+
+    private static List<TypeToken> findRecords(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.RECORD);
+    }  
+}
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.aspodev.cleaner.Cleaner;
+
+public class TypeParser {
+    private HashMap<String, List<TypeToken>> typeSpace;
+
+    public TypeParser(List<Path> paths) {
+        typeSpace = new HashMap<>();
+        StringBuilder contents;
+        for (Path path : paths) {
+            try {
+
+                contents = new StringBuilder(Files.readString(path));
+
+                Cleaner.cleanFile(contents);
+
+                List<TypeToken> typesFound = TypeFinder.findAllTypes(contents);
+
+                String packageName = !typesFound.isEmpty() ? typesFound.get(0).pkg() : ;
+                typeSpace.computeIfAbsent(packageName, (k) -> new ArrayList<>()).addAll(typesFound);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<TypeToken> findPackageTypes(String pkg) {
+
+        List<String> relatedPackages = typeSpace.keySet().stream().filter((p) -> p.startsWith(pkg)).toList();
+
+        ArrayList<TypeToken> result = new ArrayList<>();
+
+        for (String p : relatedPackages) {
+            List<TypeToken> foundTypes = typeSpace.get(p);
+            result.addAll(foundTypes);
+        }
+
+        return result;
+    }
+
+    public boolean isType(String token, String pkg) {
+        List<TypeToken> packageTypes = this.findPackageTypes(pkg);
+
+        for (TypeToken type : packageTypes) {
+            if (type.name().equals(token))
+                return true;
+        }
+
+        return false;
+    }
+
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.aspodev.utils.JsonTools;
+
+public class TypeSpace {
+	private Set<TypeToken> typeSpace;
+	private static final List<TypeToken> defaultTypes = TypeSpace.loadStandardTypes();
+
+	public TypeSpace() {
+		this.typeSpace = new HashSet<TypeToken>(256);
+		this.typeSpace.addAll(defaultTypes);
+	}
+
+	public void addPackage(String pkg, TypeParser globalTypeSpace) {
+		List<TypeToken> foundTypes = globalTypeSpace.findPackageTypes(pkg);
+		typeSpace.addAll(foundTypes);
+	}
+
+	public void addType(String name, String pkg, TypeTokenEnum type) {
+		typeSpace.add(new TypeToken(name, pkg, type));
+	}
+
+	public void addType(TypeToken typeToken) {
+		typeSpace.add(typeToken);
+	}
+
+	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
+
+	}
+
+	public static List<TypeToken> loadStandardTypes() {
+		List<TypeToken> standardList = new ArrayList<>();
+
+		try {
+			LibraryTypes StandardTypes = JsonTools.readJsonObject(, LibraryTypes.class);
+
+			StandardTypes.classes().forEach(
+					(className) -> standardList.add(new TypeToken(className, , TypeTokenEnum.CLASS)));
+
+			StandardTypes.interfaces().forEach(
+					(className) -> standardList.add(new TypeToken(className, , TypeTokenEnum.INTERFACE)));
+
+			StandardTypes.enums().forEach(
+					(className) -> standardList.add(new TypeToken(className, , TypeTokenEnum.ENUM)));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		List<String> primitiveList = List.of(, , , , , , , );
+
+		primitiveList.forEach(
+				(primitive) -> standardList.add(new TypeToken(primitive, , TypeTokenEnum.PRIMITVE)));
+
+		return standardList;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append().append(typeSpace.size()).append();
+		sb.append();
+
+		typeSpace.stream().sorted(Comparator.comparing(TypeToken::pkg))
+				.forEach(t -> sb.append(String.format(, t.name(), t.pkg(), t.type())));
+
+		sb.append();
+		return sb.toString();
+	}
+
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+public record TypeToken(String name, String pkg, TypeTokenEnum type) {
+    public String getFullName() {
+        return (this.pkg() +  + this.name());
+    }
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+public enum TypeTokenEnum {
+    CLASS, INTERFACE, RECORD, ENUM, PRIMITVE, IMPORTED
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.utils;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JsonTools {
+
+	
+	public static <T> T readJsonObject(String jsonResourcePath, Class<T> clazz) throws IOException {
+
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		InputStream is = JsonTools.class.getResourceAsStream(jsonResourcePath);
+
+		if (is == null)
+			throw new IOException();
+
+		return objectMapper.readValue(is, clazz);
+	}
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegexTools {
+    public static void removePattern(StringBuilder str, String regex) {
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+
+        StringBuilder temp = new StringBuilder();
+        int lastEnd = 0;
+
+        while (matcher.find()) {
+            temp.append(str, lastEnd, matcher.start());
+            lastEnd = matcher.end();
+        }
+        temp.append(str, lastEnd, str.length());
+
+        str.setLength(0);
+        str.append(temp);
+    }
+
+    public static List<String> splitAround(String str, String regex) {
+        List<String> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+
+        int lastEnd = 0;
+        while (matcher.find()) {
+            if (matcher.start() > lastEnd) {
+                result.add(str.substring(lastEnd, matcher.start()));
+            }
+
+            result.add(matcher.group());
+            lastEnd = matcher.end();
+        }
+
+        if (lastEnd < str.length()) {
+            result.add(str.substring(lastEnd));
+        }
+
+        return result;
+    }
+
+    public static List<String> splitAcross(String str, String regex) {
+        List<String> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+
+        int lastEnd = 0;
+        while (matcher.find()) {
+            if (matcher.start() > lastEnd) {
+                result.add(str.substring(lastEnd, matcher.start()));
+            }
+            lastEnd = matcher.end();
+        }
+
+        if (lastEnd < str.length()) {
+            result.add(str.substring(lastEnd));
+        }
+
+        return result;
+    }
+
+    public static boolean stringContainsRegex(String str, String regex) {
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.find();
+    }
+}
+
+[DEBUG] == printing cleaned contents...
+package com.aspodev.web;
+
+public class MainWeb {
+ public static void main(String[] args) {
+    System.out.println();
+ }   
+}
+
+[DEBUG] == File Parsing (Cleaner.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.cleaner;
+
+import com.aspodev.utils.RegexTools;
+
+public class Cleaner {
+
+    
+    public static void cleanFile(StringBuilder contents) {
+        cleanComments(contents);
+        cleanAnnotations(contents);
+        cleanStrings(contents);
+        System.out.println();
+        System.out.println(contents);
+    }
+
+    private static void cleanStrings(StringBuilder contents) {
+        String singleLineString = ;
+        String multiLineString = ;
+
+        RegexTools.removePattern(contents, multiLineString);
+        RegexTools.removePattern(contents, singleLineString);
+    }
+
+    private static void cleanComments(StringBuilder contents) {
+
+        String multiLineComment = ;
+        String singleLineComment = ;
+
+        RegexTools.removePattern(contents, singleLineComment);
+        RegexTools.removePattern(contents, multiLineComment);
+    }
+
+    private static void cleanAnnotations(StringBuilder contents) {
+        String annotations = ;
+
+        RegexTools.removePattern(contents, annotations);
+    }
+
+}
+
+[DEBUG] == File Parsing (AspoCommand.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.cli;
+
+import java.lang.Runnable;
+import java.nio.file.Path;
+import java.util.List;
+
+import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.parser.Parser;
+import com.aspodev.resolver.PathResolver;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+
+public class AspoCommand implements Runnable {
+
+    
+    private boolean noFileOutputs;
+
+    
+    private boolean moreMetrics;
+
+    
+    private Integer devMode;
+
+    
+    private String targetPath;
+
+    public void run() {
+
+        long start = System.currentTimeMillis();
+
+        PathResolver pathResolver = new PathResolver(targetPath);
+        List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
+
+        TypeParser typeParser = new TypeParser(javaFilePaths);
+
+        if (devMode != null) {
+            System.out.println( + javaFilePaths.get(devMode).getFileName() + );
+            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser);
+            parser.parse();
+        } else {
+            for (Path p : javaFilePaths) {
+                System.out.println( + p.getFileName() + );
+                Parser parser = new Parser(p, typeParser);
+                parser.parse();
+            }
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println( + (end - start));
+    }
+}
+
+[DEBUG] == File Parsing (Main.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.cli;
+
+import picocli.CommandLine;
+
+public class Main {
+    public static void main(String[] args) {
+        int exitCode = new CommandLine(new AspoCommand()).execute(args);
+        System.exit(exitCode);
+    }
+}
+
+[DEBUG] == File Parsing (InstructionBuilder.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.parser.Instructions;
+
+import java.util.Iterator;
+import java.util.List;
+
+public class InstructionBuilder {
+	private Iterator<String> iterator;
+	private List<String> instruction;
+
+	public InstructionBuilder(Iterator<String> iterator) {
+		this.iterator = iterator;
+
+	}
+
+	public void build() {
+		while (iterator.hasNext()) {
+			String token = iterator.next();
+
+			if (token.equals() || token.equals() || token.equals()) {
+				instruction.add(token);
+				break;
+			}
+
+			instruction.add(token);
+		}
+	}
+}
+
+[DEBUG] == File Parsing (Parser.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.parser;
+
+import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.List;
+
+import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.tokenizer.Tokenizer;
+
+public class Parser {
+	private TypeParser parser;
+	private List<String> tokens;
+	private Iterator<String> iterator;
+
+	public Parser(Path path, TypeParser parser) {
+		this.parser = parser;
+
+		Tokenizer tokenizer = new Tokenizer(path);
+		tokenizer.tokenize();
+
+		this.tokens = tokenizer.getTokens();
+		this.iterator = tokens.iterator();
+	}
+
+	public void parse() {
+
+	}
+}
+
+[DEBUG] == File Parsing (PathResolver.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.resolver;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+
+public class PathResolver {
+    private final Path path;
+    private List<Path> javaFilePaths;
+
+    public PathResolver(String path) { // Constructor
+        this.path = this.resolvePath(path);
+        this.javaFilePaths = new ArrayList<>();
+    }
+
+    private boolean isValidPath(Path path) { // Check if the path is valid
+        try {
+            path.toRealPath();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Path resolvePath(String path) { // Resolve the path
+        if (path == null || path.isEmpty()) { // Check if the path is null or empty
+            return Paths.get(); // Return empty path
+        }
+        Path resolvedPath = Paths.get(path).toAbsolutePath().normalize(); // Get absolute path
+        if (!isValidPath(resolvedPath)) { // Check if the path is valid
+            throw new IllegalArgumentException( + path); // Throw exception if invalid
+        }
+        return resolvedPath; // Return the resolved path
+    }
+
+    public List<Path> getAllJavaPaths() { // Get all Java file paths in the directory
+
+        try (Stream<Path> paths = Files.walk(path)) { // Walk the file tree
+            paths.filter(Files::isRegularFile) // Filter regular files
+                    .filter(p -> p.toString().endsWith()) // Filter Java files
+                    .forEach(p -> javaFilePaths.add(p.normalize())); // Add Java file paths to the list
+        } catch (IOException e) { // Handle IO exception
+            e.printStackTrace();
+        }
+        removeModuleInfo();
+        return javaFilePaths; // Return the list of Java file paths
+    }
+
+    private void removeModuleInfo() {
+        javaFilePaths.removeIf((p) -> p.getFileName().toString().equals());
+    }
+}
+[DEBUG] == File Parsing (Tokenizer.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.tokenizer;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import com.aspodev.cleaner.Cleaner;
+import com.aspodev.utils.RegexTools;
+
+public class Tokenizer {
+	private StringBuilder contents;
+	private List<String> tokens;
+
+	public Tokenizer(Path path) {
+		this.tokens = new ArrayList<>();
+		try {
+			this.contents = new StringBuilder(Files.readString(path));
+			Cleaner.cleanFile(contents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void tokenize() {
+		splitAcrossWhiteSpace();
+
+		List<String> OPERATORS = Arrays.asList(, , , , , , , , , , ,
+				, , , , , , , , , , , , , , , , , ,
+				, , , , , , , , , , , , , , , , , , , , ,
+				, , );
+
+		String OperatorsPattern = OPERATORS.stream().sorted((a, b) -> Integer.compare(b.length(), a.length()))
+				.map(Pattern::quote).collect(Collectors.joining());
+
+		String fullRegex = OperatorsPattern;
+
+		this.tokens = this.splitAroundRegex(fullRegex);
+	}
+
+	public List<String> getTokens() {
+		return tokens;
+	}
+
+	private List<String> splitAroundRegex(String regex) {
+		List<String> resultList = new ArrayList<>();
+
+		for (String token : this.tokens) {
+			if (RegexTools.stringContainsRegex(token, regex)) {
+				List<String> splitTokens = RegexTools.splitAround(token, regex);
+				resultList.addAll(splitTokens);
+			} else {
+				resultList.add(token);
+			}
+		}
+
+		return resultList;
+	}
+
+	public String toString() {
+		String result = ;
+		for (String token : tokens) {
+			result = result + token + ;
+		}
+		return result;
+	}
+
+	private void splitAcrossWhiteSpace() {
+		this.tokens = RegexTools.splitAcross(contents.toString(), );
+	}
+
+}
+
+[DEBUG] == File Parsing (LibraryTypes.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record LibraryTypes( List<String> classes,
+		 List<String> interfaces,
+		 List<String> enums,
+		 List<String> annotations) {
+}
+
+[DEBUG] == File Parsing (TypeFinder.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TypeFinder {
+
+    public static List<TypeToken> findAllTypes(StringBuilder contents) {
+        String pkg  = findPackage(contents);
+        ArrayList<TypeToken> result = new ArrayList<>();
+
+        result.addAll(findClasses(contents, pkg));
+        result.addAll(findInterfaces(contents, pkg));
+        result.addAll(findEnums(contents, pkg));
+        result.addAll(findRecords(contents, pkg));
+
+        return result;
+    }
+
+    private static String findPackage(StringBuilder contents) {
+        String packageRegex = ;
+
+        Pattern pattern = Pattern.compile(packageRegex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(contents);
+
+        return matcher.find() ? matcher.group(1) : ;
+    }
+
+    private static List<TypeToken> findType(StringBuilder contents, String pkg, String regex, TypeTokenEnum type) {
+        ArrayList<TypeToken> result = new ArrayList<TypeToken>();
+
+
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(contents);
+
+        while (matcher.find()) {
+            String className = matcher.group(1);
+            TypeToken classToken = new TypeToken(className, pkg, type);
+            result.add(classToken);
+        }
+
+        return result;
+    }
+
+    private static List<TypeToken> findClasses(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.CLASS);
+    } 
+
+    private static List<TypeToken> findInterfaces(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.INTERFACE);
+    }  
+
+    private static List<TypeToken> findEnums(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.ENUM);
+    }  
+
+    private static List<TypeToken> findRecords(StringBuilder contents, String pkg) {
+        return findType(contents, pkg, , TypeTokenEnum.RECORD);
+    }  
+}
+[DEBUG] == File Parsing (TypeParser.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.aspodev.cleaner.Cleaner;
+
+public class TypeParser {
+    private HashMap<String, List<TypeToken>> typeSpace;
+
+    public TypeParser(List<Path> paths) {
+        typeSpace = new HashMap<>();
+        StringBuilder contents;
+        for (Path path : paths) {
+            try {
+
+                contents = new StringBuilder(Files.readString(path));
+
+                Cleaner.cleanFile(contents);
+
+                List<TypeToken> typesFound = TypeFinder.findAllTypes(contents);
+
+                String packageName = !typesFound.isEmpty() ? typesFound.get(0).pkg() : ;
+                typeSpace.computeIfAbsent(packageName, (k) -> new ArrayList<>()).addAll(typesFound);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<TypeToken> findPackageTypes(String pkg) {
+
+        List<String> relatedPackages = typeSpace.keySet().stream().filter((p) -> p.startsWith(pkg)).toList();
+
+        ArrayList<TypeToken> result = new ArrayList<>();
+
+        for (String p : relatedPackages) {
+            List<TypeToken> foundTypes = typeSpace.get(p);
+            result.addAll(foundTypes);
+        }
+
+        return result;
+    }
+
+    public boolean isType(String token, String pkg) {
+        List<TypeToken> packageTypes = this.findPackageTypes(pkg);
+
+        for (TypeToken type : packageTypes) {
+            if (type.name().equals(token))
+                return true;
+        }
+
+        return false;
+    }
+
+}
+
+[DEBUG] == File Parsing (TypeSpace.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.aspodev.utils.JsonTools;
+
+public class TypeSpace {
+	private Set<TypeToken> typeSpace;
+	private static final List<TypeToken> defaultTypes = TypeSpace.loadStandardTypes();
+
+	public TypeSpace() {
+		this.typeSpace = new HashSet<TypeToken>(256);
+		this.typeSpace.addAll(defaultTypes);
+	}
+
+	public void addPackage(String pkg, TypeParser globalTypeSpace) {
+		List<TypeToken> foundTypes = globalTypeSpace.findPackageTypes(pkg);
+		typeSpace.addAll(foundTypes);
+	}
+
+	public void addType(String name, String pkg, TypeTokenEnum type) {
+		typeSpace.add(new TypeToken(name, pkg, type));
+	}
+
+	public void addType(TypeToken typeToken) {
+		typeSpace.add(typeToken);
+	}
+
+	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
+
+	}
+
+	public static List<TypeToken> loadStandardTypes() {
+		List<TypeToken> standardList = new ArrayList<>();
+
+		try {
+			LibraryTypes StandardTypes = JsonTools.readJsonObject(, LibraryTypes.class);
+
+			StandardTypes.classes().forEach(
+					(className) -> standardList.add(new TypeToken(className, , TypeTokenEnum.CLASS)));
+
+			StandardTypes.interfaces().forEach(
+					(className) -> standardList.add(new TypeToken(className, , TypeTokenEnum.INTERFACE)));
+
+			StandardTypes.enums().forEach(
+					(className) -> standardList.add(new TypeToken(className, , TypeTokenEnum.ENUM)));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		List<String> primitiveList = List.of(, , , , , , , );
+
+		primitiveList.forEach(
+				(primitive) -> standardList.add(new TypeToken(primitive, , TypeTokenEnum.PRIMITVE)));
+
+		return standardList;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append().append(typeSpace.size()).append();
+		sb.append();
+
+		typeSpace.stream().sorted(Comparator.comparing(TypeToken::pkg))
+				.forEach(t -> sb.append(String.format(, t.name(), t.pkg(), t.type())));
+
+		sb.append();
+		return sb.toString();
+	}
+
+}
+
+[DEBUG] == File Parsing (TypeToken.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+public record TypeToken(String name, String pkg, TypeTokenEnum type) {
+    public String getFullName() {
+        return (this.pkg() +  + this.name());
+    }
+}
+
+[DEBUG] == File Parsing (TypeTokenEnum.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.TypeParser;
+
+public enum TypeTokenEnum {
+    CLASS, INTERFACE, RECORD, ENUM, PRIMITVE, IMPORTED
+}
+
+[DEBUG] == File Parsing (JsonTools.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.utils;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JsonTools {
+
+	
+	public static <T> T readJsonObject(String jsonResourcePath, Class<T> clazz) throws IOException {
+
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		InputStream is = JsonTools.class.getResourceAsStream(jsonResourcePath);
+
+		if (is == null)
+			throw new IOException();
+
+		return objectMapper.readValue(is, clazz);
+	}
+}
+
+[DEBUG] == File Parsing (RegexTools.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegexTools {
+    public static void removePattern(StringBuilder str, String regex) {
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+
+        StringBuilder temp = new StringBuilder();
+        int lastEnd = 0;
+
+        while (matcher.find()) {
+            temp.append(str, lastEnd, matcher.start());
+            lastEnd = matcher.end();
+        }
+        temp.append(str, lastEnd, str.length());
+
+        str.setLength(0);
+        str.append(temp);
+    }
+
+    public static List<String> splitAround(String str, String regex) {
+        List<String> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+
+        int lastEnd = 0;
+        while (matcher.find()) {
+            if (matcher.start() > lastEnd) {
+                result.add(str.substring(lastEnd, matcher.start()));
+            }
+
+            result.add(matcher.group());
+            lastEnd = matcher.end();
+        }
+
+        if (lastEnd < str.length()) {
+            result.add(str.substring(lastEnd));
+        }
+
+        return result;
+    }
+
+    public static List<String> splitAcross(String str, String regex) {
+        List<String> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+
+        int lastEnd = 0;
+        while (matcher.find()) {
+            if (matcher.start() > lastEnd) {
+                result.add(str.substring(lastEnd, matcher.start()));
+            }
+            lastEnd = matcher.end();
+        }
+
+        if (lastEnd < str.length()) {
+            result.add(str.substring(lastEnd));
+        }
+
+        return result;
+    }
+
+    public static boolean stringContainsRegex(String str, String regex) {
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.find();
+    }
+}
+
+[DEBUG] == File Parsing (MainWeb.java)
+[DEBUG] == printing cleaned contents...
+package com.aspodev.web;
+
+public class MainWeb {
+ public static void main(String[] args) {
+    System.out.println();
+ }   
+}
+
+[DEBUG] == EXECUTION TIME: 241

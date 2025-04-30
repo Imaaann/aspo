@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.aspodev.TypeParser.TypeParser;
-// import com.aspodev.parser.Parser;
+import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -38,13 +38,13 @@ public class AspoCommand implements Runnable {
 
         if (devMode != null) {
             System.out.println("[DEBUG] == File Parsing (" + javaFilePaths.get(devMode).getFileName() + ")");
-            // Parser parser = new Parser(javaFilePaths.get(devMode), typeParser);
-            // parser.parse();
+            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser);
+            parser.parse();
         } else {
             for (Path p : javaFilePaths) {
                 System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
-                // Parser parser = new Parser(p, typeParser);
-                // parser.parse();
+                Parser parser = new Parser(p, typeParser);
+                parser.parse();
             }
         }
 
