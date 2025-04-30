@@ -7,8 +7,149 @@ Running CLI module...
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ cli ---
+[DEBUG] == File Parsing (Cleaner.java)
+[DEBUG] added types from pkg(com.aspodev.cleaner):[com.aspodev.cleaner.Cleaner.CLASS]
+[DEBUG] imported: com.aspodev.utils.RegexTools.IMPORTED
+[DEBUG] == File Parsing (AspoCommand.java)
+[DEBUG] added types from pkg(com.aspodev.cli):[com.aspodev.cli.AspoCommand.CLASS, com.aspodev.cli.Main.CLASS]
+[DEBUG] imported: java.lang.Runnable.IMPORTED
+[DEBUG] imported: java.nio.file.Path.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: com.aspodev.TypeParser.TypeParser.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Parser.IMPORTED
+[DEBUG] imported: com.aspodev.resolver.PathResolver.IMPORTED
+[DEBUG] imported: picocli.CommandLine.Command.IMPORTED
+[DEBUG] imported: picocli.CommandLine.Option.IMPORTED
+[DEBUG] imported: picocli.CommandLine.Parameters.IMPORTED
+[DEBUG] == File Parsing (Main.java)
+[DEBUG] added types from pkg(com.aspodev.cli):[com.aspodev.cli.AspoCommand.CLASS, com.aspodev.cli.Main.CLASS]
+[DEBUG] imported: picocli.CommandLine.IMPORTED
+[DEBUG] == File Parsing (Behavior.java)
+[DEBUG] added types from pkg(com.aspodev.parser.Behavior):[com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS]
+[DEBUG] imported: com.aspodev.parser.ParserContext.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Instructions.Instruction.IMPORTED
+[DEBUG] == File Parsing (BehaviorManager.java)
+[DEBUG] added types from pkg(com.aspodev.parser.Behavior):[com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS]
+[DEBUG] imported: java.util.Arrays.IMPORTED
+[DEBUG] imported: java.util.EnumMap.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.Map.IMPORTED
+[DEBUG] imported: java.util.stream.Collectors.IMPORTED
+[DEBUG] imported: com.aspodev.TypeParser.TypeToken.IMPORTED
+[DEBUG] imported: com.aspodev.TypeParser.TypeTokenEnum.IMPORTED
+[DEBUG] imported: com.aspodev.parser.ParserContext.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Token.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Instructions.Instruction.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Instructions.InstructionTypes.IMPORTED
+[DEBUG] == File Parsing (Instruction.java)
+[DEBUG] added types from pkg(com.aspodev.parser.Instructions):[com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Token.IMPORTED
+[DEBUG] imported: com.aspodev.parser.TokenNotFoundException.IMPORTED
+[DEBUG] == File Parsing (InstructionBuilder.java)
+[DEBUG] added types from pkg(com.aspodev.parser.Instructions):[com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.Iterator.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.stream.Collectors.IMPORTED
+[DEBUG] imported: com.aspodev.parser.ParserConstants.IMPORTED
+[DEBUG] == File Parsing (InstructionClassifier.java)
+[DEBUG] added types from pkg(com.aspodev.parser.Instructions):[com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.stream.Collectors.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Token.IMPORTED
 [DEBUG] == File Parsing (InstructionTypes.java)
-[KW(package), CID(com.aspodev.parser.Instructions), SP(;)] TYPE:OTHER
-[KW(public), KW(enum), ID(InstructionTypes), SP({)] TYPE:OTHER
-[ID(OTHER), SP(})] TYPE:OTHER
-[DEBUG] == EXECUTION TIME: 168
+[DEBUG] added types from pkg(com.aspodev.parser.Instructions):[com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] == File Parsing (Parser.java)
+[DEBUG] added types from pkg(com.aspodev.parser):[com.aspodev.parser.Parser.CLASS, com.aspodev.parser.ParserConstants.CLASS, com.aspodev.parser.ParserContext.CLASS, com.aspodev.parser.Token.CLASS, com.aspodev.parser.TokenNotFoundException.CLASS, com.aspodev.parser.TokenTypes.ENUM, com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS, com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] imported: java.nio.file.Path.IMPORTED
+[DEBUG] imported: java.util.Iterator.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: com.aspodev.TypeParser.TypeParser.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Behavior.BehaviorManager.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Instructions.Instruction.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Instructions.InstructionBuilder.IMPORTED
+[DEBUG] imported: com.aspodev.parser.Instructions.InstructionClassifier.IMPORTED
+[DEBUG] imported: com.aspodev.tokenizer.Tokenizer.IMPORTED
+[DEBUG] == File Parsing (ParserConstants.java)
+[DEBUG] added types from pkg(com.aspodev.parser):[com.aspodev.parser.Parser.CLASS, com.aspodev.parser.ParserConstants.CLASS, com.aspodev.parser.ParserContext.CLASS, com.aspodev.parser.Token.CLASS, com.aspodev.parser.TokenNotFoundException.CLASS, com.aspodev.parser.TokenTypes.ENUM, com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS, com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] imported: java.util.Set.IMPORTED
+[DEBUG] == File Parsing (ParserContext.java)
+[DEBUG] added types from pkg(com.aspodev.parser):[com.aspodev.parser.Parser.CLASS, com.aspodev.parser.ParserConstants.CLASS, com.aspodev.parser.ParserContext.CLASS, com.aspodev.parser.Token.CLASS, com.aspodev.parser.TokenNotFoundException.CLASS, com.aspodev.parser.TokenTypes.ENUM, com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS, com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] imported: com.aspodev.TypeParser.TypeParser.IMPORTED
+[DEBUG] imported: com.aspodev.TypeParser.TypeSpace.IMPORTED
+[DEBUG] imported: com.aspodev.TypeParser.TypeToken.IMPORTED
+[DEBUG] == File Parsing (Token.java)
+[DEBUG] added types from pkg(com.aspodev.parser):[com.aspodev.parser.Parser.CLASS, com.aspodev.parser.ParserConstants.CLASS, com.aspodev.parser.ParserContext.CLASS, com.aspodev.parser.Token.CLASS, com.aspodev.parser.TokenNotFoundException.CLASS, com.aspodev.parser.TokenTypes.ENUM, com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS, com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] == File Parsing (TokenNotFoundException.java)
+[DEBUG] added types from pkg(com.aspodev.parser):[com.aspodev.parser.Parser.CLASS, com.aspodev.parser.ParserConstants.CLASS, com.aspodev.parser.ParserContext.CLASS, com.aspodev.parser.Token.CLASS, com.aspodev.parser.TokenNotFoundException.CLASS, com.aspodev.parser.TokenTypes.ENUM, com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS, com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] == File Parsing (TokenTypes.java)
+[DEBUG] added types from pkg(com.aspodev.parser):[com.aspodev.parser.Parser.CLASS, com.aspodev.parser.ParserConstants.CLASS, com.aspodev.parser.ParserContext.CLASS, com.aspodev.parser.Token.CLASS, com.aspodev.parser.TokenNotFoundException.CLASS, com.aspodev.parser.TokenTypes.ENUM, com.aspodev.parser.Behavior.Behavior.INTERFACE, com.aspodev.parser.Behavior.BehaviorManager.CLASS, com.aspodev.parser.Instructions.Instruction.RECORD, com.aspodev.parser.Instructions.InstructionBuilder.CLASS, com.aspodev.parser.Instructions.InstructionClassifier.CLASS, com.aspodev.parser.Instructions.InstructionTypes.ENUM]
+[DEBUG] == File Parsing (PathResolver.java)
+[DEBUG] added types from pkg(com.aspodev.resolver):[com.aspodev.resolver.PathResolver.CLASS]
+[DEBUG] imported: java.io.IOException.IMPORTED
+[DEBUG] imported: java.nio.file.Files.IMPORTED
+[DEBUG] imported: java.nio.file.Path.IMPORTED
+[DEBUG] imported: java.nio.file.Paths.IMPORTED
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.stream.Stream.IMPORTED
+[DEBUG] == File Parsing (Tokenizer.java)
+[DEBUG] added types from pkg(com.aspodev.tokenizer):[com.aspodev.tokenizer.Tokenizer.CLASS]
+[DEBUG] imported: java.io.IOException.IMPORTED
+[DEBUG] imported: java.nio.file.Files.IMPORTED
+[DEBUG] imported: java.nio.file.Path.IMPORTED
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.Arrays.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.regex.Pattern.IMPORTED
+[DEBUG] imported: java.util.stream.Collectors.IMPORTED
+[DEBUG] imported: com.aspodev.cleaner.Cleaner.IMPORTED
+[DEBUG] imported: com.aspodev.utils.RegexTools.IMPORTED
+[DEBUG] == File Parsing (LibraryTypes.java)
+[DEBUG] added types from pkg(com.aspodev.TypeParser):[com.aspodev.TypeParser.LibraryTypes.RECORD, com.aspodev.TypeParser.TypeFinder.CLASS, com.aspodev.TypeParser.TypeParser.CLASS, com.aspodev.TypeParser.TypeSpace.CLASS, com.aspodev.TypeParser.TypeToken.RECORD, com.aspodev.TypeParser.TypeTokenEnum.ENUM]
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: com.fasterxml.jackson.annotation.JsonProperty.IMPORTED
+[DEBUG] == File Parsing (TypeFinder.java)
+[DEBUG] added types from pkg(com.aspodev.TypeParser):[com.aspodev.TypeParser.LibraryTypes.RECORD, com.aspodev.TypeParser.TypeFinder.CLASS, com.aspodev.TypeParser.TypeParser.CLASS, com.aspodev.TypeParser.TypeSpace.CLASS, com.aspodev.TypeParser.TypeToken.RECORD, com.aspodev.TypeParser.TypeTokenEnum.ENUM]
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.regex.Matcher.IMPORTED
+[DEBUG] imported: java.util.regex.Pattern.IMPORTED
+[DEBUG] == File Parsing (TypeParser.java)
+[DEBUG] added types from pkg(com.aspodev.TypeParser):[com.aspodev.TypeParser.LibraryTypes.RECORD, com.aspodev.TypeParser.TypeFinder.CLASS, com.aspodev.TypeParser.TypeParser.CLASS, com.aspodev.TypeParser.TypeSpace.CLASS, com.aspodev.TypeParser.TypeToken.RECORD, com.aspodev.TypeParser.TypeTokenEnum.ENUM]
+[DEBUG] imported: java.io.IOException.IMPORTED
+[DEBUG] imported: java.nio.file.Files.IMPORTED
+[DEBUG] imported: java.nio.file.Path.IMPORTED
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.HashMap.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: com.aspodev.cleaner.Cleaner.IMPORTED
+[DEBUG] == File Parsing (TypeSpace.java)
+[DEBUG] added types from pkg(com.aspodev.TypeParser):[com.aspodev.TypeParser.LibraryTypes.RECORD, com.aspodev.TypeParser.TypeFinder.CLASS, com.aspodev.TypeParser.TypeParser.CLASS, com.aspodev.TypeParser.TypeSpace.CLASS, com.aspodev.TypeParser.TypeToken.RECORD, com.aspodev.TypeParser.TypeTokenEnum.ENUM]
+[DEBUG] imported: java.io.IOException.IMPORTED
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.Comparator.IMPORTED
+[DEBUG] imported: java.util.HashSet.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.Set.IMPORTED
+[DEBUG] imported: com.aspodev.utils.JsonTools.IMPORTED
+[DEBUG] == File Parsing (TypeToken.java)
+[DEBUG] added types from pkg(com.aspodev.TypeParser):[com.aspodev.TypeParser.LibraryTypes.RECORD, com.aspodev.TypeParser.TypeFinder.CLASS, com.aspodev.TypeParser.TypeParser.CLASS, com.aspodev.TypeParser.TypeSpace.CLASS, com.aspodev.TypeParser.TypeToken.RECORD, com.aspodev.TypeParser.TypeTokenEnum.ENUM]
+[DEBUG] == File Parsing (TypeTokenEnum.java)
+[DEBUG] added types from pkg(com.aspodev.TypeParser):[com.aspodev.TypeParser.LibraryTypes.RECORD, com.aspodev.TypeParser.TypeFinder.CLASS, com.aspodev.TypeParser.TypeParser.CLASS, com.aspodev.TypeParser.TypeSpace.CLASS, com.aspodev.TypeParser.TypeToken.RECORD, com.aspodev.TypeParser.TypeTokenEnum.ENUM]
+[DEBUG] == File Parsing (JsonTools.java)
+[DEBUG] added types from pkg(com.aspodev.utils):[com.aspodev.utils.JsonTools.CLASS, com.aspodev.utils.RegexTools.CLASS]
+[DEBUG] imported: java.io.IOException.IMPORTED
+[DEBUG] imported: java.io.InputStream.IMPORTED
+[DEBUG] imported: com.fasterxml.jackson.databind.ObjectMapper.IMPORTED
+[DEBUG] == File Parsing (RegexTools.java)
+[DEBUG] added types from pkg(com.aspodev.utils):[com.aspodev.utils.JsonTools.CLASS, com.aspodev.utils.RegexTools.CLASS]
+[DEBUG] imported: java.util.ArrayList.IMPORTED
+[DEBUG] imported: java.util.List.IMPORTED
+[DEBUG] imported: java.util.regex.Matcher.IMPORTED
+[DEBUG] imported: java.util.regex.Pattern.IMPORTED
+[DEBUG] == File Parsing (MainWeb.java)
+[DEBUG] added types from pkg(com.aspodev.web):[com.aspodev.web.MainWeb.CLASS]
+[DEBUG] == EXECUTION TIME: 617

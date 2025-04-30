@@ -4,4 +4,8 @@ public record TypeToken(String name, String pkg, TypeTokenEnum type) {
     public String getFullName() {
         return (this.pkg() + "." + this.name());
     }
+
+    public String toString() {
+        return getFullName() + "." + this.type;
+    }
 }

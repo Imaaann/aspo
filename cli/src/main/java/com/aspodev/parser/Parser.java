@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.parser.Behavior.BehaviorManager;
+import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionBuilder;
 import com.aspodev.parser.Instructions.InstructionClassifier;
 import com.aspodev.tokenizer.Tokenizer;
@@ -13,6 +15,7 @@ public class Parser {
 	private TypeParser parser;
 	private List<String> tokens;
 	private Iterator<String> iterator;
+	private ParserContext context;
 
 	public Parser(Path path, TypeParser parser) {
 		this.parser = parser;
@@ -22,6 +25,8 @@ public class Parser {
 
 		this.tokens = tokenizer.getTokens();
 		this.iterator = tokens.iterator();
+
+		this.context = new ParserContext(this.parser);
 	}
 
 	// TODO: replace with SCAR model as return
@@ -32,11 +37,15 @@ public class Parser {
 			InstructionBuilder builder = new InstructionBuilder(iterator);
 			builder.build();
 			builder.clean();
-			List<String> instruction = builder.getInstruction();
+			List<String> rawInstruction = builder.getInstruction();
 
 			// Classify the tokens and instruction
-			InstructionClassifier classifier = new InstructionClassifier(instruction);
-			System.out.println(classifier.classify());
+			InstructionClassifier classifier = new InstructionClassifier(rawInstruction);
+			Instruction instruction = classifier.classify();
+
+			// Execute behavior assosiated with the instruction
+			BehaviorManager manager = BehaviorManager.getInstance();
+			manager.execute(this.context, instruction);
 		}
 	}
 }

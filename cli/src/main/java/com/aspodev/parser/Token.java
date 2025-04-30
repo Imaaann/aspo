@@ -1,6 +1,55 @@
 package com.aspodev.parser;
 
-public record Token(String value, TokenTypes type) {
+public class Token {
+	private final String value;
+	private TokenTypes type;
+
+	public Token(String value, TokenTypes type) {
+		this.value = value;
+		this.type = type;
+	}
+
+	public Token(String value) {
+		this.value = value;
+		this.type = classifyToken(value);
+	}
+
+	public boolean isIdentifier() {
+		return type == TokenTypes.IDENTIFIER || type == TokenTypes.CHAINED_IDENTIFIER
+				|| type == TokenTypes.TYPE_IDENTIFIER;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public TokenTypes getType() {
+		return type;
+	}
+
+	public void setType(TokenTypes type) {
+		this.type = type;
+	}
+
+	private TokenTypes classifyToken(String token) {
+		if (ParserConstants.keywords.contains(token) || isContextKeyword(token)) {
+			return TokenTypes.KEYWORD;
+		} else if (ParserConstants.operators.contains(token)) {
+			return TokenTypes.OPERATOR;
+		} else if (ParserConstants.seperators.contains(token)) {
+			return TokenTypes.SEPERATOR;
+		} else if (token.contains(".")) {
+			return TokenTypes.CHAINED_IDENTIFIER;
+		} else {
+			return TokenTypes.IDENTIFIER;
+		}
+	}
+
+	private boolean isContextKeyword(String token) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	public String toString() {
 		return switch (type) {
 		case KEYWORD:
@@ -20,5 +69,14 @@ public record Token(String value, TokenTypes type) {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + type);
 		};
+	}
+
+	public boolean equals(Object obj) {
+
+		if (obj instanceof Token) {
+			return ((Token) obj).getValue().equals(this.getValue());
+		}
+
+		return false;
 	}
 }

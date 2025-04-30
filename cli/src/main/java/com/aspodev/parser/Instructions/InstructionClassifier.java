@@ -2,10 +2,8 @@ package com.aspodev.parser.Instructions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.aspodev.parser.ParserConstants;
+import java.util.stream.Collectors;
 import com.aspodev.parser.Token;
-import com.aspodev.parser.TokenTypes;
 
 public class InstructionClassifier {
 	private List<String> rawInstruction;
@@ -18,38 +16,23 @@ public class InstructionClassifier {
 	}
 
 	public Instruction classify() {
-		classifyTokens();
-		classifyInstruction();
+		classifiedTokens = classifyTokens();
+		instructionType = classifyInstruction();
 		return new Instruction(classifiedTokens, instructionType);
 	}
 
-	private void classifyTokens() {
-		for (String token : rawInstruction) {
-			if (ParserConstants.keywords.contains(token)) {
-				classifiedTokens.add(new Token(token, TokenTypes.KEYWORD));
-			} else if (ParserConstants.operators.contains(token)) {
-				classifiedTokens.add(new Token(token, TokenTypes.OPERATOR));
-			} else if (ParserConstants.seperators.contains(token)) {
-				classifiedTokens.add(new Token(token, TokenTypes.SEPERATOR));
-			} else if (isContextKeyword(token)) {
-				classifiedTokens.add(new Token(token, TokenTypes.KEYWORD));
-			} else if (token.contains(".")) {
-				classifiedTokens.add(new Token(token, TokenTypes.CHAINED_IDENTIFIER));
-			} else {
-				classifiedTokens.add(new Token(token, TokenTypes.IDENTIFIER));
-			}
-		}
+	private List<Token> classifyTokens() {
+		return rawInstruction.stream().map(token -> new Token(token)).collect(Collectors.toList());
 	}
 
-	private void classifyInstruction() {
+	private InstructionTypes classifyInstruction() {
 		// TODO: make this function work ffs
+		if (classifiedTokens.contains(new Token("import")))
+			return InstructionTypes.IMPORT_STATEMENT;
 
-		instructionType = InstructionTypes.OTHER;
-	}
+		if (classifiedTokens.contains(new Token("package")))
+			return InstructionTypes.PACKAGE_STATEMENT;
 
-	public boolean isContextKeyword(String token) {
-		// TODO: check if a token is a contextual keyword
-
-		return false;
+		return InstructionTypes.OTHER;
 	}
 }

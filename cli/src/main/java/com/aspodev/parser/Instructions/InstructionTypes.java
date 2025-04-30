@@ -1,5 +1,5 @@
 package com.aspodev.parser.Instructions;
 
 public enum InstructionTypes {
-	OTHER
+	OTHER, IMPORT_STATEMENT, PACKAGE_STATEMENT,
 }
