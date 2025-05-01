@@ -1,7 +1,7 @@
 package com.aspodev.parser;
 
 public class Token {
-	private final String value;
+	private String value;
 	private TokenTypes type;
 
 	public Token(String value, TokenTypes type) {
@@ -31,6 +31,9 @@ public class Token {
 		this.type = type;
 	}
 
+	public void setValue(String value){
+		this.value= value;
+	}
 	private TokenTypes classifyToken(String token) {
 		if (ParserConstants.keywords.contains(token) || isContextKeyword(token)) {
 			return TokenTypes.KEYWORD;
@@ -72,11 +75,15 @@ public class Token {
 	}
 
 	public boolean equals(Object obj) {
-
 		if (obj instanceof Token) {
 			return ((Token) obj).getValue().equals(this.getValue());
 		}
 
 		return false;
+	}
+
+	public void append(Token token){
+		this.value = this.value + token.getValue();
+		System.out.println(this.value);
 	}
 }
