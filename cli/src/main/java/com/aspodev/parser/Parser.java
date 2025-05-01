@@ -41,7 +41,8 @@ public class Parser {
 
 			// Classify the tokens and instruction
 			InstructionClassifier classifier = new InstructionClassifier(rawInstruction);
-			Instruction instruction = classifier.classify();
+			Instruction instruction = classifier.classify(this.context);
+			System.out.println("[DEBUG] ==  instruction found: " + instruction);
 
 			// Execute behavior assosiated with the instruction
 			BehaviorManager manager = BehaviorManager.getInstance();
