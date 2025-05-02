@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 public class JsonTools {
 
@@ -27,5 +28,15 @@ public class JsonTools {
 			throw new IOException("Resource not found!");
 
 		return objectMapper.readValue(is, clazz);
+	}
+	public static <T> T readJsonObject(String jsonResourcePath, TypeReference<T> typeReference) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		InputStream is = JsonTools.class.getResourceAsStream(jsonResourcePath);
+
+		if (is == null) {
+			throw new IOException("Resource not found!");
+		}
+
+		return objectMapper.readValue(is, typeReference);
 	}
 }
