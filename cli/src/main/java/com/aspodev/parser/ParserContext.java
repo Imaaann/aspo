@@ -51,11 +51,19 @@ public class ParserContext {
 		this.space.addPackage(pkgName, parser);
 	}
 
+<<<<<<< HEAD
 	public boolean isType(Token token) {
 		return space.isType(token);
 	}
 
 	public String toString() {
+=======
+	public boolean isType(Token token){
+		return space.isType(token);
+	}
+
+	public String toString(){
+>>>>>>> c82fe13 (manually merged the code)
 		return space.toString();
 	}
 }
