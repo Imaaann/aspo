@@ -3,15 +3,22 @@ package com.aspodev.parser;
 public class Token {
 	private String value;
 	private TokenTypes type;
+	private final int position;
 
-	public Token(String value, TokenTypes type) {
+	public Token(String value, TokenTypes type, int position) {
 		this.value = value;
 		this.type = type;
+		this.position = position;
+	}
+
+	public Token(String value, int position) {
+		this.value = value;
+		this.position = position;
+		this.type = classifyToken(value);
 	}
 
 	public Token(String value) {
-		this.value = value;
-		this.type = classifyToken(value);
+		this(value, 0);
 	}
 
 	public boolean isIdentifier() {
@@ -21,6 +28,10 @@ public class Token {
 
 	public String getValue() {
 		return value;
+	}
+
+	public int getPosition() {
+		return position;
 	}
 
 	public TokenTypes getType() {
@@ -35,7 +46,7 @@ public class Token {
 		this.value= value;
 	}
 	private TokenTypes classifyToken(String token) {
-		if (ParserConstants.keywords.contains(token) || isContextKeyword(token)) {
+		if (ParserConstants.keywords.contains(token)) {
 			return TokenTypes.KEYWORD;
 		} else if (ParserConstants.operators.contains(token)) {
 			return TokenTypes.OPERATOR;
@@ -46,11 +57,6 @@ public class Token {
 		} else {
 			return TokenTypes.IDENTIFIER;
 		}
-	}
-
-	private boolean isContextKeyword(String token) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public String toString() {
