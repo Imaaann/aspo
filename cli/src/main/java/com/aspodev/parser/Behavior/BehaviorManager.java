@@ -35,6 +35,8 @@ public class BehaviorManager {
 			Token identifier = instruction.getIdentifier(0);
 			context.addPackage(identifier.getValue());
 		});
+
+		registry.put(InstructionTypes.ATTRIBUTE_DECLARATION, null);
 	}
 
 	public static BehaviorManager getInstance() {

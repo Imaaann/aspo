@@ -6,13 +6,15 @@ import java.util.List;
 
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
-import com.aspodev.parser.TokenNotFoundException;
 
+import com.aspodev.parser.TokenNotFoundException;
+import com.aspodev.parser.Scope.ScopeEnum;
 
 public class InstructionClassifier {
 	private List<String> rawInstruction;
 	private List<Token> classifiedTokens;
 	private InstructionTypes instructionType;
+
 	public InstructionClassifier(List<String> instruction) {
 		this.rawInstruction = instruction;
 		this.classifiedTokens = new ArrayList<>(16);
@@ -35,7 +37,6 @@ public class InstructionClassifier {
 	}
 
 	private boolean isRecordDeclaration() {
-		System.out.println("atleast work");
 		try {
 			Token recordIdentifier = Instruction.getIdentifier(classifiedTokens, 0);
 
@@ -59,8 +60,9 @@ public class InstructionClassifier {
 		// TODO: make this function work ffs
 		if (classifiedTokens.contains(new Token("import")))
 			return InstructionTypes.IMPORT_STATEMENT;
-			
+
 		if (classifiedTokens.contains(new Token("package")))
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 			return InstructionTypes.PACKAGE_STATEMENT;
@@ -70,17 +72,19 @@ public class InstructionClassifier {
 			return InstructionTypes.PACKAGE_STATEMENT;
 		if(isAttribute(context))
 >>>>>>> c82fe13 (manually merged the code)
+=======
+
+			return InstructionTypes.PACKAGE_STATEMENT;
+		if (isAttribute(context))
+>>>>>>> 96fc80f (added the scope left in isAttribute + extra fixes)
 			return InstructionTypes.ATTRIBUTE_DECLARATION;
 
-<<<<<<< HEAD
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DEFINITION;
 
-=======
-		
->>>>>>> 61ce976 ( feat(instructionClassifyer) added the attribute_declaration detection)
 		return InstructionTypes.OTHER;
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	// TO discuss
@@ -124,18 +128,38 @@ public class InstructionClassifier {
 					token.append(temp);
 					do{
 						temp=iterator.next();
+=======
+
+	// TO discuss
+	private boolean isAttribute(ParserContext context) {
+		if (context.getCurrentScope() == ScopeEnum.CLASS) {
+			Iterator<Token> iterator = classifiedTokens.iterator();
+			while (iterator.hasNext()) {
+				Token token = iterator.next();
+				if (token.isIdentifier() && iterator.hasNext()) {
+					Token temp = iterator.next();
+					if (temp.equals('<')) {
+>>>>>>> 96fc80f (added the scope left in isAttribute + extra fixes)
 						token.append(temp);
-					}while(!temp.equals('>'));
-					if(iterator.hasNext()){
-						token = iterator.next();
+						do {
+							temp = iterator.next();
+							token.append(temp);
+						} while (!temp.equals('>'));
+						if (iterator.hasNext()) {
+							token = iterator.next();
+						}
 					}
-				}
-				
+
 					return token.isIdentifier();
-				
+
+				}
 			}
 		}
+<<<<<<< HEAD
 		return false; 
 >>>>>>> c82fe13 (manually merged the code)
+=======
+		return false;
+>>>>>>> 96fc80f (added the scope left in isAttribute + extra fixes)
 	}
 }

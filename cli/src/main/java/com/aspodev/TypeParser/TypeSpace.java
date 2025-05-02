@@ -77,7 +77,7 @@ public class TypeSpace {
 		return sb.toString();
 	}
 
-	public boolean isType(Token token){
-		return typeSpace.contains(new TypeToken(token.getValue(),null,null));
+	public boolean isType(Token token) {
+		return typeSpace.contains(new TypeToken(token.getValue(), null, null));
 	}
 }
