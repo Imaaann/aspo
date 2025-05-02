@@ -37,26 +37,6 @@ public class InstructionClassifier {
 		return result;
 	}
 
-	private boolean isRecordDeclaration() {
-		try {
-			Token recordIdentifier = Instruction.getIdentifier(classifiedTokens, 0);
-
-			if (!recordIdentifier.getValue().equals("record"))
-				return false;
-
-			int recordPosition = recordIdentifier.getPosition();
-
-			if (!classifiedTokens.get(recordPosition + 1).isIdentifier()
-					|| !classifiedTokens.get(recordPosition + 2).getValue().equals("("))
-				return false;
-
-			return true;
-		} catch (TokenNotFoundException e) {
-			return false;
-		}
-
-	}
-
 	private InstructionTypes classifyInstruction(ParserContext context) {
 		// TODO: make this function work ffs
 		if (classifiedTokens.contains(new Token("import")))
@@ -71,13 +51,11 @@ public class InstructionClassifier {
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DEFINITION;
 
-		if (isRecordDeclaration())
-			return InstructionTypes.RECORD_DEFINITION;
-
 		return InstructionTypes.OTHER;
 	}
 
-	// TO discuss
+	// #region Declaration functions
+
 	private boolean isAttribute(ParserContext context) {
 		if (context.getCurrentScope() == ScopeEnum.CLASS) {
 			Iterator<Token> iterator = classifiedTokens.iterator();
@@ -104,4 +82,26 @@ public class InstructionClassifier {
 		}
 		return false;
 	}
+
+	private boolean isRecordDeclaration() {
+		try {
+			Token recordIdentifier = Instruction.getIdentifier(classifiedTokens, 0);
+
+			if (!recordIdentifier.getValue().equals("record"))
+				return false;
+
+			int recordPosition = recordIdentifier.getPosition();
+
+			if (!classifiedTokens.get(recordPosition + 1).isIdentifier()
+					|| !classifiedTokens.get(recordPosition + 2).getValue().equals("("))
+				return false;
+
+			return true;
+		} catch (TokenNotFoundException e) {
+			return false;
+		}
+
+	}
+
+	// #endregion
 }
