@@ -20,7 +20,8 @@ public class InstructionBuilder {
 		while (iterator.hasNext()) {
 			String token = iterator.next();
 
-			if (token.equals(";") || token.equals("}") || token.equals("{") || token.equals(":") || ParserConstants.assignmentOperators.contains(token)) {
+			if (token.equals(";") || token.equals("}") || token.equals("{") || token.equals(":")
+					|| ParserConstants.assignmentOperators.contains(token)) {
 				instruction.add(token);
 				break;
 			}

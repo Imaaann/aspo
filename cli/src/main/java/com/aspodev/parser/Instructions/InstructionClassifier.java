@@ -62,21 +62,9 @@ public class InstructionClassifier {
 			return InstructionTypes.IMPORT_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("package")))
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 			return InstructionTypes.PACKAGE_STATEMENT;
 		if (isAttribute(context))
-=======
-	
-			return InstructionTypes.PACKAGE_STATEMENT;
-		if(isAttribute(context))
->>>>>>> c82fe13 (manually merged the code)
-=======
-
-			return InstructionTypes.PACKAGE_STATEMENT;
-		if (isAttribute(context))
->>>>>>> 96fc80f (added the scope left in isAttribute + extra fixes)
 			return InstructionTypes.ATTRIBUTE_DECLARATION;
 
 		if (isRecordDeclaration())
@@ -84,51 +72,6 @@ public class InstructionClassifier {
 
 		return InstructionTypes.OTHER;
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	// TO discuss
-	private boolean isAttribute(ParserContext context) {
-		// TODO add scope condition
-		Iterator<Token> iterator = classifiedTokens.iterator();
-		int idtcount = 0;
-		while (iterator.hasNext() && idtcount == 0) {
-			Token token = iterator.next();
-			if (token.isIdentifier() && iterator.hasNext()) {
-				idtcount++;
-				Token temp = iterator.next();
-				if (temp.equals('<')) {
-					token.append(temp);
-					do {
-						temp = iterator.next();
-						token.append(temp);
-					} while (!temp.equals('>'));
-					if (iterator.hasNext()) {
-						token = iterator.next();
-					}
-				}
-
-				return token.isIdentifier();
-
-			}
-		}
-		return false;
-=======
-	//TO discuss
-	private boolean isAttribute(ParserContext context){
-		//TODO add scope condition
-		Iterator<Token> iterator = classifiedTokens.iterator();
-		int idtcount = 0;
-		while(iterator.hasNext() && idtcount == 0){
-			Token token = iterator.next();
-			if(token.isIdentifier() && iterator.hasNext()){
-				idtcount++;
-				Token temp = iterator.next();
-				if (temp.equals('<')){
-					token.append(temp);
-					do{
-						temp=iterator.next();
-=======
 
 	// TO discuss
 	private boolean isAttribute(ParserContext context) {
@@ -139,7 +82,7 @@ public class InstructionClassifier {
 				if (token.isIdentifier() && iterator.hasNext()) {
 					Token temp = iterator.next();
 					if (temp.equals('<')) {
->>>>>>> 96fc80f (added the scope left in isAttribute + extra fixes)
+
 						token.append(temp);
 						do {
 							temp = iterator.next();
@@ -155,11 +98,6 @@ public class InstructionClassifier {
 				}
 			}
 		}
-<<<<<<< HEAD
-		return false; 
->>>>>>> c82fe13 (manually merged the code)
-=======
 		return false;
->>>>>>> 96fc80f (added the scope left in isAttribute + extra fixes)
 	}
 }

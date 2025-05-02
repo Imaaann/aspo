@@ -1,9 +1,5 @@
 package com.aspodev.parser.Instructions;
 
 public enum InstructionTypes {
-<<<<<<< HEAD
 	OTHER, IMPORT_STATEMENT, PACKAGE_STATEMENT, ATTRIBUTE_DECLARATION, RECORD_DEFINITION
-=======
-	OTHER, IMPORT_STATEMENT, PACKAGE_STATEMENT,RECORD_DEFINITION,ATTRIBUTE_DECLARATION
->>>>>>> c82fe13 (manually merged the code)
 }
