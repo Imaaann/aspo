@@ -1,11 +1,15 @@
 package com.aspodev.parser.Instructions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
+
+import com.aspodev.parser.TokenNotFoundException;
+import com.aspodev.parser.Scope.ScopeEnum;
 
 public class InstructionClassifier {
 	private List<String> rawInstruction;
@@ -34,7 +38,6 @@ public class InstructionClassifier {
 	}
 
 	private boolean isRecordDeclaration() {
-		System.out.println("atleast work");
 		try {
 			Token recordIdentifier = Instruction.getIdentifier(classifiedTokens, 0);
 
@@ -60,11 +63,45 @@ public class InstructionClassifier {
 			return InstructionTypes.IMPORT_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("package")))
+
 			return InstructionTypes.PACKAGE_STATEMENT;
+		if (isAttribute(context))
+			return InstructionTypes.ATTRIBUTE_DECLARATION;
+
+		if (isRecordDeclaration())
+			return InstructionTypes.RECORD_DEFINITION;
 
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DEFINITION;
 
 		return InstructionTypes.OTHER;
+	}
+
+	// TO discuss
+	private boolean isAttribute(ParserContext context) {
+		if (context.getCurrentScope() == ScopeEnum.CLASS) {
+			Iterator<Token> iterator = classifiedTokens.iterator();
+			while (iterator.hasNext()) {
+				Token token = iterator.next();
+				if (token.isIdentifier() && iterator.hasNext()) {
+					Token temp = iterator.next();
+					if (temp.equals('<')) {
+
+						token.append(temp);
+						do {
+							temp = iterator.next();
+							token.append(temp);
+						} while (!temp.equals('>'));
+						if (iterator.hasNext()) {
+							token = iterator.next();
+						}
+					}
+
+					return token.isIdentifier();
+
+				}
+			}
+		}
+		return false;
 	}
 }

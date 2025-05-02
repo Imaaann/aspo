@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.aspodev.parser.ParserContext;
+import com.aspodev.parser.Token;
 import com.aspodev.utils.JsonTools;
 
 public class TypeSpace {
@@ -75,4 +77,7 @@ public class TypeSpace {
 		return sb.toString();
 	}
 
+	public boolean isType(Token token) {
+		return typeSpace.contains(new TypeToken(token.getValue(), null, null));
+	}
 }
