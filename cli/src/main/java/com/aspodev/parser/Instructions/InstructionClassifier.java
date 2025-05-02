@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
+import com.aspodev.parser.TokenNotFoundException;
 
 import com.aspodev.parser.TokenNotFoundException;
 import com.aspodev.parser.Scope.ScopeEnum;
@@ -66,6 +67,9 @@ public class InstructionClassifier {
 			return InstructionTypes.PACKAGE_STATEMENT;
 		if (isAttribute(context))
 			return InstructionTypes.ATTRIBUTE_DECLARATION;
+
+		if (isRecordDeclaration())
+			return InstructionTypes.RECORD_DEFINITION;
 
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DEFINITION;
