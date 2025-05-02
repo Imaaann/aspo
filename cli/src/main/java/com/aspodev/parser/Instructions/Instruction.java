@@ -6,7 +6,12 @@ import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
 
 public record Instruction(List<Token> tokens, InstructionTypes type) {
+
 	public Token getIdentifier(int index) throws TokenNotFoundException {
+		return Instruction.getIdentifier(tokens, index);
+	}
+
+	public static Token getIdentifier(List<Token> tokens, int index) {
 		for (Token token : tokens) {
 			if (token.isIdentifier()) {
 				if (index == 0)
