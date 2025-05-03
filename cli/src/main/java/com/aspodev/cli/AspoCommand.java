@@ -4,6 +4,7 @@ import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
@@ -35,15 +36,16 @@ public class AspoCommand implements Runnable {
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
         TypeParser typeParser = new TypeParser(javaFilePaths);
+        Model SCARModel = new Model();
 
         if (devMode != null) {
             System.out.println("[DEBUG] == File Parsing (" + javaFilePaths.get(devMode).getFileName() + ")");
-            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser);
+            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser, SCARModel);
             parser.parse();
         } else {
             for (Path p : javaFilePaths) {
                 System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
-                Parser parser = new Parser(p, typeParser);
+                Parser parser = new Parser(p, typeParser, SCARModel);
                 parser.parse();
             }
         }

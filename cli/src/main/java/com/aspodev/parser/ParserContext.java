@@ -1,5 +1,9 @@
 package com.aspodev.parser;
 
+import java.util.Stack;
+
+import com.aspodev.SCAR.Model;
+import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.TypeParser.TypeToken;
@@ -10,8 +14,11 @@ public class ParserContext {
 	private TypeSpace space;
 	private TypeParser parser;
 	private Scope scope;
+	private Model model;
+	private Stack<Slice> slices;
 
-	public ParserContext(TypeParser parser) {
+	public ParserContext(TypeParser parser, Model model) {
+		this.model = model;
 		this.parser = parser;
 		this.space = new TypeSpace();
 		this.scope = new Scope();
@@ -58,6 +65,30 @@ public class ParserContext {
 	public String toString() {
 		return space.toString();
 	}
+
+	// #endregion
+
+	// #region SCAR methods
+
+	public void createSlice(TypeToken data) {
+		if (slices.empty())
+			slices.push(new Slice(data));
+		else
+			slices.push(new Slice(data, this.getSlice().getMetaData().getFullName()));
+	}
+
+	public Slice getSlice() {
+		return slices.peek();
+	}
+
+	public void finalizeSlice() {
+		if (slices.empty())
+			return;
+
+		Slice current = slices.pop();
+		model.addSlice(current);
+	}
+
 	// #endregion
 
 }
