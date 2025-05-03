@@ -8,7 +8,6 @@ import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
 
-import com.aspodev.parser.TokenNotFoundException;
 import com.aspodev.parser.Scope.ScopeEnum;
 
 public class InstructionClassifier {
@@ -63,13 +62,13 @@ public class InstructionClassifier {
 				Token token = iterator.next();
 				if (token.isIdentifier() && iterator.hasNext()) {
 					Token temp = iterator.next();
-					if (temp.equals('<')) {
+					if (temp.getValue().equals("<")) {
 
 						token.append(temp);
 						do {
 							temp = iterator.next();
 							token.append(temp);
-						} while (!temp.equals('>'));
+						} while (!temp.getValue().equals(">"));
 						if (iterator.hasNext()) {
 							token = iterator.next();
 						}
