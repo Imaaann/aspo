@@ -5,7 +5,7 @@ import java.util.Set;
 public class ParserConstants {
 	public static Set<String> skippableTokens = Set.of("continue", "for", "if", "do", "goto", "break", "else", "return",
 			"try", "finally", "const", "while", "!", "~", "==", ">=", "<=", "!=", "&&", "||", "++", "--", "+", "-",
-			"*", "/", "&", "|", "^", "%", "<<", ">>", ">>>");
+			"*", "/", "&", "|", "^", "%");
 
 	public static Set<String> keywords = Set.of("abstract", "continue", "for", "new", "switch", "assert", "default",
 			"if", "package", "synchronized", "do", "goto", "private", "this", "break", "implements", "protected",
@@ -18,5 +18,5 @@ public class ParserConstants {
 	public static Set<String> seperators = Set.of("(", ")", "{", "}", "[", "]", ";", ",", ".", "...", "@", "::");
 
 	public static Set<String> assignmentOperators = Set.of("+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "<<=",
-			">>=", ">>>=","=");
+			">>=", ">>>=", "=");
 }
