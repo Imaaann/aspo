@@ -52,6 +52,8 @@ public class InstructionClassifier {
 
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DEFINITION;
+		if (isLocalVariable(context))
+			return InstructionTypes.LOCALVARIABLE_DECLARATION;
 
 		return InstructionTypes.OTHER;
 	}
@@ -64,14 +66,9 @@ public class InstructionClassifier {
 			while (iterator.hasNext()) {
 				Token token = iterator.next();
 				if (token.isIdentifier() && iterator.hasNext()) {
-					Token temp = iterator.next();
-					if (temp.getValue().equals("<")) {
-
-						token.append(temp);
-						do {
-							temp = iterator.next();
-							token.append(temp);
-						} while (!temp.getValue().equals(">"));
+					token = iterator.next();
+					if (token.getValue().contains("<")) {
+						InstructionUtil.getGenericHeader(iterator, token);
 						if (iterator.hasNext()) {
 							token = iterator.next();
 						}
@@ -103,6 +100,28 @@ public class InstructionClassifier {
 			return false;
 		}
 
+	}
+
+	private boolean isLocalVariable(ParserContext context) {
+		if (context.getCurrentScope() == ScopeEnum.INSTRUCTION) {
+			Iterator<Token> iterator = classifiedTokens.iterator();
+			while (iterator.hasNext()) {
+				Token token = iterator.next();
+				if (token.isIdentifier() && iterator.hasNext()) {
+					token = iterator.next();
+					if (token.getValue().contains("<")) {
+						InstructionUtil.getGenericHeader(iterator, token);
+						if (iterator.hasNext()) {
+							token = iterator.next();
+						}
+					}
+
+					return token.isIdentifier();
+
+				}
+			}
+		}
+		return false;
 	}
 
 	// #endregion

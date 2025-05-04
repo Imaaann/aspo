@@ -45,6 +45,7 @@ public class Parser {
 
 			// Execute behavior assosiated with the instruction
 			BehaviorManager manager = BehaviorManager.getInstance();
+			System.out.println("[DEBUG] instruction found: " + instruction);
 			manager.execute(this.context, instruction);
 		}
 	}
