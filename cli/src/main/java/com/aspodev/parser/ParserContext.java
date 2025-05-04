@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.Slice;
+import com.aspodev.SCAR.Method;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.TypeParser.TypeToken;
@@ -17,11 +18,15 @@ public class ParserContext {
 	private Model model;
 	private Stack<Slice> slices;
 
+	private Method currentMethod;
+	private LocalVariableMap localVariables;
+
 	public ParserContext(TypeParser parser, Model model) {
 		this.model = model;
 		this.parser = parser;
 		this.space = new TypeSpace();
 		this.scope = new Scope();
+		this.localVariables = new LocalVariableMap();
 	}
 
 	// #region Scope methods
@@ -34,7 +39,12 @@ public class ParserContext {
 		scope.changeScope();
 	}
 
+	/**
+	 * Rewinds the scope back to the previous state, also destroys any
+	 * localVariables found in that scope
+	 */
 	public void rewindScope() {
+		localVariables.removeScope(getScopeCount());
 		scope.rewindScope();
 	}
 
@@ -91,4 +101,27 @@ public class ParserContext {
 
 	// #endregion
 
+	// #region Other Methods
+
+	public void setMethod(Method method) {
+		this.currentMethod = method;
+	}
+
+	public Method getCurrentMethod() {
+		return this.currentMethod;
+	}
+
+	public void addDependency(String methodName, String callerType) {
+		this.currentMethod.addDependency(methodName, callerType);
+	}
+
+	public void addLocalVariable(String typeName, String varName) {
+		this.localVariables.addVariable(getScopeCount(), typeName, varName);
+	}
+
+	public String getVariableType(String varName) {
+		return this.localVariables.getVariableType(getScopeCount(), varName);
+	}
+
+	// #endregion
 }
