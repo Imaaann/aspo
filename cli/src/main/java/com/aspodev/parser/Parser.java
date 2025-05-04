@@ -5,11 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.aspodev.SCAR.Model;
+import com.aspodev.SCAR.Modifier;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Behavior.BehaviorManager;
 import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionBuilder;
 import com.aspodev.parser.Instructions.InstructionClassifier;
+import com.aspodev.parser.Instructions.InstructionTypes;
 import com.aspodev.tokenizer.Tokenizer;
 
 public class Parser {
@@ -42,6 +44,11 @@ public class Parser {
 			// Classify the tokens and instruction
 			InstructionClassifier classifier = new InstructionClassifier(rawInstruction);
 			Instruction instruction = classifier.classify(this.context);
+
+			instruction.setType(InstructionTypes.CLASS_DECLARATION);
+			List<Modifier> modifiers = instruction.getModifiers();
+			if (!modifiers.isEmpty())
+				System.out.println("[DEBUG] Found modifier :" + modifiers);
 
 			// Execute behavior assosiated with the instruction
 			BehaviorManager manager = BehaviorManager.getInstance();
