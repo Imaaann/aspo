@@ -5,10 +5,28 @@ import java.util.List;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
 
-public record Instruction(List<Token> tokens, InstructionTypes type) {
+public class Instruction {
+	private final List<Token> tokens;
+	private InstructionTypes type;
+
+	public Instruction(List<Token> tokens) {
+		this.tokens = tokens;
+	}
+
+	public void setType(InstructionTypes type) {
+		this.type = type;
+	}
+
+	public InstructionTypes getType() {
+		return this.type;
+	}
 
 	public Token getIdentifier(int index) throws TokenNotFoundException {
 		return Instruction.getIdentifier(tokens, index);
+	}
+
+	public List<Token> getTokens() {
+		return this.tokens;
 	}
 
 	public static Token getIdentifier(List<Token> tokens, int index) {

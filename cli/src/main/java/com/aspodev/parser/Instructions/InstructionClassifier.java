@@ -13,7 +13,7 @@ import com.aspodev.parser.Scope.ScopeEnum;
 public class InstructionClassifier {
 	private List<String> rawInstruction;
 	private List<Token> classifiedTokens;
-	private InstructionTypes instructionType;
+	private Instruction instruction;
 
 	public InstructionClassifier(List<String> instruction) {
 		this.rawInstruction = instruction;
@@ -22,8 +22,11 @@ public class InstructionClassifier {
 
 	public Instruction classify(ParserContext context) {
 		classifiedTokens = classifyTokens(context);
-		instructionType = classifyInstruction(context);
-		return new Instruction(classifiedTokens, instructionType);
+
+		instruction = new Instruction(classifiedTokens);
+		instruction.setType(classifyInstruction(context));
+
+		return instruction;
 	}
 
 	private List<Token> classifyTokens(ParserContext context) {
@@ -42,8 +45,8 @@ public class InstructionClassifier {
 			return InstructionTypes.IMPORT_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("package")))
-
 			return InstructionTypes.PACKAGE_STATEMENT;
+
 		if (isAttribute(context))
 			return InstructionTypes.ATTRIBUTE_DECLARATION;
 

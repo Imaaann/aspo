@@ -44,7 +44,7 @@ public class BehaviorManager {
 	}
 
 	public void execute(ParserContext context, Instruction instruction) {
-		registry.getOrDefault(instruction.type(), (c, i) -> {
+		registry.getOrDefault(instruction.getType(), (c, i) -> {
 		}).apply(context, instruction);
 	}
 
