@@ -47,13 +47,40 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("package")))
 			return InstructionTypes.PACKAGE_STATEMENT;
 
+		if (classifiedTokens.contains(new Token("class")))
+			return InstructionTypes.CLASS_DECLARATION;
+
+		if (classifiedTokens.contains(new Token("enum")))
+			return InstructionTypes.ENUM_DECLARTION;
+
+		if (classifiedTokens.contains(new Token("interface")))
+			return InstructionTypes.INTERFACE_DECLARATION;
+
+		if (isMethod(context))
+			return InstructionTypes.METHOD_DECLARATION;
+
 		if (isAttribute(context))
 			return InstructionTypes.ATTRIBUTE_DECLARATION;
 
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DEFINITION;
+
 		if (isLocalVariable(context))
 			return InstructionTypes.LOCALVARIABLE_DECLARATION;
+
+		if (isConstructor(context))
+			return InstructionTypes.CONSTRUCTOR_DEFENITION;
+
+		if (classifiedTokens.get(0).getValue().equals("{"))
+			return InstructionTypes.INITIALAZATION_BLOCK;
+
+		if (classifiedTokens.get(1).getValue().equals("static") && classifiedTokens.get(1).getValue().equals("{"))
+			return InstructionTypes.STATIC_INITIALZATION;
+
+		if (classifiedTokens.get(0).getValue().equals("}"))
+			return InstructionTypes.END_OF_BLOCK;
+		if (classifiedTokens.contains(new Token("->")))
+			return InstructionTypes.LAMBDA_FUNCTION;
 
 		return InstructionTypes.OTHER;
 	}
@@ -117,7 +144,46 @@ public class InstructionClassifier {
 					}
 
 					return token.isIdentifier();
+				}
+			}
+		}
+		return false;
+	}
 
+	private boolean isMethod(ParserContext context) {
+		if (context.getCurrentScope() == ScopeEnum.CLASS) {
+			Iterator<Token> iterator = classifiedTokens.iterator();
+			Token token;
+			while (iterator.hasNext()) {
+				token = iterator.next();
+				if (token.isIdentifier() && iterator.hasNext()) {
+					token = iterator.next();
+					if (token.getValue().contains("<")) {
+						InstructionUtil.getGenericHeader(iterator, token);
+						if (iterator.hasNext()) {
+							token = iterator.next();
+						}
+					}
+
+					return token.isIdentifier() && iterator.next().getValue().equals("(");
+
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean isConstructor(ParserContext context) {
+		if (context.getCurrentScope() == ScopeEnum.CLASS) {
+			Iterator<Token> iterator = classifiedTokens.iterator();
+			Token token;
+			Token lastToken = classifiedTokens.get(classifiedTokens.size() - 1);
+			String className = context.getSlice().getMetaData().name();
+			while (iterator.hasNext()) {
+				token = iterator.next();
+				if (token.getValue().equals(className)) {
+					token = iterator.next();
+					return token.getValue().equals("(") && lastToken.getValue().equals("{");
 				}
 			}
 		}

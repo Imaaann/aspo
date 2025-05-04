@@ -45,11 +45,6 @@ public class Parser {
 			InstructionClassifier classifier = new InstructionClassifier(rawInstruction);
 			Instruction instruction = classifier.classify(this.context);
 
-			instruction.setType(InstructionTypes.CLASS_DECLARATION);
-			List<Modifier> modifiers = instruction.getModifiers();
-			if (!modifiers.isEmpty())
-				System.out.println("[DEBUG] Found modifier :" + modifiers);
-
 			// Execute behavior assosiated with the instruction
 			BehaviorManager manager = BehaviorManager.getInstance();
 			System.out.println("[DEBUG] instruction found: " + instruction);
