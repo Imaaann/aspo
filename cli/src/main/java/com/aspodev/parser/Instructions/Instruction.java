@@ -3,6 +3,7 @@ package com.aspodev.parser.Instructions;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aspodev.SCAR.Accessors;
 import com.aspodev.SCAR.Modifier;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
@@ -25,6 +26,19 @@ public class Instruction {
 
 	public Token getIdentifier(int index) throws TokenNotFoundException {
 		return Instruction.getIdentifier(tokens, index);
+	}
+
+	public Token getToken(int index) {
+		return tokens.get(index);
+	}
+
+	public Token getToken(String name) {
+		int tokenIndex = tokens.indexOf(new Token(name));
+
+		if (tokenIndex == -1)
+			return null;
+
+		return tokens.get(tokenIndex);
 	}
 
 	public List<Modifier> getModifiers() {
@@ -51,8 +65,54 @@ public class Instruction {
 		return result;
 	}
 
+	public Accessors getAccessor() {
+		for (Token token : tokens) {
+			if (isAccessor(token))
+				return Accessors.convert(token.getValue());
+		}
+
+		return Accessors.DEFAULT;
+	}
+
 	public List<Token> getTokens() {
 		return this.tokens;
+	}
+
+	public Token getParentClassName() {
+		if (!this.isTypeDeclaration())
+			return null;
+
+		Token extendsToken = this.getToken("extends");
+
+		if (extendsToken != null) {
+			return this.getToken(extendsToken.getPosition() + 1);
+		}
+
+		return null;
+	}
+
+	public List<Token> getInterfaceNames() {
+		if (!this.isTypeDeclaration())
+			return null;
+
+		Token implementsToken = this.getToken("implements");
+
+		if (implementsToken == null)
+			return null;
+
+		List<Token> interfaceList = new ArrayList<>();
+
+		int position = implementsToken.getPosition();
+		Token commaToken;
+
+		do {
+			Token interfaceName = this.getToken(position + 1);
+			commaToken = this.getToken(position + 2);
+			position = commaToken.getPosition();
+			interfaceList.add(interfaceName);
+		} while (commaToken.getValue().equals(","));
+
+		return interfaceList;
 	}
 
 	public static Token getIdentifier(List<Token> tokens, int index) {
@@ -72,7 +132,7 @@ public class Instruction {
 	}
 
 	private boolean isTypeDeclaration() {
-		return type == InstructionTypes.CLASS_DECLARATION || type == InstructionTypes.RECORD_DEFINITION
+		return type == InstructionTypes.CLASS_DECLARATION || type == InstructionTypes.RECORD_DECLARATION
 				|| type == InstructionTypes.ENUM_DECLARTION || type == InstructionTypes.INTERFACE_DECLARATION;
 	}
 
@@ -82,5 +142,11 @@ public class Instruction {
 		return value.equals("abstract") || value.equals("synchronized") || value.equals("transient")
 				|| value.equals("final") || value.equals("static") || value.equals("strictfp")
 				|| value.equals("volatile");
+	}
+
+	private boolean isAccessor(Token token) {
+		String value = token.getValue();
+
+		return value.equals("public") || value.equals("private") || value.equals("protected");
 	}
 }

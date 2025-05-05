@@ -1,6 +1,7 @@
 package com.aspodev.SCAR;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.aspodev.TypeParser.TypeToken;
@@ -67,8 +68,12 @@ public class Slice {
 		this.interfaceNames.add(interfaceName);
 	}
 
-	public void setAccessor(String accessor) {
-		this.accessor = Accessors.convert(accessor);
+	public void addInterface(List<String> interfaceName) {
+		this.interfaceNames.addAll(interfaceName);
+	}
+
+	public void setAccessor(Accessors accessor) {
+		this.accessor = accessor;
 	}
 
 	public void addModifier(String modifier) {
@@ -91,4 +96,20 @@ public class Slice {
 		return outerClassName;
 	}
 
+	@Override
+	public String toString() {
+		return """
+				Slice{
+				  metaData=%s,
+				  outerClassName='%s',
+				  parentName='%s',
+				  interfaces=%s,
+				  accessor=%s,
+				  modifiers=%s,
+				  attributes=%s,
+				  methods=%s
+				}
+				""".formatted(metaData, outerClassName, parentName, interfaceNames, accessor, modifiers, attributes,
+				methods);
+	}
 }

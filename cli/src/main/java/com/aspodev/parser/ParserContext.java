@@ -18,6 +18,8 @@ public class ParserContext {
 	private Model model;
 	private Stack<Slice> slices;
 
+	private String pkgName = "NONE";
+
 	private Method currentMethod;
 	private LocalVariableMap localVariables;
 
@@ -27,6 +29,7 @@ public class ParserContext {
 		this.space = new TypeSpace();
 		this.scope = new Scope();
 		this.localVariables = new LocalVariableMap();
+		this.slices = new Stack<>();
 	}
 
 	// #region Scope methods
@@ -102,6 +105,14 @@ public class ParserContext {
 	// #endregion
 
 	// #region Other Methods
+
+	public void setPackage(String pkgName) {
+		this.pkgName = pkgName;
+	}
+
+	public String getPackage() {
+		return this.pkgName;
+	}
 
 	public void setMethod(Method method) {
 		this.currentMethod = method;

@@ -5,13 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.aspodev.SCAR.Model;
-import com.aspodev.SCAR.Modifier;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Behavior.BehaviorManager;
 import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionBuilder;
 import com.aspodev.parser.Instructions.InstructionClassifier;
-import com.aspodev.parser.Instructions.InstructionTypes;
 import com.aspodev.tokenizer.Tokenizer;
 
 public class Parser {
@@ -34,6 +32,8 @@ public class Parser {
 	 */
 	public void parse() {
 		// Main parsing loop
+		BehaviorManager manager = BehaviorManager.getInstance();
+
 		while (iterator.hasNext()) {
 			// Build an instruction
 			InstructionBuilder builder = new InstructionBuilder(iterator);
@@ -46,8 +46,6 @@ public class Parser {
 			Instruction instruction = classifier.classify(this.context);
 
 			// Execute behavior assosiated with the instruction
-			BehaviorManager manager = BehaviorManager.getInstance();
-			System.out.println("[DEBUG] instruction found: " + instruction);
 			manager.execute(this.context, instruction);
 		}
 	}

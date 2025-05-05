@@ -50,37 +50,39 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("class")))
 			return InstructionTypes.CLASS_DECLARATION;
 
-		if (classifiedTokens.contains(new Token("enum")))
-			return InstructionTypes.ENUM_DECLARTION;
+		// if (classifiedTokens.contains(new Token("enum")))
+		// return InstructionTypes.ENUM_DECLARTION;
 
-		if (classifiedTokens.contains(new Token("interface")))
-			return InstructionTypes.INTERFACE_DECLARATION;
+		// if (classifiedTokens.contains(new Token("interface")))
+		// return InstructionTypes.INTERFACE_DECLARATION;
 
-		if (isMethod(context))
-			return InstructionTypes.METHOD_DECLARATION;
+		// if (isMethod(context))
+		// return InstructionTypes.METHOD_DECLARATION;
 
-		if (isAttribute(context))
-			return InstructionTypes.ATTRIBUTE_DECLARATION;
+		// if (isAttribute(context))
+		// return InstructionTypes.ATTRIBUTE_DECLARATION;
 
-		if (isRecordDeclaration())
-			return InstructionTypes.RECORD_DEFINITION;
+		// if (isRecordDeclaration())
+		// return InstructionTypes.RECORD_DECLARATION;
 
-		if (isLocalVariable(context))
-			return InstructionTypes.LOCALVARIABLE_DECLARATION;
+		// if (isLocalVariable(context))
+		// return InstructionTypes.LOCAL_VARIABLE_DECLARATION;
 
-		if (isConstructor(context))
-			return InstructionTypes.CONSTRUCTOR_DEFENITION;
+		// if (isConstructor(context))
+		// return InstructionTypes.CONSTRUCTOR_DEFENITION;
 
-		if (classifiedTokens.get(0).getValue().equals("{"))
-			return InstructionTypes.INITIALAZATION_BLOCK;
+		// if (classifiedTokens.get(0).getValue().equals("{"))
+		// return InstructionTypes.INITIALAZATION_BLOCK;
 
-		if (classifiedTokens.get(1).getValue().equals("static") && classifiedTokens.get(1).getValue().equals("{"))
-			return InstructionTypes.STATIC_INITIALZATION;
+		// if (classifiedTokens.get(0).getValue().equals("static") &&
+		// classifiedTokens.get(1).getValue().equals("{"))
+		// return InstructionTypes.STATIC_INITIALZATION;
 
-		if (classifiedTokens.get(0).getValue().equals("}"))
-			return InstructionTypes.END_OF_BLOCK;
-		if (classifiedTokens.contains(new Token("->")))
-			return InstructionTypes.LAMBDA_FUNCTION;
+		// if (classifiedTokens.get(0).getValue().equals("}"))
+		// return InstructionTypes.END_OF_BLOCK;
+
+		// if (classifiedTokens.contains(new Token("->")))
+		// return InstructionTypes.LAMBDA_FUNCTION;
 
 		return InstructionTypes.OTHER;
 	}
