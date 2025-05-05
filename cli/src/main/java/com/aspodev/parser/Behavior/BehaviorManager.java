@@ -15,6 +15,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.IMPORT_STATEMENT, new ImportBehavior());
 		registry.put(InstructionTypes.PACKAGE_STATEMENT, new PackageBehavior());
 		registry.put(InstructionTypes.CLASS_DECLARATION, new ClassBehavior());
+		registry.put(InstructionTypes.INTERFACE_DECLARATION, new InterfaceBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

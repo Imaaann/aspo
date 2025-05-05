@@ -13,37 +13,34 @@ import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.ScopeEnum;
 
-public class ClassBehavior implements Behavior {
+public class InterfaceBehavior implements Behavior {
 
 	@Override
 	public void apply(ParserContext context, Instruction instruction) {
 		List<Modifier> modifiers = instruction.getModifiers();
 		Accessors accessor = instruction.getAccessor();
+		int interfaceNamePosition = InstructionUtil.getClassNamePosition(modifiers);
+		Token interfaceName = instruction.getToken(interfaceNamePosition);
 
-		int classNameIndex = InstructionUtil.getClassNamePosition(modifiers);
-		Token className = instruction.getIdentifier(classNameIndex);
+		context.createSlice(new TypeToken(interfaceName.getValue(), context.getPackage(), TypeTokenEnum.INTERFACE));
 
-		context.createSlice(new TypeToken(className.getValue(), context.getPackage(), TypeTokenEnum.CLASS));
+		Slice interfaceSlice = context.getSlice();
 
-		Slice classSlice = context.getSlice();
+		interfaceSlice.setAccessor(accessor);
+		interfaceSlice.addModifier(modifiers);
 
 		Token parentClassToken = instruction.getParentClassName();
 		List<Token> interfaceList = instruction.getInterfaceNames();
 
-		classSlice.setAccessor(accessor);
-		classSlice.addModifier(modifiers);
+		if (parentClassToken != null)
+			interfaceSlice.setParentName(parentClassToken.getValue());
 
-		if (parentClassToken != null) {
-			classSlice.setParentName(parentClassToken.getValue());
-		}
-
-		if (interfaceList != null) {
-			classSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
-		}
+		if (interfaceList != null)
+			interfaceSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 
 		context.changeScope(ScopeEnum.CLASS);
 
-		System.out.println("[DEBUG] New Slice: " + classSlice);
+		System.out.println("[DEBUG] New Slice: " + interfaceSlice);
 	}
 
 }

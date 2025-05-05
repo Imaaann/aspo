@@ -53,17 +53,17 @@ public class InstructionClassifier {
 		// if (classifiedTokens.contains(new Token("enum")))
 		// return InstructionTypes.ENUM_DECLARTION;
 
-		// if (classifiedTokens.contains(new Token("interface")))
-		// return InstructionTypes.INTERFACE_DECLARATION;
+		if (classifiedTokens.contains(new Token("interface")))
+			return InstructionTypes.INTERFACE_DECLARATION;
+
+		// if (isRecordDeclaration())
+		// return InstructionTypes.RECORD_DECLARATION;
 
 		// if (isMethod(context))
 		// return InstructionTypes.METHOD_DECLARATION;
 
 		// if (isAttribute(context))
 		// return InstructionTypes.ATTRIBUTE_DECLARATION;
-
-		// if (isRecordDeclaration())
-		// return InstructionTypes.RECORD_DECLARATION;
 
 		// if (isLocalVariable(context))
 		// return InstructionTypes.LOCAL_VARIABLE_DECLARATION;

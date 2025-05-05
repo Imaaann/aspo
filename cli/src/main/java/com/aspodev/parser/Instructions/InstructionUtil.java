@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 
+import com.aspodev.SCAR.Modifier;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenTypes;
 
@@ -53,5 +54,15 @@ public class InstructionUtil {
 
         return ParmaterMap;
 
+    }
+
+    public static int getClassNamePosition(List<Modifier> modifiers) {
+        if (modifiers.contains(Modifier.NON_SEALED))
+            return 2;
+
+        if (modifiers.contains(Modifier.SEALED))
+            return 1;
+
+        return 0;
     }
 }

@@ -80,6 +80,10 @@ public class Slice {
 		this.modifiers.add(Modifier.convert(modifier));
 	}
 
+	public void addModifier(List<Modifier> modifiers) {
+		this.modifiers.addAll(modifiers);
+	}
+
 	public void addAttribute(Attribute attribute) {
 		this.attributes.add(attribute);
 	}
