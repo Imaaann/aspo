@@ -13,35 +13,30 @@ import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.ScopeEnum;
 
-public class ClassBehavior implements Behavior {
+public class EnumBehavior implements Behavior {
 
 	@Override
 	public void apply(ParserContext context, Instruction instruction) {
 		List<Modifier> modifiers = instruction.getModifiers();
-		Accessors accessor = instruction.getAccessor();
+		Accessors accessors = instruction.getAccessor();
 
-		int classNameIndex = InstructionUtil.getClassNamePosition(modifiers);
-		Token className = instruction.getIdentifier(classNameIndex);
+		int enumIndex = InstructionUtil.getClassNamePosition(modifiers);
+		Token enumName = instruction.getIdentifier(enumIndex);
 
-		context.createSlice(new TypeToken(className.getValue(), context.getPackage(), TypeTokenEnum.CLASS));
+		context.createSlice(new TypeToken(enumName.getValue(), context.getPackage(), TypeTokenEnum.ENUM));
 
-		Slice classSlice = context.getSlice();
+		Slice enumSlice = context.getSlice();
 
-		Token parentClassToken = instruction.getParentClassName();
 		List<Token> interfaceList = instruction.getInterfaceNames();
 
-		classSlice.setAccessor(accessor);
-		classSlice.addModifier(modifiers);
+		enumSlice.setAccessor(accessors);
+		enumSlice.addModifier(modifiers);
 
-		if (parentClassToken != null) {
-			classSlice.setParentName(parentClassToken.getValue());
-		}
-
-		if (interfaceList != null) {
-			classSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
-		}
+		if (interfaceList != null)
+			enumSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 
 		context.changeScope(ScopeEnum.CLASS);
+
 	}
 
 }

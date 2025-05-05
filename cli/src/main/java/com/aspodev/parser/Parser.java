@@ -48,5 +48,7 @@ public class Parser {
 			// Execute behavior assosiated with the instruction
 			manager.execute(this.context, instruction);
 		}
+
+		System.out.println("[DEBUG] Slice created: " + context.getSlice());
 	}
 }

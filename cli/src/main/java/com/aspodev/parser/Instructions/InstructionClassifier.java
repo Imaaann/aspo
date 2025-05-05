@@ -50,8 +50,8 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("class")))
 			return InstructionTypes.CLASS_DECLARATION;
 
-		// if (classifiedTokens.contains(new Token("enum")))
-		// return InstructionTypes.ENUM_DECLARTION;
+		if (classifiedTokens.contains(new Token("enum")))
+			return InstructionTypes.ENUM_DECLARTION;
 
 		if (classifiedTokens.contains(new Token("interface")))
 			return InstructionTypes.INTERFACE_DECLARATION;

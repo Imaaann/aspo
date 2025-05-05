@@ -39,8 +39,6 @@ public class InterfaceBehavior implements Behavior {
 			interfaceSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 
 		context.changeScope(ScopeEnum.CLASS);
-
-		System.out.println("[DEBUG] New Slice: " + interfaceSlice);
 	}
 
 }

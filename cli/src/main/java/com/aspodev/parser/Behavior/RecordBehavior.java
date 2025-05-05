@@ -54,8 +54,6 @@ public class RecordBehavior implements Behavior {
 
 			recordSlice.addAttribute(headerAttr);
 		}
-
-		System.out.println("[DEBUG] == New slice: " + recordSlice);
 	}
 
 }
