@@ -56,8 +56,8 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("interface")))
 			return InstructionTypes.INTERFACE_DECLARATION;
 
-		// if (isRecordDeclaration())
-		// return InstructionTypes.RECORD_DECLARATION;
+		if (isRecordDeclaration())
+			return InstructionTypes.RECORD_DECLARATION;
 
 		// if (isMethod(context))
 		// return InstructionTypes.METHOD_DECLARATION;

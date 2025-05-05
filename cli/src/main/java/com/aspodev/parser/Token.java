@@ -42,9 +42,10 @@ public class Token {
 		this.type = type;
 	}
 
-	public void setValue(String value){
-		this.value= value;
+	public void setValue(String value) {
+		this.value = value;
 	}
+
 	private TokenTypes classifyToken(String token) {
 		if (ParserConstants.keywords.contains(token)) {
 			return TokenTypes.KEYWORD;
@@ -88,8 +89,7 @@ public class Token {
 		return false;
 	}
 
-	public void append(Token token){
+	public void append(Token token) {
 		this.value = this.value + token.getValue();
-		System.out.println(this.value);
 	}
 }

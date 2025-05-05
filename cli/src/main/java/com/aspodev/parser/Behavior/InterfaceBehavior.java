@@ -20,7 +20,7 @@ public class InterfaceBehavior implements Behavior {
 		List<Modifier> modifiers = instruction.getModifiers();
 		Accessors accessor = instruction.getAccessor();
 		int interfaceNamePosition = InstructionUtil.getClassNamePosition(modifiers);
-		Token interfaceName = instruction.getToken(interfaceNamePosition);
+		Token interfaceName = instruction.getIdentifier(interfaceNamePosition);
 
 		context.createSlice(new TypeToken(interfaceName.getValue(), context.getPackage(), TypeTokenEnum.INTERFACE));
 

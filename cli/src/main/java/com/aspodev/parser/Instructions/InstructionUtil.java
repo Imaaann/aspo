@@ -1,15 +1,12 @@
 package com.aspodev.parser.Instructions;
 
-import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
 
 import com.aspodev.SCAR.Modifier;
 import com.aspodev.parser.Token;
-import com.aspodev.parser.TokenTypes;
 
 public class InstructionUtil {
     public static Token getGenericHeader(Iterator<Token> iterator, Token startToken) {
