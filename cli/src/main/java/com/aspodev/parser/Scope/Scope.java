@@ -30,6 +30,11 @@ public class Scope {
 	}
 
 	public void rewindScope() {
+		if (stateStack.empty()) {
+			currentScope = ScopeEnum.GLOBAL;
+			return;
+		}
+
 		currentScope = stateStack.pop();
 		scopeCount--;
 	}

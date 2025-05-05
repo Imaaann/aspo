@@ -62,8 +62,8 @@ public class InstructionClassifier {
 		// if (isMethod(context))
 		// return InstructionTypes.METHOD_DECLARATION;
 
-		if (isAttribute(context))
-			return InstructionTypes.ATTRIBUTE_DECLARATION;
+		// if (isAttribute(context))
+		// return InstructionTypes.ATTRIBUTE_DECLARATION;
 
 		// if (isLocalVariable(context))
 		// return InstructionTypes.LOCAL_VARIABLE_DECLARATION;
@@ -78,8 +78,8 @@ public class InstructionClassifier {
 		// classifiedTokens.get(1).getValue().equals("{"))
 		// return InstructionTypes.STATIC_INITIALZATION;
 
-		// if (classifiedTokens.get(0).getValue().equals("}"))
-		// return InstructionTypes.END_OF_BLOCK;
+		if (classifiedTokens.get(0).getValue().equals("}"))
+			return InstructionTypes.END_OF_BLOCK;
 
 		// if (classifiedTokens.contains(new Token("->")))
 		// return InstructionTypes.LAMBDA_FUNCTION;
