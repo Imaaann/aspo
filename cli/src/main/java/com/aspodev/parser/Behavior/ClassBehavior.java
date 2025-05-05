@@ -29,6 +29,7 @@ public class ClassBehavior implements Behavior {
 
 		Token parentClassToken = instruction.getParentClassName();
 		List<Token> interfaceList = instruction.getInterfaceNames();
+		List<Token> permitsList = instruction.getPermittedNames();
 
 		classSlice.setAccessor(accessor);
 		classSlice.addModifier(modifiers);
@@ -40,6 +41,9 @@ public class ClassBehavior implements Behavior {
 		if (interfaceList != null) {
 			classSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 		}
+
+		if (permitsList != null)
+			classSlice.addPermits(permitsList.stream().map(t -> t.getValue()).toList());
 
 		context.changeScope(ScopeEnum.CLASS);
 	}

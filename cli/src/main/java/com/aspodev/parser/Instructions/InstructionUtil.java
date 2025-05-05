@@ -1,5 +1,6 @@
 package com.aspodev.parser.Instructions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -61,5 +62,26 @@ public class InstructionUtil {
             return 1;
 
         return 0;
+    }
+
+    public static List<Token> getCommaSeperatedList(Instruction instruction, String beginToken) {
+        Token begin = instruction.getToken(beginToken);
+
+        if (begin == null)
+            return null;
+
+        List<Token> list = new ArrayList<>();
+
+        int position = begin.getPosition();
+        Token commaToken;
+
+        do {
+            Token interfaceName = instruction.getToken(position + 1);
+            commaToken = instruction.getToken(position + 2);
+            position = commaToken.getPosition();
+            list.add(interfaceName);
+        } while (commaToken.getValue().equals(","));
+
+        return list;
     }
 }

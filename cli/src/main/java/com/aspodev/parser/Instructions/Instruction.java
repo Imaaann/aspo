@@ -44,20 +44,23 @@ public class Instruction {
 	public List<Modifier> getModifiers() {
 		List<Modifier> result = new ArrayList<>();
 		boolean normalClassDeclaration = isTypeDeclaration();
+		boolean nonSealed = false;
 
 		for (Token token : tokens) {
 			if (isModifier(token))
 				result.add(Modifier.convert(token.getValue()));
 
 			if (normalClassDeclaration) {
-				if (token.getValue().equals("sealed"))
+				if (token.getValue().equals("sealed") && !nonSealed)
 					result.add(Modifier.SEALED);
 
 				if (token.getValue().equals("non")) {
 					int nonPosition = token.getPosition();
+					nonSealed = true;
 					if (tokens.get(nonPosition + 1).getValue().equals("-")
-							&& tokens.get(nonPosition + 2).getValue().equals("sealed"))
+							&& tokens.get(nonPosition + 2).getValue().equals("sealed")) {
 						result.add(Modifier.NON_SEALED);
+					}
 				}
 			}
 		}
@@ -95,24 +98,14 @@ public class Instruction {
 		if (!this.isTypeDeclaration())
 			return null;
 
-		Token implementsToken = this.getToken("implements");
+		return InstructionUtil.getCommaSeperatedList(this, "implements");
+	}
 
-		if (implementsToken == null)
+	public List<Token> getPermittedNames() {
+		if (!this.isTypeDeclaration())
 			return null;
 
-		List<Token> interfaceList = new ArrayList<>();
-
-		int position = implementsToken.getPosition();
-		Token commaToken;
-
-		do {
-			Token interfaceName = this.getToken(position + 1);
-			commaToken = this.getToken(position + 2);
-			position = commaToken.getPosition();
-			interfaceList.add(interfaceName);
-		} while (commaToken.getValue().equals(","));
-
-		return interfaceList;
+		return InstructionUtil.getCommaSeperatedList(this, "permits");
 	}
 
 	public static Token getIdentifier(List<Token> tokens, int index) {

@@ -62,8 +62,8 @@ public class InstructionClassifier {
 		// if (isMethod(context))
 		// return InstructionTypes.METHOD_DECLARATION;
 
-		// if (isAttribute(context))
-		// return InstructionTypes.ATTRIBUTE_DECLARATION;
+		if (isAttribute(context))
+			return InstructionTypes.ATTRIBUTE_DECLARATION;
 
 		// if (isLocalVariable(context))
 		// return InstructionTypes.LOCAL_VARIABLE_DECLARATION;

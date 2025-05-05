@@ -11,6 +11,7 @@ public class Slice {
 	private final TypeToken metaData;
 	private String parentName;
 	private final Set<String> interfaceNames;
+	private final Set<String> permitsNames;
 	private Accessors accessor;
 	private final Set<Modifier> modifiers;
 
@@ -26,6 +27,7 @@ public class Slice {
 		this.modifiers = new HashSet<>();
 		this.attributes = new HashSet<>();
 		this.methods = new HashSet<>();
+		this.permitsNames = new HashSet<>();
 	}
 
 	public Slice(TypeToken metaData) {
@@ -42,6 +44,10 @@ public class Slice {
 
 	public Set<String> getInterfaces() {
 		return interfaceNames;
+	}
+
+	public Set<String> getPermitted() {
+		return permitsNames;
 	}
 
 	public Accessors getAccessor() {
@@ -84,6 +90,10 @@ public class Slice {
 		this.modifiers.addAll(modifiers);
 	}
 
+	public void addPermits(List<String> permits) {
+		this.permitsNames.addAll(permits);
+	}
+
 	public void addAttribute(Attribute attribute) {
 		this.attributes.add(attribute);
 	}
@@ -108,12 +118,13 @@ public class Slice {
 				  outerClassName='%s',
 				  parentName='%s',
 				  interfaces=%s,
+				  permitted=%s
 				  accessor=%s,
 				  modifiers=%s,
 				  attributes=%s,
 				  methods=%s
 				}
-				""".formatted(metaData, outerClassName, parentName, interfaceNames, accessor, modifiers, attributes,
-				methods);
+				""".formatted(metaData, outerClassName, parentName, interfaceNames, permitsNames, accessor, modifiers,
+				attributes, methods);
 	}
 }

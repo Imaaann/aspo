@@ -26,6 +26,9 @@ public class BehaviorManager {
 
 	public void execute(ParserContext context, Instruction instruction) {
 		registry.getOrDefault(instruction.getType(), (c, i) -> {
+			if (i.getType() == InstructionTypes.OTHER)
+				return;
+
 			System.out.println("[DEBUG] == unhandled instruction: " + instruction);
 		}).apply(context, instruction);
 	}

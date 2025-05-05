@@ -31,12 +31,16 @@ public class InterfaceBehavior implements Behavior {
 
 		Token parentClassToken = instruction.getParentClassName();
 		List<Token> interfaceList = instruction.getInterfaceNames();
+		List<Token> permitsList = instruction.getPermittedNames();
 
 		if (parentClassToken != null)
 			interfaceSlice.setParentName(parentClassToken.getValue());
 
 		if (interfaceList != null)
 			interfaceSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
+
+		if (permitsList != null)
+			interfaceSlice.addPermits(permitsList.stream().map(t -> t.getValue()).toList());
 
 		context.changeScope(ScopeEnum.CLASS);
 	}
