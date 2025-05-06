@@ -1,6 +1,7 @@
 package com.aspodev.SCAR;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,6 +21,10 @@ public class Attribute {
 
 	public void addModifier(String modifier) {
 		this.modifiers.add(Modifier.convert(modifier));
+	}
+
+	public void addModifier(List<Modifier> modifiers) {
+		this.modifiers.addAll(modifiers);
 	}
 
 	public String getName() {

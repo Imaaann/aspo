@@ -35,6 +35,11 @@ public class Scope {
 			return;
 		}
 
+		if (scopeCount > stateStack.size()) {
+			scopeCount--;
+			return;
+		}
+
 		currentScope = stateStack.pop();
 		scopeCount--;
 	}

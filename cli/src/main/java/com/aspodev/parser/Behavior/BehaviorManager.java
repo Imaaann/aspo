@@ -19,6 +19,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.RECORD_DECLARATION, new RecordBehavior());
 		registry.put(InstructionTypes.ENUM_DECLARTION, new EnumBehavior());
 		registry.put(InstructionTypes.END_OF_BLOCK, new EndBlockBehavior());
+		registry.put(InstructionTypes.ATTRIBUTE_DECLARATION, new AttributeBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

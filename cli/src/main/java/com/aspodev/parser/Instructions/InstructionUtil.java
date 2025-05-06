@@ -10,12 +10,13 @@ import com.aspodev.SCAR.Modifier;
 import com.aspodev.parser.Token;
 
 public class InstructionUtil {
+
     public static Token getGenericHeader(Iterator<Token> iterator, Token startToken) {
         Token temp;
         int sign = 0;
         int counter = startToken.getValue().length();
         int length;
-        Token token = startToken;
+        Token token = new Token(startToken.getValue());
         do {
             temp = iterator.next();
             length = temp.getValue().length();

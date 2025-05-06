@@ -11,14 +11,12 @@ public class EndBlockBehavior implements Behavior {
 
 		ScopeEnum currentScope = context.getCurrentScope();
 
+		// TODO: finish this after being done with all the class members behaviors
+
 		switch (currentScope) {
 		case GLOBAL:
-			// TODO: yea this one is an issue tbh if u hit this case problem
 		case CLASS:
-			// TODO: if leaving the class scope finalize the class by adding it to the model
 		default:
-			// TODO: if leaving the INSTUCTION OR SWITCH scope remove the variable
-			// declarations inside
 		}
 
 		context.rewindScope();
