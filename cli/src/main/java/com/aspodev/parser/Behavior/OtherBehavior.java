@@ -40,7 +40,10 @@ public class OtherBehavior implements Behavior {
 
 			Token nextToken = tokens.get(idf.getPosition() + 1);
 
-			if (idf.getType() == TokenTypes.CHAINED_IDENTIFIER && nextToken.getValue().equals("(")) {
+			if (!nextToken.getValue().equals("("))
+				continue;
+
+			if (idf.getType() == TokenTypes.CHAINED_IDENTIFIER) {
 				String[] components = idf.getValue().split("\\.");
 				String varType = context.getVariableType(components[0]);
 				context.addDependency(components[1], varType == null ? "UNKOWN" : varType);
