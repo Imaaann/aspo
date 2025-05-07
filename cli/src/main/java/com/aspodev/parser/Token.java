@@ -3,7 +3,7 @@ package com.aspodev.parser;
 public class Token {
 	private String value;
 	private TokenTypes type;
-	private final int position;
+	private int position;
 
 	public Token(String value, TokenTypes type, int position) {
 		this.value = value;
@@ -44,6 +44,10 @@ public class Token {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public void setPosition(int pos) {
+		this.position = pos;
 	}
 
 	private TokenTypes classifyToken(String token) {

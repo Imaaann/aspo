@@ -20,6 +20,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.ENUM_DECLARTION, new EnumBehavior());
 		registry.put(InstructionTypes.END_OF_BLOCK, new EndBlockBehavior());
 		registry.put(InstructionTypes.ATTRIBUTE_DECLARATION, new AttributeBehavior());
+		registry.put(InstructionTypes.METHOD_DECLARATION, new MethodBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

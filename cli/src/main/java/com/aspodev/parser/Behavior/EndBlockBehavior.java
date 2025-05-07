@@ -19,9 +19,7 @@ public class EndBlockBehavior implements Behavior {
 		default:
 		}
 
-		context.rewindScope();
-
-		System.out.println("[DEBUG] == switched back to: " + context.getCurrentScope());
+		// context.rewindScope();
 
 	}
 

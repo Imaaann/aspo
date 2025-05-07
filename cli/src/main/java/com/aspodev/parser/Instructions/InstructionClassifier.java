@@ -59,8 +59,8 @@ public class InstructionClassifier {
 		if (isRecordDeclaration())
 			return InstructionTypes.RECORD_DECLARATION;
 
-		// if (isMethod(context))
-		// return InstructionTypes.METHOD_DECLARATION;
+		if (isMethod(context))
+			return InstructionTypes.METHOD_DECLARATION;
 
 		if (isAttribute(context))
 			return InstructionTypes.ATTRIBUTE_DECLARATION;

@@ -1,7 +1,7 @@
 package com.aspodev.parser.Instructions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +11,46 @@ import com.aspodev.parser.Token;
 
 public class InstructionUtil {
 
+    public static Token resolveType(List<Token> tokens, int typePos) {
+        Token type = tokens.get(typePos);
+        Token temp = tokens.get(typePos + 1);
+
+        if (temp.getValue().contains("<")) {
+
+            Iterator<Token> iterator = tokens.iterator();
+            temp = new Token("");
+
+            while (!temp.getValue().contains("<") && iterator.hasNext()) {
+                temp = iterator.next();
+            }
+
+            Token genericHeader = InstructionUtil.getGenericHeader(iterator, temp);
+
+            if (iterator.hasNext()) {
+                temp.setValue(type.getValue());
+                temp.append(genericHeader);
+                temp.setPosition(genericHeader.getPosition());
+                return temp;
+            }
+        }
+
+        if (temp.getValue().equals("[")) {
+            type.append(new Token("[]"));
+            type.setPosition(typePos + 2);
+        }
+
+        if (temp.getValue().equals("...")) {
+            type.append(new Token("..."));
+            type.setPosition(typePos + 1);
+        }
+
+        return type;
+    }
+
     public static Token getGenericHeader(Iterator<Token> iterator, Token startToken) {
         Token temp;
         int sign = 0;
+        int pos = startToken.getPosition();
         int counter = startToken.getValue().length();
         int length;
         Token token = new Token(startToken.getValue());
@@ -30,14 +67,17 @@ public class InstructionUtil {
 
             counter = counter + sign * length;
             token.append(temp);
+            pos++;
         } while (!(counter == 0) && iterator.hasNext());
+
+        token.setPosition(pos);
         return token;
 
     }
 
     public static Map<String, String> getParameterList(Iterator<Token> iterator, Token startToken) {
         Token token1, token2;
-        Map<String, String> ParmaterMap = new HashMap<>();
+        Map<String, String> ParmaterMap = new LinkedHashMap<>();
         token1 = iterator.next();
         while (!(token1.getValue().equals(")")) && iterator.hasNext()) {
             if (token1.getValue().equals(","))
@@ -47,6 +87,18 @@ public class InstructionUtil {
                 token1.append(getGenericHeader(iterator, token2));
                 token2 = iterator.next();
             }
+
+            if (token2.getValue().equals("[")) {
+                token1.append(new Token("[]"));
+                iterator.next();
+                token2 = iterator.next();
+            }
+
+            if (token2.getValue().equals("...")) {
+                token1.append(token2);
+                token2 = iterator.next();
+            }
+
             ParmaterMap.put(token2.getValue(), token1.getValue());
             token1 = iterator.next();
         }
