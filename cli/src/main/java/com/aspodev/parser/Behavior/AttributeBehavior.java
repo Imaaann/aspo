@@ -48,8 +48,8 @@ public class AttributeBehavior implements Behavior {
 		attribute.addModifier(modifiers);
 
 		Slice currentSlice = context.getSlice();
-
 		currentSlice.addAttribute(attribute);
+		context.addLocalVariable(typeName.getValue(), varName.getValue());
 	}
 
 }

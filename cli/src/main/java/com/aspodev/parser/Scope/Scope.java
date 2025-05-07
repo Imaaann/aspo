@@ -3,52 +3,37 @@ package com.aspodev.parser.Scope;
 import java.util.Stack;
 
 public class Scope {
-	private ScopeEnum currentScope;
-	private int scopeCount;
 	private Stack<ScopeEnum> stateStack;
 
 	public Scope() {
-		currentScope = ScopeEnum.GLOBAL;
-		scopeCount = 0;
 		stateStack = new Stack<>();
+		stateStack.push(ScopeEnum.GLOBAL);
 	}
 
 	/**
 	 * @param newScope the scope to switch to, increases the scopeCount
 	 */
 	public void changeScope(ScopeEnum newScope) {
-		stateStack.push(currentScope);
-		scopeCount++;
-		currentScope = newScope;
-	}
-
-	/**
-	 * increases the scope count without switching the context
-	 */
-	public void changeScope() {
-		scopeCount++;
+		stateStack.push(newScope);
 	}
 
 	public void rewindScope() {
 		if (stateStack.empty()) {
-			currentScope = ScopeEnum.GLOBAL;
-			return;
+			stateStack.push(ScopeEnum.GLOBAL);
 		}
 
-		if (scopeCount > stateStack.size()) {
-			scopeCount--;
-			return;
-		}
-
-		currentScope = stateStack.pop();
-		scopeCount--;
-	}
-
-	public int getScopeCount() {
-		return scopeCount;
+		stateStack.pop();
 	}
 
 	public ScopeEnum getCurrentScope() {
-		return currentScope;
+		if (stateStack.empty())
+			return ScopeEnum.GLOBAL;
+
+		return stateStack.peek();
 	}
+
+	public int getScopeCount() {
+		return stateStack.size();
+	}
+
 }

@@ -38,10 +38,6 @@ public class ParserContext {
 		scope.changeScope(newScope);
 	}
 
-	public void changeScope() {
-		scope.changeScope();
-	}
-
 	/**
 	 * Rewinds the scope back to the previous state, also destroys any
 	 * localVariables found in that scope
