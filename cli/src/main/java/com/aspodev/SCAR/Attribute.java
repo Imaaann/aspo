@@ -48,7 +48,7 @@ public class Attribute {
 		String mods = modifiers.stream().map(Modifier::toString).collect(Collectors.joining(" "));
 		String access = accessor != null ? accessor.toString().toLowerCase() : "";
 		String prefix = Stream.of(access, mods).filter(s -> !s.isBlank()).collect(Collectors.joining(" "));
-		return "\n" + (prefix.isBlank() ? "" : prefix + " ") + typeName + " " + name;
+		return "\n\t\t" + (prefix.isBlank() ? "" : prefix + " ") + typeName + " " + name;
 	}
 
 }

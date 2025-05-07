@@ -29,6 +29,9 @@ public class Instruction {
 	}
 
 	public Token getToken(int index) {
+		if (index >= tokens.size())
+			return null;
+
 		return tokens.get(index);
 	}
 

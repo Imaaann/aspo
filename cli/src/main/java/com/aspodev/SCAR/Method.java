@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.List;
 
 public class Method {
 	private final String name;
@@ -79,7 +79,9 @@ public class Method {
 		String generics = isGenericMethod() ? "" : genericHeader + " ";
 		String args = String.join(", ", arguments);
 		String prefix = Stream.of(access, mods).filter(s -> !s.isBlank()).collect(Collectors.joining(" "));
-		return (prefix.isBlank() ? "" : prefix + " ") + generics + returnType + " " + name + "(" + args + ") {} \n";
+		String dependenciesString = dependencies.stream().map(Dependency::toString).collect(Collectors.joining(" "));
+		return "\n\t\t" + (prefix.isBlank() ? "" : prefix + " ") + generics + returnType + " " + name + "(" + args + ")"
+				+ "{\n" + dependenciesString + "\t\t}";
 	}
 
 }

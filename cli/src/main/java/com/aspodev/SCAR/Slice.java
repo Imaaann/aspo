@@ -19,6 +19,7 @@ public class Slice {
 
 	private final Set<Attribute> attributes;
 	private final Set<Method> methods;
+	private final Set<Dependency> dependencies;
 
 	public Slice(TypeToken metaData, String outerClassName) {
 		this.metaData = metaData;
@@ -28,6 +29,7 @@ public class Slice {
 		this.attributes = new HashSet<>();
 		this.methods = new HashSet<>();
 		this.permitsNames = new HashSet<>();
+		this.dependencies = new HashSet<>();
 	}
 
 	public Slice(TypeToken metaData) {
@@ -100,6 +102,10 @@ public class Slice {
 
 	public void addMethod(Method method) {
 		this.methods.add(method);
+	}
+
+	public void addDependency(String methodName, String callerType) {
+		dependencies.add(new Dependency(methodName, callerType));
 	}
 
 	public boolean isInnerClass() {

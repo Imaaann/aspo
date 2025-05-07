@@ -19,8 +19,7 @@ public class EndBlockBehavior implements Behavior {
 		default:
 		}
 
-		// context.rewindScope();
-
+		context.rewindScope();
 	}
 
 }

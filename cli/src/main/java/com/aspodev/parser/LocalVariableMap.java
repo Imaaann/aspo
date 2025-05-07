@@ -22,7 +22,12 @@ public class LocalVariableMap {
 	}
 
 	public String getVariableType(int scope, String varName) {
-		return map.get(scope).get(varName);
+		Map<String, String> localMap = map.get(scope);
+
+		if (localMap == null)
+			return null;
+
+		return localMap.get(varName);
 	}
 
 	public void removeScope(int scope) {

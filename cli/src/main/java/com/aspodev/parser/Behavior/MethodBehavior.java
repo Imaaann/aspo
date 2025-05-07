@@ -12,6 +12,7 @@ import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionUtil;
+import com.aspodev.parser.Scope.ScopeEnum;
 
 public class MethodBehavior implements Behavior {
 
@@ -58,9 +59,11 @@ public class MethodBehavior implements Behavior {
 		method.addModifier(modifiers);
 
 		Slice currentSlice = context.getSlice();
+
+		context.setMethod(method);
 		currentSlice.addMethod(method);
 
-		// context.changeScope(ScopeEnum.INSTRUCTION);
+		context.changeScope(ScopeEnum.INSTRUCTION);
 	}
 
 	public boolean isGenericMethod(Instruction instruction) {

@@ -16,4 +16,8 @@ public class Dependency {
 	public String getCallerType() {
 		return this.callerType;
 	}
+
+	public String toString() {
+		return "\t\t\t-\t" + name + "---" + callerType + "\n";
+	}
 }
