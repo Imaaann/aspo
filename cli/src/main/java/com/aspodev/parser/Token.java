@@ -1,5 +1,7 @@
 package com.aspodev.parser;
 
+import java.util.regex.Pattern;
+
 public class Token {
 	private String value;
 	private TokenTypes type;
@@ -59,6 +61,8 @@ public class Token {
 			return TokenTypes.SEPERATOR;
 		} else if (token.contains(".")) {
 			return TokenTypes.CHAINED_IDENTIFIER;
+		} else if (isJavaNumber(token)) {
+			return TokenTypes.LITERAL;
 		} else {
 			return TokenTypes.IDENTIFIER;
 		}
@@ -66,22 +70,22 @@ public class Token {
 
 	public String toString() {
 		return switch (type) {
-		case KEYWORD:
-			yield ("KW(" + value + ")");
-		case CHAINED_IDENTIFIER:
-			yield ("CID(" + value + ")");
-		case IDENTIFIER:
-			yield ("ID(" + value + ")");
-		case LITERAL:
-			yield ("LT(" + value + ")");
-		case OPERATOR:
-			yield ("OP(" + value + ")");
-		case SEPERATOR:
-			yield ("SP(" + value + ")");
-		case TYPE_IDENTIFIER:
-			yield ("TID(" + value + ")");
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + type);
+			case KEYWORD:
+				yield ("KW(" + value + ")");
+			case CHAINED_IDENTIFIER:
+				yield ("CID(" + value + ")");
+			case IDENTIFIER:
+				yield ("ID(" + value + ")");
+			case LITERAL:
+				yield ("LT(" + value + ")");
+			case OPERATOR:
+				yield ("OP(" + value + ")");
+			case SEPERATOR:
+				yield ("SP(" + value + ")");
+			case TYPE_IDENTIFIER:
+				yield ("TID(" + value + ")");
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + type);
 		};
 	}
 
@@ -95,5 +99,33 @@ public class Token {
 
 	public void append(Token token) {
 		this.value = this.value + token.getValue();
+	}
+
+	private boolean isJavaNumber(String s) {
+		if (s == null)
+			return false;
+		String integer = "(?:"
+				+ "(?:0|[1-9](?:_[0-9]+)*)[lL]?"
+				+ "|0[xX][0-9A-Fa-f]+(?:_[0-9A-Fa-f]+)*[lL]?"
+				+ "|0[0-7]+(?:_[0-7]+)*[lL]?"
+				+ "|0[bB][01]+(?:_[01]+)*[lL]?"
+				+ ")";
+		String decimalExp = "(?:[eE][+-]?[0-9]+(?:_[0-9]+)*)";
+		String floatSuffix = "[fFdD]?";
+		String decimalFloat = "(?:"
+				+ "(?:[0-9]+(?:_[0-9]+)*)?\\.(?:[0-9]+(?:_[0-9]+)*)?"
+				+ "(?:" + decimalExp + ")?"
+				+ floatSuffix
+				+ "|(?:[0-9]+(?:_[0-9]+)*" + decimalExp + floatSuffix + ")"
+				+ "|(?:[0-9]+(?:_[0-9]+)*" + floatSuffix + ")"
+				+ ")";
+		String hexSignif = "(?:0[xX]"
+				+ "(?:[0-9A-Fa-f]+(?:_[0-9A-Fa-f]+)*)?\\.[0-9A-Fa-f]+(?:_[0-9A-Fa-f]+)*"
+				+ "|\\.[0-9A-Fa-f]+(?:_[0-9A-Fa-f]+)*"
+				+ ")"
+				+ "[pP][+-]?[0-9]+(?:_[0-9]+)*" + floatSuffix;
+		String master = "^(?:" + integer + "|" + decimalFloat + "|" + hexSignif + ")$";
+
+		return Pattern.matches(master, s);
 	}
 }
