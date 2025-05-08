@@ -2,8 +2,6 @@ package com.aspodev.parser.Behavior;
 
 import java.util.List;
 
-import com.aspodev.SCAR.Method;
-import com.aspodev.TypeParser.TypeTokenEnum;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenTypes;
