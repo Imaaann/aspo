@@ -37,7 +37,7 @@ public class DockerService {
         this.commandResult = new CommandResult();
     }
 
-    // Static method to create default DockerClient
+
     private static DockerClient createDefaultDockerClient() {
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
                 .dockerHost(URI.create("npipe:////./pipe/docker_engine")) // Default for Docker Desktop on Windows
@@ -121,63 +121,38 @@ public class DockerService {
     }
 
     public String LastCommand(){
-        return terminal!=null ? commandPrefix+terminal : "NONE";
+        return terminal!=null ?
+                """
+                        {
+                    "command": "%s",
+                    "stdout": "%s",
+                    "stderr": "%s",
+                    "exitCode": %d
+                }
+                """.formatted(commandResult.getCommand(), commandResult.getStdout(), commandResult.getStderr(), commandResult.getExitCode())
+
+
+        : """
+                
+                {
+                    "command": "",
+                    "stdout": "",
+                    "stderr": "",
+                    "exitCode": 0
+                }
+                """;
     }
 
     public String getFile() {
         return file;
     }
-}
 
-class CommandResult {
-    private String command;
-    private String stdout;
-    private String stderr;
-    private int exitCode;
-
-    CommandResult(String command, String stdout, String stderr, int exitCode) {
-        this.command = command;
-        this.stdout = stdout;
-        this.stderr = stderr;
-        this.exitCode = exitCode;
-    }
-
-    public CommandResult() {
-        this.command = "";
-        this.stdout = "";
-        this.stderr = "";
-        this.exitCode = 0;
-    }
-
-    public int getExitCode() {
-        return exitCode;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public String getStderr() {
-        return stderr;
-    }
-
-    public String getStdout() {
-        return stdout;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
-
-    public void setExitCode(int exitCode) {
-        this.exitCode = exitCode;
-    }
-
-    public void setStderr(String stderr) {
-        this.stderr = stderr;
-    }
-
-    public void setStdout(String stdout) {
-        this.stdout = stdout;
+    public boolean isContainerRunning(String containerName) {
+        try {
+            InspectContainerResponse container = dockerClient.inspectContainerCmd(containerName).exec();
+            return Boolean.TRUE.equals(container.getState().getRunning());
+        } catch (Exception e) {
+            return false; // Container not found or not running
+        }
     }
 }
