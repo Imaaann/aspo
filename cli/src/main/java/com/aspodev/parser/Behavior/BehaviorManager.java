@@ -25,6 +25,8 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.LOCAL_VARIABLE_DECLARATION, new LocalVariableBhavior());
 		registry.put(InstructionTypes.GENERIC_METHOD_DECLARATION, new GenericMethodBehavior());
 		registry.put(InstructionTypes.CONSTRUCTOR_DEFENITION, new ConstructorBehavior());
+		registry.put(InstructionTypes.STATIC_INITIALZATION, new StaticInitBehavior());
+		registry.put(InstructionTypes.INITIALAZATION_BLOCK, new InitializerBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

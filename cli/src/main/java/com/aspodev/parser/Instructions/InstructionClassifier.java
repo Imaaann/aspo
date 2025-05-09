@@ -76,12 +76,11 @@ public class InstructionClassifier {
 			return InstructionTypes.LOCAL_VARIABLE_DECLARATION;
 		}
 
-		// if (classifiedTokens.get(0).getValue().equals("{"))
-		// return InstructionTypes.INITIALAZATION_BLOCK;
+		if (classifiedTokens.get(0).getValue().equals("{"))
+			return InstructionTypes.INITIALAZATION_BLOCK;
 
-		// if (classifiedTokens.get(0).getValue().equals("static") &&
-		// classifiedTokens.get(1).getValue().equals("{"))
-		// return InstructionTypes.STATIC_INITIALZATION;
+		if (classifiedTokens.get(0).getValue().equals("static") && classifiedTokens.get(1).getValue().equals("{"))
+			return InstructionTypes.STATIC_INITIALZATION;
 
 		if (classifiedTokens.get(0).getValue().equals("}"))
 			return InstructionTypes.END_OF_BLOCK;
