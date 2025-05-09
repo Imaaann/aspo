@@ -62,7 +62,6 @@ public class InstructionClassifier {
 		if (isGenericMethod(context)) {
 			System.out.println("[DEBUG] Detected Generic method");
 			return InstructionTypes.GENERIC_METHOD_DECLARATION;
-
 		}
 
 		if (isMethod(context))

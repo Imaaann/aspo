@@ -4,38 +4,49 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.aspodev.SCAR.Modifier;
-import com.aspodev.SCAR.Slice;
 import com.aspodev.SCAR.Accessors;
 import com.aspodev.SCAR.Method;
+import com.aspodev.SCAR.Modifier;
+import com.aspodev.SCAR.Slice;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.ScopeEnum;
 
-public class MethodBehavior implements Behavior {
+public class GenericMethodBehavior implements Behavior {
 
 	@Override
 	public void apply(ParserContext context, Instruction instruction) {
 		List<Modifier> modifiers = instruction.getModifiers();
 		Accessors accessor = instruction.getAccessor();
+
 		Token methodName = null;
 		Token returnType = null;
-		Token genericTypes = new Token("none");
 
-		int returnTypeIndex = instruction.getIdentifier(0).getPosition();
-		returnType = InstructionUtil.resolveType(instruction.getTokens(), returnTypeIndex);
-		methodName = instruction.getToken(returnType.getPosition() + 1);
+		List<Token> tokens = instruction.getTokens();
+		Iterator<Token> iterator = tokens.iterator();
 
-		Iterator<Token> iterator = instruction.getTokens().iterator();
+		Token startToken = new Token("");
+		while (!startToken.getValue().contains("<") && iterator.hasNext()) {
+			startToken = iterator.next();
+		}
+
+		Token genericToken = InstructionUtil.getGenericHeader(iterator, startToken);
+
+		returnType = iterator.next();
+		returnType = InstructionUtil.resolveType(tokens, returnType.getPosition());
+
+		methodName = tokens.get(returnType.getPosition() + 1);
 
 		Token temp = new Token("");
+
+		iterator = instruction.getTokens().iterator();
 		while (iterator.hasNext() && !temp.getValue().equals("(")) {
 			temp = iterator.next();
 		}
 
-		Method method = new Method(methodName.getValue(), returnType.getValue(), accessor, genericTypes.getValue());
+		Method method = new Method(methodName.getValue(), returnType.getValue(), accessor, genericToken.getValue());
 		Map<String, String> parameters = InstructionUtil.getParameterList(iterator, temp);
 		method.addArgument(parameters.values());
 		method.addModifier(modifiers);
@@ -52,4 +63,5 @@ public class MethodBehavior implements Behavior {
 
 		context.changeScope(ScopeEnum.INSTRUCTION);
 	}
+
 }
