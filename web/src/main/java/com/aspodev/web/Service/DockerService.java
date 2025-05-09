@@ -28,24 +28,13 @@ public class DockerService {
     private String commandPrefix;
 
     public DockerService() {
-        this(createDefaultDockerClient());
-    }
-
-    // Constructor for dependency injection (e.g., testing)
-    public DockerService(DockerClient dockerClient) {
-        this.dockerClient = dockerClient;
-        this.commandResult = new CommandResult();
-    }
-
-
-    private static DockerClient createDefaultDockerClient() {
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
-                .dockerHost(URI.create("npipe:////./pipe/docker_engine")) // Default for Docker Desktop on Windows
-                // .dockerHost("tcp://localhost:2375") // Use if TCP is enabled
+                .dockerHost(URI.create("npipe:////./pipe/docker_engine"))
                 .build();
-        return DockerClientBuilder.getInstance()
+        this.dockerClient = DockerClientBuilder.getInstance()
                 .withDockerHttpClient(httpClient)
                 .build();
+        commandResult = new CommandResult();
     }
 
     public CreateContainerResponse createAndRunContainer(String imageName, String containerName, int port) throws InterruptedException {
@@ -100,7 +89,7 @@ public class DockerService {
 
         dockerClient.execStartCmd(command.getId())// execute la commande
                 .exec(new ExecStartResultCallback(stdout, stderr))
-                .awaitCompletion(30, TimeUnit.SECONDS);
+                .awaitCompletion(10, TimeUnit.SECONDS);
 
         terminal = "git clone "+ path + url + stdout.toString()+stderr.toString();
     }
@@ -116,7 +105,7 @@ public class DockerService {
 
         dockerClient.execStartCmd(Command.getId())// execute la commande
                 .exec(new ExecStartResultCallback(stdout, stderr))
-                .awaitCompletion(30, TimeUnit.SECONDS);
+                .awaitCompletion(1, TimeUnit.SECONDS);
         terminal = Arrays.toString(command) +"\n"+ stdout.toString()+stderr.toString();
     }
 

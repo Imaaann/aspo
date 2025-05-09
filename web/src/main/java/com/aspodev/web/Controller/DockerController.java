@@ -25,18 +25,23 @@ public class DockerController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateContainerResponse> createContainer(@RequestParam String imageName, @RequestParam String containerName, @RequestParam int port) throws InterruptedException {
+    public ResponseEntity<CreateContainerResponse> createContainer(@RequestParam String imageName,
+                                                                   @RequestParam String containerName,
+                                                                   @RequestParam int port) throws InterruptedException {
         return ResponseEntity.ok(dockerService.createAndRunContainer(imageName, containerName, port));
     }
 
     @PostMapping("/{containerId}/clone")
-    public ResponseEntity<String> cloneRepository(@PathVariable String containerId, @RequestParam String url, @RequestParam String path) throws IOException, InterruptedException {
+    public ResponseEntity<String> cloneRepository(@PathVariable String containerId,
+                                                  @RequestParam String url,
+                                                  @RequestParam String path) throws IOException, InterruptedException {
         dockerService.cloneinsideContainer(containerId, url, path);
         return ResponseEntity.ok(dockerService.LastCommand());
     }
 
     @PostMapping("/{containerId}/exec")
-    public ResponseEntity<String> executeCommand(@PathVariable String containerId, @RequestBody String[] command) throws InterruptedException, DockerException {
+    public ResponseEntity<String> executeCommand(@PathVariable String containerId,
+                                                 @RequestBody String[] command) throws InterruptedException, DockerException {
         dockerService.execCommand(containerId, command);
         return ResponseEntity.ok(dockerService.LastCommand());
     }
