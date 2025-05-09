@@ -59,11 +59,11 @@ public class OtherBehavior implements Behavior {
 				String callerType = "RESOLVE";
 
 				if (context.isType(idf)) {
-					callerType = idf.getValue();
+					callerType = idf.getValue() + ".static";
 				}
 
 				if (instruction.getToken(idf.getPosition() - 1).equals(new Token("new"))) {
-					callerType = idf.getValue();
+					callerType = idf.getValue() + ".construct";
 				}
 
 				context.addDependency(idf.getValue(), callerType);

@@ -1,5 +1,7 @@
 package com.aspodev.parser.Behavior;
 
+import java.util.List;
+
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.Instructions.Instruction;
@@ -13,8 +15,11 @@ public class LocalVariableBhavior implements Behavior {
 		Token typeName = instruction.getIdentifier(0);
 		typeName = InstructionUtil.resolveType(instruction.getTokens(), typeName.getPosition());
 
-		Token varName = instruction.getToken(typeName.getPosition() + 1);
-		context.addLocalVariable(typeName.getValue(), varName.getValue());
+		List<Token> varNames = InstructionUtil.getCommaSeperatedList(instruction, typeName.getPosition() + 1);
+
+		for (Token var : varNames) {
+			context.addLocalVariable(typeName.getValue(), var.getValue());
+		}
 
 		if (instruction.contains(new Token("{"))) {
 			context.changeScope(ScopeEnum.INSTRUCTION);

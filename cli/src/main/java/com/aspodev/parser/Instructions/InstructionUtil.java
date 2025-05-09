@@ -129,12 +129,29 @@ public class InstructionUtil {
         Token commaToken;
 
         do {
-            Token interfaceName = instruction.getToken(position + 1);
+            Token name = instruction.getToken(position + 1);
             commaToken = instruction.getToken(position + 2);
             position = commaToken.getPosition();
-            list.add(interfaceName);
+            list.add(name);
         } while (commaToken.getValue().equals(","));
 
         return list;
     }
+
+    public static List<Token> getCommaSeperatedList(Instruction instruction, int firstElementPos) {
+        Token element;
+        Token commaToken;
+        int pos = firstElementPos;
+        List<Token> list = new ArrayList<>();
+
+        do {
+            element = instruction.getToken(pos);
+            commaToken = instruction.getToken(pos + 1);
+            pos = commaToken.getPosition() + 1;
+            list.add(element);
+        } while (commaToken.getValue().equals(","));
+
+        return list;
+    }
+
 }

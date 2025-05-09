@@ -1,6 +1,5 @@
 package com.aspodev.parser.Behavior;
 
-import java.util.Iterator;
 import java.util.List;
 
 import com.aspodev.SCAR.Accessors;
@@ -22,27 +21,7 @@ public class AttributeBehavior implements Behavior {
 		int typeNamePos = typeName.getPosition();
 
 		List<Token> tokens = instruction.getTokens();
-		Token varName = null;
-
-		if (instruction.getToken(typeNamePos + 1).getValue().contains("<")) {
-
-			Iterator<Token> iterator = tokens.iterator();
-
-			Token temp = new Token("");
-			while (!temp.getValue().contains("<")) {
-				temp = iterator.next();
-			}
-
-			Token genericHeader = InstructionUtil.getGenericHeader(iterator, temp);
-
-			if (iterator.hasNext()) {
-				varName = iterator.next();
-				typeName.append(genericHeader);
-			}
-
-		} else {
-			varName = instruction.getIdentifier(1);
-		}
+		Token varName = InstructionUtil.resolveType(tokens, typeNamePos);
 
 		Attribute attribute = new Attribute(varName.getValue(), typeName.getValue(), accessor);
 		attribute.addModifier(modifiers);
