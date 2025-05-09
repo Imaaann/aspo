@@ -25,7 +25,6 @@ public class OtherBehavior implements Behavior {
 			return nextToken != null && nextToken.getValue().equals("(");
 		}).toList();
 		List<Token> tokens = instruction.getTokens();
-		System.out.println("[DEBUG] == found identifiers" + identifers);
 
 		for (Token idf : identifers) {
 

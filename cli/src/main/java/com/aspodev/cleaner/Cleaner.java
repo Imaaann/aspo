@@ -24,7 +24,7 @@ public class Cleaner {
     private static void cleanComments(StringBuilder contents) {
 
         String multiLineComment = "/\\*.*?\\*/";
-        String singleLineComment = "^(?<!\")\\s+//.*?$";
+        String singleLineComment = "\\s+//.*?$";
 
         RegexTools.removePattern(contents, singleLineComment);
         RegexTools.removePattern(contents, multiLineComment);

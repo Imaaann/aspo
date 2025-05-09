@@ -21,7 +21,6 @@ public class TypeSpace {
 
 	public void addPackage(String pkg, TypeParser globalTypeSpace) {
 		List<TypeToken> foundTypes = globalTypeSpace.findPackageTypes(pkg);
-		System.out.println("[DEBUG] added types from pkg(" + pkg + "):" + foundTypes);
 		typeSpace.addAll(foundTypes);
 	}
 

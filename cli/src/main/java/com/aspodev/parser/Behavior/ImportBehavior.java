@@ -21,6 +21,5 @@ public class ImportBehavior implements Behavior {
 		TypeToken newType = new TypeToken(typeName, pkgName, TypeTokenEnum.IMPORTED);
 		context.addType(newType);
 
-		System.out.println("[DEBUG] imported: " + newType);
 	}
 }

@@ -22,6 +22,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.ATTRIBUTE_DECLARATION, new AttributeBehavior());
 		registry.put(InstructionTypes.METHOD_DECLARATION, new MethodBehavior());
 		registry.put(InstructionTypes.OTHER, new OtherBehavior());
+		registry.put(InstructionTypes.LOCAL_VARIABLE_DECLARATION, new LocalVariableBhavior());
 	}
 
 	public static BehaviorManager getInstance() {

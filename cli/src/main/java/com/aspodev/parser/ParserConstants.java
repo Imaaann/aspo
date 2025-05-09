@@ -10,8 +10,8 @@ public class ParserConstants {
 	public static Set<String> keywords = Set.of("abstract", "continue", "for", "new", "switch", "assert", "default",
 			"if", "package", "synchronized", "do", "goto", "private", "this", "break", "implements", "protected",
 			"throw", "else", "import", "public", "throws", "case", "enum", "instanceof", "return", "transient", "catch",
-			"extends", "try", "final", "interface", "static", "class", "finally", "long", "strictfp", "volatile",
-			"const", "native", "super", "while", "_", "null", "true", "false");
+			"extends", "try", "final", "interface", "static", "class", "finally", "strictfp", "volatile", "const",
+			"native", "super", "while", "_", "null", "true", "false");
 	public static Set<String> operators = Set.of("=", "!", "~", "==", ">=", "<=", "!=", "&&", "||", "++", "--", "+",
 			"-", "*", "/", "&", "|", "^", "%", "<<", ">>", ">>>", "+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "<<=",
 			">>=", ">>>=", "<", ">", "?", ":", "->");

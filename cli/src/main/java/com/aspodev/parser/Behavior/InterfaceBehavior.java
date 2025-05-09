@@ -35,7 +35,6 @@ public class InterfaceBehavior implements Behavior {
 
 		if (parentClassToken != null) {
 			interfaceSlice.setParentName(parentClassToken.getValue());
-			context.addLocalVariable(parentClassToken.getValue(), "super");
 		}
 
 		if (interfaceList != null)
@@ -44,8 +43,10 @@ public class InterfaceBehavior implements Behavior {
 		if (permitsList != null)
 			interfaceSlice.addPermits(permitsList.stream().map(t -> t.getValue()).toList());
 
-		context.addLocalVariable(interfaceName.getValue(), "this");
 		context.changeScope(ScopeEnum.CLASS);
+		context.addLocalVariable(interfaceName.getValue(), "this");
+		if (parentClassToken != null)
+			context.addLocalVariable(parentClassToken.getValue(), "super");
 	}
 
 }

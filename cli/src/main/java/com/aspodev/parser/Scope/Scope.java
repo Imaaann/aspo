@@ -33,7 +33,10 @@ public class Scope {
 	}
 
 	public int getScopeCount() {
-		return stateStack.size();
+		if (stateStack.empty())
+			return 0;
+
+		return stateStack.size() - 1;
 	}
 
 }

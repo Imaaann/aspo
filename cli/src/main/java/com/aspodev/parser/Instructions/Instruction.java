@@ -16,6 +16,10 @@ public class Instruction {
 		this.tokens = tokens;
 	}
 
+	public boolean contains(Token token) {
+		return tokens.contains(token);
+	}
+
 	public void setType(InstructionTypes type) {
 		this.type = type;
 	}

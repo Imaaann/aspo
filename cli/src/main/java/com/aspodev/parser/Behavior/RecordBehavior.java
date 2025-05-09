@@ -46,8 +46,8 @@ public class RecordBehavior implements Behavior {
 		if (interfaceList != null)
 			recordSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 
-		context.addLocalVariable(recordName.getValue(), "this");
 		context.changeScope(ScopeEnum.CLASS);
+		context.addLocalVariable(recordName.getValue(), "this");
 
 		for (String varNames : headerTypes.keySet()) {
 			String typeName = headerTypes.get(varNames);

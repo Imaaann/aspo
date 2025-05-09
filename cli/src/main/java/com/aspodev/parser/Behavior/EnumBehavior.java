@@ -35,8 +35,8 @@ public class EnumBehavior implements Behavior {
 		if (interfaceList != null)
 			enumSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 
-		context.addLocalVariable(enumName.getValue(), "this");
 		context.changeScope(ScopeEnum.CLASS);
+		context.addLocalVariable(enumName.getValue(), "this");
 
 	}
 
