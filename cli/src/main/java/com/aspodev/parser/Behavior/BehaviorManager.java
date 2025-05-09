@@ -24,6 +24,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.OTHER, new OtherBehavior());
 		registry.put(InstructionTypes.LOCAL_VARIABLE_DECLARATION, new LocalVariableBhavior());
 		registry.put(InstructionTypes.GENERIC_METHOD_DECLARATION, new GenericMethodBehavior());
+		registry.put(InstructionTypes.CONSTRUCTOR_DEFENITION, new ConstructorBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

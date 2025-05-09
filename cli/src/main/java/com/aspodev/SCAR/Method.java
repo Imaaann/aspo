@@ -79,8 +79,8 @@ public class Method {
 		String args = String.join(", ", arguments);
 		String prefix = Stream.of(access, mods).filter(s -> !s.isBlank()).collect(Collectors.joining(" "));
 		String dependenciesString = dependencies.stream().map(Dependency::toString).collect(Collectors.joining(" "));
-		return "\n\t\t" + (prefix.isBlank() ? "" : prefix + " ") + generics + returnType + " " + name + "(" + args + ")"
-				+ "{\n" + dependenciesString + "\t\t}";
+		return "\n\t\t" + (prefix.isBlank() ? "" : prefix + " ") + "'" + generics + "'" + returnType + " " + name + "("
+				+ args + ")" + "{\n" + dependenciesString + "\t\t}";
 	}
 
 }
