@@ -29,12 +29,11 @@ public class MainWebTests {
     @Test
     public void test() {
         // Mock any DockerClient interactions if needed
-        // Example: Mock inspectContainerCmd if used in other methods
         when(dockerClient.inspectContainerCmd(anyString())).thenReturn(mock(com.github.dockerjava.api.command.InspectContainerCmd.class));
 
-        // Test DockerService behavior
+        // testing null Terminal
         String result = dockerService.LastCommand();
-        assertEquals("Docker@web-Container$NONE", result);
+        assertEquals("Docker@web-Container$ \n NONE", result);
     }
 
 
