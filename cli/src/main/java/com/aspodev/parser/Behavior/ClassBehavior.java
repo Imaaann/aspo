@@ -36,6 +36,7 @@ public class ClassBehavior implements Behavior {
 
 		if (parentClassToken != null) {
 			classSlice.setParentName(parentClassToken.getValue());
+			context.addLocalVariable(parentClassToken.getValue(), "super");
 		}
 
 		if (interfaceList != null) {
@@ -45,6 +46,7 @@ public class ClassBehavior implements Behavior {
 		if (permitsList != null)
 			classSlice.addPermits(permitsList.stream().map(t -> t.getValue()).toList());
 
+		context.addLocalVariable(className.getValue(), "this");
 		context.changeScope(ScopeEnum.CLASS);
 	}
 

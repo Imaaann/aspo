@@ -8,6 +8,7 @@ import com.aspodev.SCAR.Accessors;
 import com.aspodev.SCAR.Modifier;
 import com.aspodev.SCAR.Slice;
 import com.aspodev.SCAR.Attribute;
+import com.aspodev.SCAR.Method;
 import com.aspodev.TypeParser.TypeToken;
 import com.aspodev.TypeParser.TypeTokenEnum;
 import com.aspodev.parser.ParserContext;
@@ -45,6 +46,7 @@ public class RecordBehavior implements Behavior {
 		if (interfaceList != null)
 			recordSlice.addInterface(interfaceList.stream().map(t -> t.getValue()).toList());
 
+		context.addLocalVariable(recordName.getValue(), "this");
 		context.changeScope(ScopeEnum.CLASS);
 
 		for (String varNames : headerTypes.keySet()) {
@@ -53,7 +55,12 @@ public class RecordBehavior implements Behavior {
 			headerAttr.addModifier("final");
 
 			recordSlice.addAttribute(headerAttr);
+			context.addLocalVariable(typeName, varNames);
+
+			Method method = new Method(varNames, typeName, Accessors.PUBLIC, "none");
+			recordSlice.addMethod(method);
 		}
+
 	}
 
 }

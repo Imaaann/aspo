@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.aspodev.parser.Parser;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
@@ -198,11 +197,18 @@ public class InstructionClassifier {
 
 	private boolean isGenericMethod(ParserContext context) {
 		if (context.getCurrentScope() == ScopeEnum.CLASS) {
-			Token idf = Instruction.getIdentifier(classifiedTokens, 0);
-			Token preToken = classifiedTokens.get(idf.getPosition() - 1);
+			try {
 
-			if (preToken.getValue().contains("<"))
-				return true;
+				Token idf = Instruction.getIdentifier(classifiedTokens, 0);
+				Token preToken = classifiedTokens.get(idf.getPosition() - 1);
+
+				if (preToken.getValue().contains("<"))
+					return true;
+
+			} catch (Throwable e) {
+				return false;
+			}
+
 		}
 		return false;
 	}
