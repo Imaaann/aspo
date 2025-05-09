@@ -58,6 +58,11 @@ public class MethodBehavior implements Behavior {
 		method.addArgument(parameters.values());
 		method.addModifier(modifiers);
 
+		for (String varName : parameters.keySet()) {
+			String typeName = parameters.get(varName);
+			context.addLocalVariable(typeName, varName);
+		}
+
 		Slice currentSlice = context.getSlice();
 
 		context.setMethod(method);
