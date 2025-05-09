@@ -1,5 +1,6 @@
 package com.aspodev.parser.Behavior;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.aspodev.parser.ParserContext;
@@ -43,9 +44,29 @@ public class OtherBehavior implements Behavior {
 			if (idf.getType() == TokenTypes.CHAINED_IDENTIFIER) {
 				String[] components = idf.getValue().split("\\.");
 				String varType = context.getVariableType(components[0]);
-				context.addDependency(components[1], varType == null ? "UNKOWN" : varType);
+
+				if (context.isType(new Token(components[0]))) {
+					varType = components[0];
+				}
+
+				if (varType == null) {
+					varType = "UNKOWN";
+					System.out.println("[DEBUG] Unkown dependency: " + Arrays.asList(components));
+				}
+
+				context.addDependency(components[1], varType);
 			} else {
-				context.addDependency(idf.getValue(), "RESOLVE");
+				String callerType = "RESOLVE";
+
+				if (context.isType(idf)) {
+					callerType = idf.getValue();
+				}
+
+				if (instruction.getToken(idf.getPosition() - 1).equals(new Token("new"))) {
+					callerType = idf.getValue();
+				}
+
+				context.addDependency(idf.getValue(), callerType);
 			}
 		}
 

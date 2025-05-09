@@ -33,8 +33,8 @@ public class Instruction {
 	}
 
 	public Token getToken(int index) {
-		if (index >= tokens.size())
-			return null;
+		if (index >= tokens.size() || index < 0)
+			return new Token("");
 
 		return tokens.get(index);
 	}
