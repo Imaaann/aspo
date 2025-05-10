@@ -95,6 +95,7 @@ public class ParserContext {
 			return;
 
 		Slice current = slices.pop();
+		System.out.println("[DEBUG] Slice created: " + current);
 		model.addSlice(current);
 	}
 
@@ -121,6 +122,7 @@ public class ParserContext {
 	public void addDependency(String methodName, String callerType) {
 
 		if (scope.getCurrentScope() == ScopeEnum.CLASS) {
+			System.out.println("[DEBUG] Adding new dependency to class: " + methodName + " : " + callerType);
 			getSlice().addDependency(methodName, callerType);
 			return;
 		}
@@ -137,6 +139,10 @@ public class ParserContext {
 
 	public String getVariableType(String varName) {
 		return this.localVariables.getVariableType(getScopeCount(), varName);
+	}
+
+	public void deleteScopeVariables() {
+		localVariables.removeScope(getScopeCount());
 	}
 
 	// #endregion

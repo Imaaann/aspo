@@ -1,16 +1,17 @@
 package com.aspodev.cleaner;
 
-public class Test {
+public enum Test {
 
-	static {
-		System.out.println("[WARN] You're using a static thing fucker");
+	TEST((int) Math.pow(3, 3)) {
+	},
+	TEST2(4), TEST3(1), TEST5(5), TEST4(4) {
+		private int another;
+	};
+
+	private Test(int real) {
+		value = real;
 	}
 
-	{
-		System.out.println("[WARN] You're using an intialization block dumass");
-	}
+	private int value;
 
-	public <T> Test(T real) {
-		System.out.println(real);
-	}
 }

@@ -17,18 +17,20 @@ public class AttributeBehavior implements Behavior {
 	public void apply(ParserContext context, Instruction instruction) {
 		List<Modifier> modifiers = instruction.getModifiers();
 		Accessors accessor = instruction.getAccessor();
+
 		Token typeName = instruction.getIdentifier(0);
-		int typeNamePos = typeName.getPosition();
+		typeName = InstructionUtil.resolveType(instruction.getTokens(), typeName.getPosition());
 
-		List<Token> tokens = instruction.getTokens();
-		Token varName = InstructionUtil.resolveType(tokens, typeNamePos);
-
-		Attribute attribute = new Attribute(varName.getValue(), typeName.getValue(), accessor);
-		attribute.addModifier(modifiers);
-
+		List<Token> varNames = InstructionUtil.getCommaSeperatedList(instruction, typeName.getPosition() + 1);
 		Slice currentSlice = context.getSlice();
-		currentSlice.addAttribute(attribute);
-		context.addLocalVariable(typeName.getValue(), varName.getValue());
+
+		for (Token var : varNames) {
+			Attribute attribute = new Attribute(var.getValue(), typeName.getValue(), accessor);
+			attribute.addModifier(modifiers);
+
+			currentSlice.addAttribute(attribute);
+			context.addLocalVariable(typeName.getValue(), var.getValue());
+		}
 	}
 
 }

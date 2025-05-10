@@ -1,13 +1,17 @@
 package com.aspodev.parser.Instructions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Modifier;
+import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
+import com.aspodev.parser.TokenTypes;
 
 public class InstructionUtil {
 
@@ -152,6 +156,58 @@ public class InstructionUtil {
         } while (commaToken.getValue().equals(","));
 
         return list;
+    }
+
+    public static List<Dependency> getDependencies(List<Token> tokens, ParserContext context) {
+        List<Token> idfs = tokens.stream().filter(t -> {
+            if (!t.isIdentifier())
+                return false;
+
+            boolean chainIdf = t.getType() == TokenTypes.CHAINED_IDENTIFIER && !t.getValue().startsWith(".");
+
+            if (chainIdf)
+                return true;
+
+            Token nextToken = tokens.get(t.getPosition() + 1);
+            return nextToken != null && nextToken.getValue().equals("(");
+        }).toList();
+        System.out.println("[DEBUG] found ids: " + idfs);
+
+        List<Dependency> dependencies = new ArrayList<>();
+
+        for (Token id : idfs) {
+            if (id.getType() == TokenTypes.CHAINED_IDENTIFIER) {
+                String[] components = id.getValue().split("\\.");
+                String varType = context.getVariableType(components[0]);
+
+                if (context.isType(new Token(components[0]))) {
+                    varType = components[0];
+                }
+
+                if (varType == null) {
+                    varType = "UNKOWN";
+                    System.out.println("[DEBUG] Unkown dependency: " + Arrays.asList(components));
+                }
+
+                dependencies.add(new Dependency(components[1], varType));
+            } else {
+                String callerType = "RESOLVE";
+
+                if (context.isType(id)) {
+                    callerType = id.getValue() + ".static";
+                }
+
+                if (tokens.get(id.getPosition() - 1).equals(new Token("new"))) {
+                    callerType = id.getValue() + ".construct";
+                }
+
+                dependencies.add(new Dependency(id.getValue(), callerType));
+            }
+        }
+
+        System.out.println("[DEBUG] found dependencies: " + dependencies);
+
+        return dependencies;
     }
 
 }

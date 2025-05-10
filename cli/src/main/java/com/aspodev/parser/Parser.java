@@ -50,6 +50,5 @@ public class Parser {
 			manager.execute(this.context, instruction);
 		}
 
-		System.out.println("[DEBUG] Slice created: " + context.getSlice());
 	}
 }

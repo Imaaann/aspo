@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.aspodev.TypeParser.TypeTokenEnum;
+import com.aspodev.parser.Parser;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
@@ -62,8 +64,12 @@ public class InstructionClassifier {
 		if (isConstructor(context))
 			return InstructionTypes.CONSTRUCTOR_DEFENITION;
 
+		if (isEnumerator(context)) {
+			System.out.println("[DEBUG] found enumerator declaration");
+			return InstructionTypes.ENUMERATOR_DECLARATION;
+		}
+
 		if (isGenericMethod(context)) {
-			System.out.println("[DEBUG] Detected Generic method");
 			return InstructionTypes.GENERIC_METHOD_DECLARATION;
 		}
 		if (isMethod(context))
@@ -211,6 +217,28 @@ public class InstructionClassifier {
 			}
 
 		}
+		return false;
+	}
+
+	private boolean isEnumerator(ParserContext context) {
+		if (context.getCurrentScope() != ScopeEnum.CLASS)
+			return false;
+
+		if (context.getSlice().getMetaData().type() != TypeTokenEnum.ENUM)
+			return false;
+
+		try {
+
+			Token idf = Instruction.getIdentifier(classifiedTokens, 0);
+			String nextToken = classifiedTokens.get(idf.getPosition() + 1).getValue();
+
+			if (nextToken.equals("(") || nextToken.equals(",") || nextToken.equals("{"))
+				return true;
+
+		} catch (Throwable e) {
+			return false;
+		}
+
 		return false;
 	}
 

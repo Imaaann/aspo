@@ -3,6 +3,7 @@ package com.aspodev.SCAR;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.aspodev.TypeParser.TypeToken;
 
@@ -118,6 +119,8 @@ public class Slice {
 
 	@Override
 	public String toString() {
+		String depString = dependencies.stream().map(Dependency::toString).collect(Collectors.joining(" "));
+
 		return """
 				Slice{
 				  metaData=%s,
@@ -128,9 +131,11 @@ public class Slice {
 				  accessor=%s,
 				  modifiers=%s,
 				  attributes=%s,
-				  methods=%s
+				  methods=%s,
+				  dependencies={
+				  	%s}
 				}
 				""".formatted(metaData, outerClassName, parentName, interfaceNames, permitsNames, accessor, modifiers,
-				attributes, methods);
+				attributes, methods, depString);
 	}
 }

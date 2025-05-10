@@ -27,6 +27,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.CONSTRUCTOR_DEFENITION, new ConstructorBehavior());
 		registry.put(InstructionTypes.STATIC_INITIALZATION, new StaticInitBehavior());
 		registry.put(InstructionTypes.INITIALAZATION_BLOCK, new InitializerBehavior());
+		registry.put(InstructionTypes.ENUMERATOR_DECLARATION, new EnumeratorBehavior());
 	}
 
 	public static BehaviorManager getInstance() {
