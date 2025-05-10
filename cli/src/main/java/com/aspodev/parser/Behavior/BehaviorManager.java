@@ -28,6 +28,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.STATIC_INITIALZATION, new StaticInitBehavior());
 		registry.put(InstructionTypes.INITIALAZATION_BLOCK, new InitializerBehavior());
 		registry.put(InstructionTypes.ENUMERATOR_DECLARATION, new EnumeratorBehavior());
+		registry.put(InstructionTypes.SWITCH_STATEMENT, new SwitchBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

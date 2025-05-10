@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.aspodev.TypeParser.TypeTokenEnum;
-import com.aspodev.parser.Parser;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
@@ -35,7 +34,7 @@ public class InstructionClassifier {
 		List<Token> result = new ArrayList<>(24);
 
 		for (int i = 0; i < rawInstruction.size(); i++) {
-			result.add(new Token(rawInstruction.get(i), i));
+			result.add(new Token(rawInstruction.get(i), i, context));
 		}
 
 		return result;
@@ -91,8 +90,20 @@ public class InstructionClassifier {
 		if (classifiedTokens.get(0).getValue().equals("}"))
 			return InstructionTypes.END_OF_BLOCK;
 
-		// if (classifiedTokens.contains(new Token("->")))
-		// return InstructionTypes.LAMBDA_FUNCTION;
+		if (classifiedTokens.contains(new Token("switch")))
+			return InstructionTypes.SWITCH_STATEMENT;
+
+		if (classifiedTokens.contains(new Token("catch")))
+			return InstructionTypes.CATCH_STATEMENT;
+
+		if (classifiedTokens.contains(new Token("throw")))
+			return InstructionTypes.THROW_STATEMENT;
+
+		if (isLabelCase(context))
+			return InstructionTypes.LABEL_CASE_STATEMENT;
+
+		if (classifiedTokens.contains(new Token("->")))
+			return InstructionTypes.LAMBDA_FUNCTION;
 
 		return InstructionTypes.OTHER;
 	}
@@ -240,6 +251,13 @@ public class InstructionClassifier {
 		}
 
 		return false;
+	}
+
+	private boolean isLabelCase(ParserContext context) {
+		if (context.getCurrentScope() != ScopeEnum.SWITCH_STATEMENT)
+			return false;
+
+		return classifiedTokens.contains(new Token("->")) && classifiedTokens.contains(new Token("case"));
 	}
 
 	// #endregion
