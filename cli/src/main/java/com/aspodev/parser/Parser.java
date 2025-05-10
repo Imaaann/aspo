@@ -38,7 +38,6 @@ public class Parser {
 			// Build an instruction
 			InstructionBuilder builder = new InstructionBuilder(iterator);
 			builder.build();
-			builder.clean();
 			List<String> rawInstruction = builder.getInstruction();
 
 			// Classify the tokens and instruction

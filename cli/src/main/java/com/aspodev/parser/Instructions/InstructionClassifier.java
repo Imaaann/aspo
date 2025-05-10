@@ -153,24 +153,21 @@ public class InstructionClassifier {
 	}
 
 	private boolean isLocalVariable(ParserContext context) {
-		if (context.getCurrentScope() == ScopeEnum.INSTRUCTION) {
-			Iterator<Token> iterator = classifiedTokens.iterator();
-			while (iterator.hasNext()) {
-				Token token = iterator.next();
-				if (token.isIdentifier() && iterator.hasNext()) {
-					token = iterator.next();
-					if (token.getValue().contains("<")) {
-						InstructionUtil.getGenericHeader(iterator, token);
-						if (iterator.hasNext()) {
-							token = iterator.next();
-						}
-					}
+		ScopeEnum scope = context.getCurrentScope();
 
-					return token.isIdentifier();
-				}
-			}
+		if (scope != ScopeEnum.INSTRUCTION && scope != ScopeEnum.SWITCH_STATEMENT)
+			return false;
+
+		try {
+			Token typeIdf = Instruction.getIdentifier(classifiedTokens, 0);
+			typeIdf = InstructionUtil.resolveType(classifiedTokens, typeIdf.getPosition());
+			Token nameIdf = classifiedTokens.get(typeIdf.getPosition() + 1);
+
+			return nameIdf.isIdentifier();
+		} catch (Throwable e) {
+			return false;
 		}
-		return false;
+
 	}
 
 	private boolean isMethod(ParserContext context) {

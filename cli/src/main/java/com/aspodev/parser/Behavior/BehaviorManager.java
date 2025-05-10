@@ -30,6 +30,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.ENUMERATOR_DECLARATION, new EnumeratorBehavior());
 		registry.put(InstructionTypes.SWITCH_STATEMENT, new SwitchBehavior());
 		registry.put(InstructionTypes.CATCH_STATEMENT, new CatchBehavior());
+		registry.put(InstructionTypes.THROW_STATEMENT, new ThrowBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

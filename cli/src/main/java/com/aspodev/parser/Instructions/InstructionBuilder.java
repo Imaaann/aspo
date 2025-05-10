@@ -3,7 +3,6 @@ package com.aspodev.parser.Instructions;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.aspodev.parser.ParserConstants;
 
@@ -28,11 +27,6 @@ public class InstructionBuilder {
 
 			instruction.add(token);
 		}
-	}
-
-	public void clean() {
-		instruction = instruction.stream().filter((token) -> !ParserConstants.skippableTokens.contains(token))
-				.collect(Collectors.toList());
 	}
 
 	public List<String> getInstruction() {
