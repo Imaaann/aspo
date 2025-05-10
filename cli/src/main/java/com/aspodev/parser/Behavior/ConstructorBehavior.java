@@ -33,7 +33,6 @@ public class ConstructorBehavior implements Behavior {
 		temp = new Token("");
 		iterator = instruction.getTokens().iterator();
 		while (!temp.getValue().contains("<") && iterator.hasNext() && temp.getPosition() < callPos) {
-			System.out.println("[DEBUG] temp consturctor: " + temp);
 			temp = iterator.next();
 		}
 
@@ -48,7 +47,7 @@ public class ConstructorBehavior implements Behavior {
 		method.addArgument(parameterMap.values());
 		method.addModifier(modifiers);
 
-		for (String varName : parameterMap.values()) {
+		for (String varName : parameterMap.keySet()) {
 			String typeName = parameterMap.get(varName);
 			context.addLocalVariable(typeName, varName);
 		}
