@@ -77,6 +77,9 @@ public class InstructionClassifier {
 		if (isAttribute(context))
 			return InstructionTypes.ATTRIBUTE_DECLARATION;
 
+		if (classifiedTokens.contains(new Token("catch")))
+			return InstructionTypes.CATCH_STATEMENT;
+
 		if (isLocalVariable(context)) {
 			return InstructionTypes.LOCAL_VARIABLE_DECLARATION;
 		}
@@ -92,9 +95,6 @@ public class InstructionClassifier {
 
 		if (classifiedTokens.contains(new Token("switch")))
 			return InstructionTypes.SWITCH_STATEMENT;
-
-		if (classifiedTokens.contains(new Token("catch")))
-			return InstructionTypes.CATCH_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("throw")))
 			return InstructionTypes.THROW_STATEMENT;
