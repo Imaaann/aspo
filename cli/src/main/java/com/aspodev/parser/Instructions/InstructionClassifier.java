@@ -79,14 +79,18 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("catch")))
 			return InstructionTypes.CATCH_STATEMENT;
 
+		if (isLabelCase(context))
+			return InstructionTypes.LABEL_CASE_STATEMENT;
+
 		if (isLocalVariable(context)) {
 			return InstructionTypes.LOCAL_VARIABLE_DECLARATION;
 		}
 
-		if (classifiedTokens.get(0).getValue().equals("{"))
+		if (classifiedTokens.get(0).getValue().equals("{") && context.getCurrentScope() == ScopeEnum.CLASS)
 			return InstructionTypes.INITIALAZATION_BLOCK;
 
-		if (classifiedTokens.get(0).getValue().equals("static") && classifiedTokens.get(1).getValue().equals("{"))
+		if (classifiedTokens.get(0).getValue().equals("static") && classifiedTokens.get(1).getValue().equals("{")
+				&& context.getCurrentScope() == ScopeEnum.CLASS)
 			return InstructionTypes.STATIC_INITIALZATION;
 
 		if (classifiedTokens.get(0).getValue().equals("}"))
@@ -97,9 +101,6 @@ public class InstructionClassifier {
 
 		if (classifiedTokens.contains(new Token("throw")))
 			return InstructionTypes.THROW_STATEMENT;
-
-		// if (isLabelCase(context))
-		// return InstructionTypes.LABEL_CASE_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("->")))
 			return InstructionTypes.LAMBDA_FUNCTION;
@@ -255,8 +256,9 @@ public class InstructionClassifier {
 		if (context.getCurrentScope() != ScopeEnum.SWITCH_STATEMENT)
 			return false;
 
-		return classifiedTokens.contains(new Token("->"))
-				&& (classifiedTokens.contains(new Token("case")) || classifiedTokens.contains(new Token("default")));
+		String firstValue = classifiedTokens.get(0).getValue();
+		return (firstValue.equals("case") || firstValue.equals("default"))
+				&& classifiedTokens.contains(new Token("->"));
 	}
 
 	// #endregion

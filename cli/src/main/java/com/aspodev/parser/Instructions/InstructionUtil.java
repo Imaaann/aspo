@@ -242,4 +242,18 @@ public class InstructionUtil {
         return dependencies;
     }
 
+    public static String resolveLiteral(Token token) {
+        String value = token.getValue();
+        if (value.equals("null"))
+            return "null";
+        if (value.equals("true") || value.equals("false"))
+            return "boolean";
+        if (token.getType() == TokenTypes.LITERAL) {
+            if (value.contains(".") || value.contains("p"))
+                return "double";
+            return "int";
+        }
+
+        return "String";
+    }
 }

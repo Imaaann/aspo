@@ -15,4 +15,5 @@ public class ParserConstants {
 
 	public static Set<String> assignmentOperators = Set.of("+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "<<=", ">>=",
 			">>>=", "=");
+	public static Set<String> literals = Set.of("true", "false", "null");
 }

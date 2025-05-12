@@ -61,10 +61,10 @@ public class Token {
 			return TokenTypes.OPERATOR;
 		} else if (ParserConstants.seperators.contains(token)) {
 			return TokenTypes.SEPERATOR;
+		} else if (isJavaNumber(token) || ParserConstants.literals.contains(token)) {
+			return TokenTypes.LITERAL;
 		} else if (token.contains(".")) {
 			return TokenTypes.CHAINED_IDENTIFIER;
-		} else if (isJavaNumber(token)) {
-			return TokenTypes.LITERAL;
 		} else {
 			return TokenTypes.IDENTIFIER;
 		}

@@ -74,7 +74,7 @@ public class OtherBehavior implements Behavior {
 
 			String typeName;
 			if (!prevToken.isIdentifier()) {
-				typeName = resolveLiteral(prevToken);
+				typeName = InstructionUtil.resolveLiteral(prevToken);
 			} else {
 				typeName = context.getVariableType(prevToken.getValue());
 				if (typeName == null)
@@ -92,21 +92,6 @@ public class OtherBehavior implements Behavior {
 		if (tokens.contains(new Token("{")))
 			context.changeScope(ScopeEnum.INSTRUCTION);
 
-	}
-
-	private String resolveLiteral(Token token) {
-		String value = token.getValue();
-		if (value.equals("null"))
-			return "null";
-		if (value.equals("true") || value.equals("false"))
-			return "boolean";
-		if (token.getType() == TokenTypes.LITERAL) {
-			if (value.contains(".") || value.contains("p"))
-				return "double";
-			return "int";
-		}
-
-		return "String";
 	}
 
 }
