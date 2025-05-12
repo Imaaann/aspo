@@ -28,10 +28,12 @@ public class ThrowBehavior implements Behavior {
 			currentSlice.addException(exceptionId.getValue());
 		} else {
 			String exceptionName = context.getVariableType(exceptionId.getValue());
-			currentSlice.addException(exceptionName);
 
 			if (exceptionName == null)
 				currentSlice.addException("UNKOWN");
+			else
+				currentSlice.addException(exceptionName);
+
 		}
 
 		new OtherBehavior().apply(context, instruction);

@@ -67,9 +67,46 @@ public class OtherBehavior implements Behavior {
 			}
 		}
 
+		List<Token> methodRefrenceList = tokens.stream().filter(t -> t.getValue().equals("::")).toList();
+		for (Token methodReference : methodRefrenceList) {
+			Token nextToken = instruction.getToken(methodReference.getPosition() + 1);
+			Token prevToken = instruction.getToken(methodReference.getPosition() - 1);
+
+			String typeName;
+			if (!prevToken.isIdentifier()) {
+				typeName = resolveLiteral(prevToken);
+			} else {
+				typeName = context.getVariableType(prevToken.getValue());
+				if (typeName == null)
+					typeName = prevToken.getValue();
+			}
+
+			if (nextToken.getValue().equals("new")) {
+				context.addDependency(typeName + ".construct", typeName);
+			} else {
+				context.addDependency(nextToken.getValue(), typeName);
+			}
+
+		}
+
 		if (tokens.contains(new Token("{")))
 			context.changeScope(ScopeEnum.INSTRUCTION);
 
+	}
+
+	private String resolveLiteral(Token token) {
+		String value = token.getValue();
+		if (value.equals("null"))
+			return "null";
+		if (value.equals("true") || value.equals("false"))
+			return "boolean";
+		if (token.getType() == TokenTypes.LITERAL) {
+			if (value.contains(".") || value.contains("p"))
+				return "double";
+			return "int";
+		}
+
+		return "String";
 	}
 
 }
