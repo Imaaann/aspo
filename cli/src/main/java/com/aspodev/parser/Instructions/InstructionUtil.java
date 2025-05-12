@@ -49,6 +49,37 @@ public class InstructionUtil {
         return type;
     }
 
+    public static int resolveTypeLength(List<Token> tokens, int typePos) {
+        Token temp = tokens.get(typePos + 1);
+        int finalPos = typePos;
+
+        if (temp.getValue().contains("<")) {
+
+            Iterator<Token> iterator = tokens.iterator();
+            temp = new Token("");
+
+            while (!temp.getValue().contains("<") && iterator.hasNext()) {
+                temp = iterator.next();
+            }
+
+            Token genericHeader = InstructionUtil.getGenericHeader(iterator, temp);
+
+            if (iterator.hasNext()) {
+                finalPos = genericHeader.getPosition();
+            }
+        }
+
+        if (temp.getValue().equals("[")) {
+            finalPos = typePos + 2;
+        }
+
+        if (temp.getValue().equals("...")) {
+            finalPos = typePos + 1;
+        }
+
+        return finalPos;
+    }
+
     public static Token getGenericHeader(Iterator<Token> iterator, Token startToken) {
         Token temp;
         int sign = 0;

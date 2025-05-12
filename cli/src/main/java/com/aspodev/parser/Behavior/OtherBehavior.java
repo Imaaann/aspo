@@ -1,6 +1,5 @@
 package com.aspodev.parser.Behavior;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.aspodev.parser.ParserContext;
@@ -51,11 +50,11 @@ public class OtherBehavior implements Behavior {
 
 				if (varType == null) {
 					varType = "UNKOWN";
-					System.out.println("[DEBUG] Unkown dependency: " + Arrays.asList(components));
 				}
 
 				context.addDependency(components[1], varType);
 			} else {
+				System.out.println("[DEBUG] instruction: " + instruction);
 				String callerType = "RESOLVE";
 
 				if (context.isType(idf)) {

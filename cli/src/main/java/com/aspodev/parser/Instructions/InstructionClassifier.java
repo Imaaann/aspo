@@ -159,9 +159,12 @@ public class InstructionClassifier {
 			return false;
 
 		try {
+
 			Token typeIdf = Instruction.getIdentifier(classifiedTokens, 0);
-			typeIdf = InstructionUtil.resolveType(classifiedTokens, typeIdf.getPosition());
-			Token nameIdf = classifiedTokens.get(typeIdf.getPosition() + 1);
+			int typeLength = InstructionUtil.resolveTypeLength(classifiedTokens, typeIdf.getPosition());
+
+			Token nameIdf = classifiedTokens.get(typeLength + 1);
+			System.out.println("[DEBUG] nameIdf: " + nameIdf);
 
 			return nameIdf.isIdentifier();
 		} catch (Throwable e) {
