@@ -1,6 +1,9 @@
 package com.aspodev.parser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.Slice;
@@ -19,6 +22,8 @@ public class ParserContext {
 	private Stack<Slice> slices;
 
 	private String pkgName = "NONE";
+	private List<String> staticFunctions;
+	private List<String> staticClasses;
 
 	private Method currentMethod;
 	private LocalVariableMap localVariables;
@@ -30,6 +35,8 @@ public class ParserContext {
 		this.scope = new Scope();
 		this.localVariables = new LocalVariableMap();
 		this.slices = new Stack<>();
+		this.staticFunctions = new ArrayList<>();
+		this.staticClasses = new ArrayList<>();
 	}
 
 	// #region Scope methods
@@ -103,6 +110,25 @@ public class ParserContext {
 
 	// #region Other Methods
 
+	public void addStaticMethod(String methodName) {
+		this.staticFunctions.add(methodName);
+	}
+
+	public void addStaticClass(String className) {
+		this.staticFunctions.add(className);
+	}
+
+	public String getStaticClass(String methodName) {
+		String[] components = staticFunctions.stream().filter(s -> s.endsWith(methodName)).collect(Collectors.joining())
+				.split("\\.");
+
+		if (components.length > 1) {
+			return components[components.length - 2];
+		}
+
+		return null;
+	}
+
 	public void setPackage(String pkgName) {
 		this.pkgName = pkgName;
 	}
@@ -142,6 +168,15 @@ public class ParserContext {
 
 	public void deleteScopeVariables() {
 		localVariables.removeScope(getScopeCount());
+	}
+
+	public boolean isAmbigous() {
+		if (staticClasses.size() > 1)
+			return true;
+		if (staticClasses.size() == 1 && getSlice().getParentName() != null)
+			return true;
+
+		return false;
 	}
 
 	// #endregion

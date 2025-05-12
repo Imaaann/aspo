@@ -6,7 +6,6 @@ import java.util.Map;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Instructions.Instruction;
 import com.aspodev.parser.Instructions.InstructionTypes;
-import com.aspodev.parser.Scope.ScopeEnum;
 
 public class BehaviorManager {
 	public static BehaviorManager instance = new BehaviorManager();
@@ -34,6 +33,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.THROW_STATEMENT, new ThrowBehavior());
 		registry.put(InstructionTypes.LAMBDA_FUNCTION, new LambdaBehavior());
 		registry.put(InstructionTypes.LABEL_CASE_STATEMENT, new LabelCaseBehavior());
+		registry.put(InstructionTypes.STATIC_IMPORT_STATEMENT, new StaticImportBehavior());
 	}
 
 	public static BehaviorManager getInstance() {

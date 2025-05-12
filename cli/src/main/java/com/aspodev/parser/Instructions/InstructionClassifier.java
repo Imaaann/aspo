@@ -9,6 +9,7 @@ import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
 
+import static java.lang.Math.pow;
 import com.aspodev.parser.Scope.ScopeEnum;
 
 public class InstructionClassifier {
@@ -44,6 +45,9 @@ public class InstructionClassifier {
 		// TODO: make this function work ffs
 		if (classifiedTokens.contains(new Token("import")))
 			return InstructionTypes.IMPORT_STATEMENT;
+
+		if (isStaticImport())
+			return InstructionTypes.STATIC_IMPORT_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("package")))
 			return InstructionTypes.PACKAGE_STATEMENT;
@@ -259,6 +263,15 @@ public class InstructionClassifier {
 		String firstValue = classifiedTokens.get(0).getValue();
 		return (firstValue.equals("case") || firstValue.equals("default"))
 				&& classifiedTokens.contains(new Token("->"));
+	}
+
+	private boolean isStaticImport() {
+		if (classifiedTokens.size() < 2)
+			return false;
+
+		String value1 = classifiedTokens.get(0).getValue();
+		String value2 = classifiedTokens.get(1).getValue();
+		return value1.equals("import") && value2.equals("static");
 	}
 
 	// #endregion
