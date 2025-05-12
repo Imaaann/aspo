@@ -206,7 +206,6 @@ public class InstructionUtil {
             return nextToken != null && nextToken.getValue().equals("(");
 
         }).toList();
-        System.out.println("[DEBUG] found ids: " + idfs);
 
         List<Dependency> dependencies = new ArrayList<>();
 

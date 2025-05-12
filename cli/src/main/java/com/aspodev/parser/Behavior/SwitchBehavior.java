@@ -11,7 +11,6 @@ public class SwitchBehavior implements Behavior {
 		new OtherBehavior().apply(context, instruction);
 		context.rewindScope();
 		context.changeScope(ScopeEnum.SWITCH_STATEMENT);
-		System.out.println("[DEBUG] Switched to scope" + context.getCurrentScope());
 	}
 
 }

@@ -2,6 +2,7 @@ package com.aspodev.parser.Instructions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Accessors;
 import com.aspodev.SCAR.Modifier;
@@ -128,7 +129,8 @@ public class Instruction {
 	}
 
 	public String toString() {
-		return tokens + " TYPE:" + type;
+		String instrString = tokens.stream().map(Token::toString).collect(Collectors.joining(""));
+		return instrString + " | TYPE:" + type;
 	}
 
 	private boolean isTypeDeclaration() {

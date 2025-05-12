@@ -26,11 +26,9 @@ public class ThrowBehavior implements Behavior {
 
 		if (instruction.getToken(exceptionId.getPosition() - 1).equals(new Token("new"))) {
 			currentSlice.addException(exceptionId.getValue());
-			System.out.println("[DEBUG] adding thrown exception: " + exceptionId.getValue());
 		} else {
 			String exceptionName = context.getVariableType(exceptionId.getValue());
 			currentSlice.addException(exceptionName);
-			System.out.println("[DEBUG] adding thrown exception: " + exceptionName);
 
 			if (exceptionName == null)
 				currentSlice.addException("UNKOWN");

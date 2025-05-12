@@ -64,7 +64,6 @@ public class InstructionClassifier {
 			return InstructionTypes.CONSTRUCTOR_DEFENITION;
 
 		if (isEnumerator(context)) {
-			System.out.println("[DEBUG] found enumerator declaration");
 			return InstructionTypes.ENUMERATOR_DECLARATION;
 		}
 
@@ -102,8 +101,8 @@ public class InstructionClassifier {
 		// if (isLabelCase(context))
 		// return InstructionTypes.LABEL_CASE_STATEMENT;
 
-		// if (classifiedTokens.contains(new Token("->")))
-		// return InstructionTypes.LAMBDA_FUNCTION;
+		if (classifiedTokens.contains(new Token("->")))
+			return InstructionTypes.LAMBDA_FUNCTION;
 
 		return InstructionTypes.OTHER;
 	}

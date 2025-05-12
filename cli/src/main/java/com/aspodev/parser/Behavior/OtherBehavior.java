@@ -53,7 +53,6 @@ public class OtherBehavior implements Behavior {
 
 				context.addDependency(components[1], varType);
 			} else {
-				System.out.println("[DEBUG] instruction: " + instruction);
 				String callerType = "RESOLVE";
 
 				if (context.isType(idf)) {

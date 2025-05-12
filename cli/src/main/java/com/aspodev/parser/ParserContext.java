@@ -122,7 +122,6 @@ public class ParserContext {
 	public void addDependency(String methodName, String callerType) {
 
 		if (scope.getCurrentScope() == ScopeEnum.CLASS) {
-			System.out.println("[DEBUG] Adding new dependency to class: " + methodName + " : " + callerType);
 			getSlice().addDependency(methodName, callerType);
 			return;
 		}

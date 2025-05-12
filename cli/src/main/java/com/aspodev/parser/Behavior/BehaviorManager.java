@@ -31,6 +31,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.SWITCH_STATEMENT, new SwitchBehavior());
 		registry.put(InstructionTypes.CATCH_STATEMENT, new CatchBehavior());
 		registry.put(InstructionTypes.THROW_STATEMENT, new ThrowBehavior());
+		registry.put(InstructionTypes.LAMBDA_FUNCTION, new LambdaBehavior());
 	}
 
 	public static BehaviorManager getInstance() {
