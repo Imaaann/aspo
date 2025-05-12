@@ -99,11 +99,11 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("throw")))
 			return InstructionTypes.THROW_STATEMENT;
 
-		if (isLabelCase(context))
-			return InstructionTypes.LABEL_CASE_STATEMENT;
+		// if (isLabelCase(context))
+		// return InstructionTypes.LABEL_CASE_STATEMENT;
 
-		if (classifiedTokens.contains(new Token("->")))
-			return InstructionTypes.LAMBDA_FUNCTION;
+		// if (classifiedTokens.contains(new Token("->")))
+		// return InstructionTypes.LAMBDA_FUNCTION;
 
 		return InstructionTypes.OTHER;
 	}
@@ -164,7 +164,6 @@ public class InstructionClassifier {
 			int typeLength = InstructionUtil.resolveTypeLength(classifiedTokens, typeIdf.getPosition());
 
 			Token nameIdf = classifiedTokens.get(typeLength + 1);
-			System.out.println("[DEBUG] nameIdf: " + nameIdf);
 
 			return nameIdf.isIdentifier();
 		} catch (Throwable e) {

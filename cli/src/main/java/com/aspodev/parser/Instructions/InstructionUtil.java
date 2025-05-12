@@ -201,8 +201,10 @@ public class InstructionUtil {
             if (chainIdf)
                 return true;
 
-            Token nextToken = tokens.get(t.getPosition() + 1);
+            int finalPos = InstructionUtil.resolveTypeLength(tokens, t.getPosition());
+            Token nextToken = tokens.get(finalPos + 1);
             return nextToken != null && nextToken.getValue().equals("(");
+
         }).toList();
         System.out.println("[DEBUG] found ids: " + idfs);
 
@@ -219,7 +221,7 @@ public class InstructionUtil {
 
                 if (varType == null) {
                     varType = "UNKOWN";
-                    System.out.println("[DEBUG] Unkown dependency: " + Arrays.asList(components));
+                    System.out.println("[WARN] Unkown dependency: " + Arrays.asList(components));
                 }
 
                 dependencies.add(new Dependency(components[1], varType));
@@ -237,8 +239,6 @@ public class InstructionUtil {
                 dependencies.add(new Dependency(id.getValue(), callerType));
             }
         }
-
-        System.out.println("[DEBUG] found dependencies: " + dependencies);
 
         return dependencies;
     }

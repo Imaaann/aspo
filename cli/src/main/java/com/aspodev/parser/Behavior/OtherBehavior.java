@@ -6,6 +6,7 @@ import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenTypes;
 import com.aspodev.parser.Instructions.Instruction;
+import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.ScopeEnum;
 
 public class OtherBehavior implements Behavior {
@@ -21,9 +22,12 @@ public class OtherBehavior implements Behavior {
 			if (chainIdf)
 				return true;
 
-			Token nextToken = instruction.getToken(t.getPosition() + 1);
+			int finalPos = InstructionUtil.resolveTypeLength(instruction.getTokens(), t.getPosition());
+			Token nextToken = instruction.getToken(finalPos + 1);
 			return nextToken != null && nextToken.getValue().equals("(");
+
 		}).toList();
+
 		List<Token> tokens = instruction.getTokens();
 
 		for (Token idf : identifers) {
@@ -33,11 +37,6 @@ public class OtherBehavior implements Behavior {
 			 * ".stream" ()
 			 */
 			if (idf.getValue().startsWith("."))
-				continue;
-
-			Token nextToken = tokens.get(idf.getPosition() + 1);
-
-			if (!nextToken.getValue().equals("("))
 				continue;
 
 			if (idf.getType() == TokenTypes.CHAINED_IDENTIFIER) {
