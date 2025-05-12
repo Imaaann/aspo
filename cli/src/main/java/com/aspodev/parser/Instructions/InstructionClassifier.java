@@ -254,7 +254,8 @@ public class InstructionClassifier {
 		if (context.getCurrentScope() != ScopeEnum.SWITCH_STATEMENT)
 			return false;
 
-		return classifiedTokens.contains(new Token("->")) && classifiedTokens.contains(new Token("case"));
+		return classifiedTokens.contains(new Token("->"))
+				&& (classifiedTokens.contains(new Token("case")) || classifiedTokens.contains(new Token("default")));
 	}
 
 	// #endregion

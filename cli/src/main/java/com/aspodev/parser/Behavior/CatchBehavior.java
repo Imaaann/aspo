@@ -11,7 +11,7 @@ public class CatchBehavior implements Behavior {
 	@Override
 	public void apply(ParserContext context, Instruction instruction) {
 		Token exceptionType = instruction.getIdentifier(0);
-		exceptionType = InstructionUtil.resolveType(instruction.getTokens(), exceptionType.getPosition());
+		InstructionUtil.resolveType(instruction.getTokens(), exceptionType.getPosition());
 		Token exceptionVarName = instruction.getToken(exceptionType.getPosition() + 1);
 		context.getSlice().addHandledException(exceptionType.getValue());
 		context.addLocalVariable(exceptionType.getValue(), exceptionVarName.getValue());

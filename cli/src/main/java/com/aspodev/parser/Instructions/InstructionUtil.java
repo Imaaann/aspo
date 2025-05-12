@@ -31,10 +31,8 @@ public class InstructionUtil {
             Token genericHeader = InstructionUtil.getGenericHeader(iterator, temp);
 
             if (iterator.hasNext()) {
-                temp.setValue(type.getValue());
-                temp.append(genericHeader);
-                temp.setPosition(genericHeader.getPosition());
-                return temp;
+                type.append(genericHeader);
+                type.setPosition(genericHeader.getPosition());
             }
         }
 
@@ -71,7 +69,11 @@ public class InstructionUtil {
 
             counter = counter + sign * length;
             token.append(temp);
-            pos++;
+
+            if (counter == 0) {
+                pos = temp.getPosition();
+            }
+
         } while (!(counter == 0) && iterator.hasNext());
 
         token.setPosition(pos);

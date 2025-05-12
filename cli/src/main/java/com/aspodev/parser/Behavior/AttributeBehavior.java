@@ -19,7 +19,7 @@ public class AttributeBehavior implements Behavior {
 		Accessors accessor = instruction.getAccessor();
 
 		Token typeName = instruction.getIdentifier(0);
-		typeName = InstructionUtil.resolveType(instruction.getTokens(), typeName.getPosition());
+		InstructionUtil.resolveType(instruction.getTokens(), typeName.getPosition());
 
 		List<Token> varNames = InstructionUtil.getCommaSeperatedList(instruction, typeName.getPosition() + 1);
 		Slice currentSlice = context.getSlice();

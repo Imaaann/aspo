@@ -13,7 +13,7 @@ public class LocalVariableBhavior implements Behavior {
 	@Override
 	public void apply(ParserContext context, Instruction instruction) {
 		Token typeName = instruction.getIdentifier(0);
-		typeName = InstructionUtil.resolveType(instruction.getTokens(), typeName.getPosition());
+		InstructionUtil.resolveType(instruction.getTokens(), typeName.getPosition());
 
 		List<Token> varNames = InstructionUtil.getCommaSeperatedList(instruction, typeName.getPosition() + 1);
 

@@ -35,7 +35,7 @@ public class GenericMethodBehavior implements Behavior {
 		Token genericToken = InstructionUtil.getGenericHeader(iterator, startToken);
 
 		returnType = iterator.next();
-		returnType = InstructionUtil.resolveType(tokens, returnType.getPosition());
+		InstructionUtil.resolveType(tokens, returnType.getPosition());
 
 		methodName = tokens.get(returnType.getPosition() + 1);
 
