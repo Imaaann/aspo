@@ -106,6 +106,10 @@ public class ParserContext {
 		model.addSlice(current);
 	}
 
+	public String getClassName() {
+		return this.getSlice().getMetaData().name();
+	}
+
 	// #endregion
 
 	// #region Other Methods

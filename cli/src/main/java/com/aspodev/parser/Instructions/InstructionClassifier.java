@@ -3,6 +3,7 @@ package com.aspodev.parser.Instructions;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import com.aspodev.TypeParser.TypeTokenEnum;
 import com.aspodev.parser.ParserContext;
@@ -73,6 +74,7 @@ public class InstructionClassifier {
 		if (isGenericMethod(context)) {
 			return InstructionTypes.GENERIC_METHOD_DECLARATION;
 		}
+
 		if (isMethod(context))
 			return InstructionTypes.METHOD_DECLARATION;
 
@@ -81,6 +83,9 @@ public class InstructionClassifier {
 
 		if (classifiedTokens.contains(new Token("catch")))
 			return InstructionTypes.CATCH_STATEMENT;
+
+		if (isAnonymousClass(context))
+			return InstructionTypes.ANONYMOUS_CLASS_DECLARATION;
 
 		if (isLabelCase(context))
 			return InstructionTypes.LABEL_CASE_STATEMENT;
@@ -271,6 +276,75 @@ public class InstructionClassifier {
 		String value1 = classifiedTokens.get(0).getValue();
 		String value2 = classifiedTokens.get(1).getValue();
 		return value1.equals("import") && value2.equals("static");
+	}
+
+	private boolean isAnonymousClass(ParserContext context) {
+
+		List<Token> toks = classifiedTokens;
+		int n = toks.size();
+		if (n < 3)
+			return false;
+
+		// 1) Must end with '{'
+		if (!"{".equals(toks.get(n - 1).getValue())) {
+			return false;
+		}
+
+		// 2) Find last 'new'
+		int newIdx = toks.lastIndexOf(new Token("new"));
+		if (newIdx < 0 || newIdx + 1 >= n) {
+			return false;
+		}
+
+		// 3) Next token must be identifier (the type)
+		Token ctorName = toks.get(newIdx + 1);
+		if (!ctorName.isIdentifier()) {
+			return false;
+		}
+
+		// 4) Skip any generics on the type
+		int idx = InstructionUtil.resolveTypeLength(toks, newIdx + 1);
+		if (idx < 0 || idx >= n) {
+			return false;
+		}
+
+		// 5) Find the '(' that starts the constructor args
+		int parenStart = -1;
+		for (int i = idx; i < n; i++) {
+			if ("(".equals(toks.get(i).getValue())) {
+				parenStart = i;
+				break;
+			}
+			// if we hit the final '{' first, bail out
+			if ("{".equals(toks.get(i).getValue())) {
+				return false;
+			}
+		}
+		if (parenStart < 0) {
+			return false;
+		}
+
+		// 6) Track depth until we find the matching ')'
+		int depth = 0;
+		int matchIdx = -1;
+		for (int i = parenStart; i < n; i++) {
+			String v = toks.get(i).getValue();
+			if ("(".equals(v)) {
+				depth++;
+			} else if (")".equals(v)) {
+				depth--;
+				if (depth == 0) {
+					matchIdx = i;
+					break;
+				}
+			}
+		}
+		if (matchIdx < 0) {
+			return false;
+		}
+
+		// 7) That must be *exactly* the token before the '{'
+		return matchIdx == n - 2;
 	}
 
 	// #endregion

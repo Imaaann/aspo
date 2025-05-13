@@ -34,6 +34,7 @@ public class BehaviorManager {
 		registry.put(InstructionTypes.LAMBDA_FUNCTION, new LambdaBehavior());
 		registry.put(InstructionTypes.LABEL_CASE_STATEMENT, new LabelCaseBehavior());
 		registry.put(InstructionTypes.STATIC_IMPORT_STATEMENT, new StaticImportBehavior());
+		registry.put(InstructionTypes.ANONYMOUS_CLASS_DECLARATION, new AnonymousBehavior());
 	}
 
 	public static BehaviorManager getInstance() {
