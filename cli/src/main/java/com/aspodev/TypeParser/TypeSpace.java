@@ -33,7 +33,36 @@ public class TypeSpace {
 	}
 
 	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
-		// TODO: Read from the LibraryJSON file to resolve wild card packages
+		String basePkg = pkg.replace(".*", "");
+		String jsonResourcePath = "/Library.json";
+
+		try {
+			// 1) Read the entire root as a Map<packageName, LibraryTypes>
+			Map<String, LibraryTypes> allPackages = JsonTools.readJsonObject(jsonResourcePath,
+					new com.fasterxml.jackson.core.type.TypeReference<Map<String, LibraryTypes>>() {});
+
+			// 2) For each entry whose key startsWith our basePkg, extract and add
+			allPackages.entrySet().stream()
+					.filter(entry -> entry.getKey().startsWith(basePkg))
+					.forEach(entry -> {
+						LibraryTypes lib = entry.getValue();
+
+						lib.classes().forEach(className ->
+								this.addType(className, basePkg, TypeTokenEnum.CLASS)
+						);
+
+						lib.interfaces().forEach(interfaceName ->
+								this.addType(interfaceName, basePkg, TypeTokenEnum.INTERFACE)
+						);
+
+						lib.enums().forEach(enumName ->
+								this.addType(enumName, basePkg, TypeTokenEnum.ENUM)
+						);
+					});
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static List<TypeToken> loadStandardTypes() {
