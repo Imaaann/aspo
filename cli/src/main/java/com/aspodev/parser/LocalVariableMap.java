@@ -14,8 +14,6 @@ public class LocalVariableMap {
 
 		Map<String, String> scopeMap = map.get(scope);
 
-		System.out.println("[DEBUG] == adding variable: " + varName + " : " + typeName + " to scope number " + scope);
-
 		if (scopeMap == null) {
 			scopeMap = new HashMap<>();
 			map.put(scope, scopeMap);

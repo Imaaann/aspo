@@ -2,7 +2,7 @@ package com.aspodev.SCAR;
 
 public class Dependency {
 	private final String name;
-	private final String callerType;
+	private String callerType;
 
 	public Dependency(String name, String callerType) {
 		this.name = name;
@@ -15,6 +15,10 @@ public class Dependency {
 
 	public String getCallerType() {
 		return this.callerType;
+	}
+
+	public void setCallerType(String callerType) {
+		this.callerType = callerType;
 	}
 
 	public String toString() {

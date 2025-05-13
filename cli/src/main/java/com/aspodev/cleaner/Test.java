@@ -1,7 +1,14 @@
 package com.aspodev.cleaner;
 
+import static java.lang.System.*;
+import static java.lang.Math.pow;
+import static java.util.stream.Collectors.*;
+
 public class Test {
 	public static void main(String[] args) {
+		currentTimeMillis();
+		pow(3, 3);
+
 		// Anonymous class implementing an interface
 		Runnable r = new Runnable() {
 			@Override

@@ -47,6 +47,10 @@ public class Method {
 		this.dependencies.add(new Dependency(methodName, callerType));
 	}
 
+	public Set<Dependency> getDependencies() {
+		return dependencies;
+	}
+
 	public String getName() {
 		return this.name;
 	}

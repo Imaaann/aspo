@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Modifier;
@@ -255,5 +256,15 @@ public class InstructionUtil {
         }
 
         return "String";
+    }
+
+    public static String getChainedElementsExcept(String element, int amount) {
+        List<String> components = Arrays.asList(element.split("\\."));
+        int size = components.size();
+        return components.stream().limit(size - amount).collect(Collectors.joining("."));
+    }
+
+    public static String getChainedElementsExcept(String element) {
+        return InstructionUtil.getChainedElementsExcept(element, 1);
     }
 }

@@ -17,7 +17,9 @@ public class OtherBehavior implements Behavior {
 			if (!t.isIdentifier())
 				return false;
 
-			boolean chainIdf = t.getType() == TokenTypes.CHAINED_IDENTIFIER && !t.getValue().startsWith(".");
+			String next = instruction.getToken(t.getPosition() + 1).getValue();
+			boolean chainIdf = t.getType() == TokenTypes.CHAINED_IDENTIFIER && !t.getValue().startsWith(".")
+					&& (next.equals("(") || next.contains("<"));
 
 			if (chainIdf)
 				return true;

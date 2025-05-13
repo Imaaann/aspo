@@ -44,7 +44,6 @@ public class Parser {
 			InstructionClassifier classifier = new InstructionClassifier(rawInstruction);
 			Instruction instruction = classifier.classify(this.context);
 
-			// System.out.println("[DEBUG] instruction: " + instruction);
 			// §Execute behavior assosiated with the instruction
 			manager.execute(this.context, instruction);
 		}

@@ -2,15 +2,18 @@ package com.aspodev.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.Slice;
+import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Method;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.TypeParser.TypeToken;
+import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.Scope;
 import com.aspodev.parser.Scope.ScopeEnum;
 
@@ -102,8 +105,64 @@ public class ParserContext {
 			return;
 
 		Slice current = slices.pop();
+		resolveTypes(current);
 		System.out.println("[DEBUG] Slice created: " + current);
 		model.addSlice(current);
+	}
+
+	public void resolveTypes(Slice slice) {
+
+		List<Dependency> dependencies = slice.getDependencies().stream()
+				.filter(d -> d.getCallerType().equals("RESOLVE")).toList();
+		Set<String> methodNames = slice.getMethods().stream().map(m -> m.getName()).collect(Collectors.toSet());
+
+		for (Dependency dependency : dependencies) {
+
+			// case when method comes from same class
+			if (methodNames.contains(dependency.getName())) {
+				dependency.setCallerType(slice.getMetaData().name());
+				continue;
+			}
+
+			String staticClassName = isStaticImport(dependency.getName());
+			if (staticClassName != null) {
+				dependency.setCallerType(staticClassName);
+				continue;
+			}
+
+			if (isAmbigous(slice)) {
+				String ambiguous = slice.getParentName();
+				for (String staticClass : staticClasses) {
+					String[] components = staticClass.split("\\.");
+					int size = components.length;
+					String className = components[size - 1];
+
+					if (ambiguous == null) {
+						ambiguous = className;
+					} else {
+						ambiguous = ambiguous + "|" + className;
+					}
+
+				}
+
+				dependency.setCallerType(ambiguous);
+				continue;
+
+			} else {
+				if (slice.getParentName() != null) {
+					dependency.setCallerType(slice.getParentName());
+					continue;
+				} else if (staticClasses.size() == 1) {
+					String[] components = staticClasses.get(0).split("\\.");
+					int size = components.length;
+					String className = components[size - 1];
+					dependency.setCallerType(className);
+					continue;
+				}
+			}
+
+		}
+
 	}
 
 	public String getClassName() {
@@ -119,7 +178,7 @@ public class ParserContext {
 	}
 
 	public void addStaticClass(String className) {
-		this.staticFunctions.add(className);
+		this.staticClasses.add(className);
 	}
 
 	public String getStaticClass(String methodName) {
@@ -174,13 +233,23 @@ public class ParserContext {
 		localVariables.removeScope(getScopeCount());
 	}
 
-	public boolean isAmbigous() {
+	public boolean isAmbigous(Slice slice) {
 		if (staticClasses.size() > 1)
 			return true;
-		if (staticClasses.size() == 1 && getSlice().getParentName() != null)
+		if (staticClasses.size() == 1 && slice.getParentName() != null)
 			return true;
 
 		return false;
+	}
+
+	public String isStaticImport(String methodName) {
+		for (String staticFunction : staticFunctions) {
+			String[] components = staticFunction.split("\\.");
+			int size = components.length;
+			if (components[size - 1].equals(methodName))
+				return components[size - 2];
+		}
+		return null;
 	}
 
 	// #endregion

@@ -14,14 +14,12 @@ public class StaticImportBehavior implements Behavior {
 	public void apply(ParserContext context, Instruction instruction) {
 		Token identifier = instruction.getIdentifier(0);
 
-		if (instruction.contains(new Token("*")))
-			identifier.append(new Token("*"));
-
 		List<String> components = Arrays.asList(identifier.getValue().split("\\."));
-		int size = components.size();
 
-		if (components.get(size - 1).equals("*")) {
-			String className = components.stream().limit(size - 1).collect(Collectors.joining("."));
+		if (instruction.contains(new Token("*"))) {
+			String className = components.stream().collect(Collectors.joining("."));
+
+			System.out.println("[DEBUG] Adding this class: " + className);
 			context.addStaticClass(className);
 		} else {
 			context.addStaticMethod(identifier.getValue());

@@ -45,7 +45,6 @@ public class LabelCaseBehavior implements Behavior {
 		iterator.forEachRemaining(t -> remainingTokens.add(t.getValue()));
 		InstructionClassifier classifier = new InstructionClassifier(remainingTokens);
 		Instruction subInstruction = classifier.classify(context);
-		System.out.println("[DEBUG] Sub instruction: " + subInstruction);
 		BehaviorManager.getInstance().execute(context, subInstruction);
 
 	}
