@@ -15,7 +15,6 @@ import com.aspodev.utils.RegexTools;
 public class Tokenizer {
 	private StringBuilder contents;
 	private List<String> tokens;
-	private int index = 0;
 
 	public Tokenizer(Path path) {
 		this.tokens = new ArrayList<>();
@@ -32,7 +31,7 @@ public class Tokenizer {
 
 		List<String> OPERATORS = Arrays.asList(">>>=", ">>>", "<<=", ">>=", "...", "->", "==", ">=", "<=", "!=", "&&",
 				"||", "++", "--", "<<", ">>", "+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "::", "=", ">", "<", "!",
-				"~", "?", ":", "+", "-", "*", "/", "&", "|", "^", "%", "(", ")", "{", "}", "[", "]", ";", ",", ".", "@",
+				"~", "?", ":", "+", "-", "*", "/", "&", "|", "^", "%", "(", ")", "{", "}", "[", "]", ";", ",", "@",
 				"\"\"\"", "\"", "\'");
 
 		String OperatorsPattern = OPERATORS.stream().sorted((a, b) -> Integer.compare(b.length(), a.length()))
@@ -43,14 +42,8 @@ public class Tokenizer {
 		this.tokens = this.splitAroundRegex(fullRegex);
 	}
 
-	public int getTokenNumber() {
-		return this.tokens.size();
-	}
-
-	public String getNextToken() {
-		String token = index < getTokenNumber() ? tokens.get(index) : "";
-		index++;
-		return token;
+	public List<String> getTokens() {
+		return tokens;
 	}
 
 	private List<String> splitAroundRegex(String regex) {

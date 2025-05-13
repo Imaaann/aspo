@@ -1,19 +1,20 @@
 package com.aspodev.TypeParser;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import com.aspodev.parser.Token;
 import com.aspodev.utils.JsonTools;
 
 public class TypeSpace {
 	private Set<TypeToken> typeSpace;
+	private static final List<TypeToken> defaultTypes = TypeSpace.loadStandardTypes();
 
 	public TypeSpace() {
-		this(TypeSpace.loadStandardTypes());
-		System.out.println(this.typeSpace.size());
-	}
-
-	public TypeSpace(List<TypeToken> defaultTypes) {
 		this.typeSpace = new HashSet<TypeToken>(256);
 		this.typeSpace.addAll(defaultTypes);
 	}
@@ -90,7 +91,20 @@ public class TypeSpace {
 		return standardList;
 	}
 
+	@Override
 	public String toString() {
-		return typeSpace.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("TypeSpace [").append(typeSpace.size()).append(" entries]\n");
+		sb.append("{\n");
+
+		typeSpace.stream().sorted(Comparator.comparing(TypeToken::pkg))
+				.forEach(t -> sb.append(String.format("  - %-40s pkg=%-25s kind=%s%n", t.name(), t.pkg(), t.type())));
+
+		sb.append("}");
+		return sb.toString();
+	}
+
+	public boolean isType(Token token) {
+		return typeSpace.contains(new TypeToken(token.getValue(), null, null));
 	}
 }

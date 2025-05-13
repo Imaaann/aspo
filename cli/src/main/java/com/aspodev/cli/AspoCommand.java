@@ -4,12 +4,10 @@ import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
-import com.aspodev.TypeParser.TypeSpace;
-import com.aspodev.TypeParser.TypeToken;
+import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
-import com.aspodev.tokenizer.Tokenizer;
-
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -23,6 +21,9 @@ public class AspoCommand implements Runnable {
     @Option(names = { "-m", "--more" }, description = "Adds more statistics to the analysis")
     private boolean moreMetrics;
 
+    @Option(names = { "--dev", "-d" }, arity = "1", description = "Enables parsing of a certain file via index")
+    private Integer devMode;
+
     @Parameters(index = "0", description = "The PATH/URL of the repository to scan")
     private String targetPath;
 
@@ -35,11 +36,19 @@ public class AspoCommand implements Runnable {
         List<Path> javaFilePaths = pathResolver.getAllJavaPaths();
 
         TypeParser typeParser = new TypeParser(javaFilePaths);
-        List<TypeToken> defaultList = TypeSpace.loadStandardTypes();
+        Model SCARModel = new Model();
 
-        Tokenizer tokens = new Tokenizer(javaFilePaths.get(0));
-        tokens.tokenize();
-        System.out.println(tokens);
+        if (devMode != null) {
+            System.out.println("[DEBUG] == File Parsing (" + javaFilePaths.get(devMode).getFileName() + ")");
+            Parser parser = new Parser(javaFilePaths.get(devMode), typeParser, SCARModel);
+            parser.parse();
+        } else {
+            for (Path p : javaFilePaths) {
+                System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
+                Parser parser = new Parser(p, typeParser, SCARModel);
+                parser.parse();
+            }
+        }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
