@@ -33,4 +33,13 @@ public class Model {
 	public void createInheritanceGraph() {
 		// TODO: make this the scar finalizer
 	}
+
+	public String toString() {
+		String result = "";
+		for (Slice sl : slicesMap.values()) {
+			result += sl.toString();
+			result += "\n\n\n";
+		}
+		return result;
+	}
 }

@@ -19,7 +19,6 @@ public class StaticImportBehavior implements Behavior {
 		if (instruction.contains(new Token("*"))) {
 			String className = components.stream().collect(Collectors.joining("."));
 
-			System.out.println("[DEBUG] Adding this class: " + className);
 			context.addStaticClass(className);
 		} else {
 			context.addStaticMethod(identifier.getValue());

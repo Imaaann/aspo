@@ -50,6 +50,8 @@ public class AspoCommand implements Runnable {
             }
         }
 
+        System.out.println("[DEBUG] == Output model: " + SCARModel);
+
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));

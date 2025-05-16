@@ -106,7 +106,6 @@ public class ParserContext {
 
 		Slice current = slices.pop();
 		resolveTypes(current);
-		System.out.println("[DEBUG] Slice created: " + current);
 		model.addSlice(current);
 	}
 

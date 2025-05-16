@@ -1,0 +1,126 @@
+{
+    "projectName": "aspoMock",
+
+    "systemMetrics": {
+        "NOC": 40,
+        "NOI": 2,
+        "MHF": 0.3,
+        "AHF": 0.9,
+        "TLOC": 5340,
+        "quality": {
+            "lowRisk": {"value": 60, "NOC": 30},
+            "mediumRisk": {"value": 30, "NOC": 20},
+            "highRisk": {"value": 10, "NOC": 10}
+        }
+    },
+
+    "inheritance": {
+        "class1": {
+            "type": "CLASS",
+            "list": [
+                {
+                    "name": "class2",
+                    "type": "extends"
+                },
+                {
+                    "name": "Runnable",
+                    "type": "implements"
+                },
+                {
+                    "name": "Serializable",
+                    "type": "implements"
+                }
+            ]
+        },
+        "class2": {
+            "type": "CLASS",
+            "list": []
+        },
+        "class3": {
+            "type": "CLASS",
+            "list":[]
+        },
+        "class4": {
+            "type": "CLASS",
+            "list":[{
+                "name": "class1",
+                "type": "extends"
+            }]
+        },
+        "class5": {
+            "type": "CLASS",
+            "list":[{
+                "name": "Comparable",
+                "type": "implements"
+            }]
+        },
+        "Runnable": {
+            "type": "INTERFACE",
+            "list":[]
+        },
+        "Serializable": {
+            "type": "INTERFACE",
+            "list":[]
+        },
+        "Comparable": {
+            "type": "INTERFACE",
+            "list":[]
+        }
+    },
+
+    "classes": {
+        "pkg.class1": {
+            "name": "class1",
+            "package": "pkg",
+            "type": "CLASS",
+            "bugProbability": 0.33, 
+            "extends": "none",
+            "implements": ["Runnable", "Serializable"],
+            "dependencies": {
+                "method1": [
+                    {
+                        "with": "Set",
+                        "amount": 1
+                    },
+                    {
+                        "with": "Tokenizer",
+                        "amount": 2
+                    }
+                ],
+                "method2": [
+                    {
+                        "with": "this.calculate",
+                        "amount": 1
+                    },
+                    {
+                        "with": "Thread|System|Collectors",
+                        "amount": 1
+                    },
+                    {
+                        "with": "Tokenizer",
+                        "amount": 2
+                    }
+                ],
+                "method3": [
+                    {
+                        "with": "className",
+                        "amount": 3
+                    },
+                    {
+                        "with": "this.calculate",
+                        "amount": 1
+                    }
+                ]
+            },
+            "metrics": {
+                "NOM": 20,
+                "NOA": 10,
+                "MPC": 3,
+                "DAC": 20,
+                "LCOM": 1,
+                "LCC": 2
+            }
+        }
+    }
+    
+}
