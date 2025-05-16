@@ -50,6 +50,8 @@ public class AspoCommand implements Runnable {
             }
         }
 
+        SCARModel.createInheritanceGraph();
+
         System.out.println("[DEBUG] == Output model: " + SCARModel);
 
         // Temporary Timing for checking the execute time

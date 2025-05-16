@@ -1,5 +1,6 @@
 package com.aspodev.SCAR;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,15 +32,49 @@ public class Model {
 	}
 
 	public void createInheritanceGraph() {
-		// TODO: make this the scar finalizer
+
+		for (Slice slice : slicesMap.values()) {
+			String childFullName = slice.getMetaData().getFullName();
+
+			List<InheritanceRelation> relations = inheritanceGraph.computeIfAbsent(childFullName,
+					key -> new ArrayList<>());
+
+			if (slice.getParentName() != null) {
+				relations.add(new InheritanceRelation(slice.getParentName(), RelationTypes.EXTENDS));
+			}
+
+			for (String interfaceName : slice.getInterfaces()) {
+				relations.add(new InheritanceRelation(interfaceName, RelationTypes.IMPLEMENTS));
+			}
+		}
 	}
 
+	@Override
 	public String toString() {
-		String result = "";
+		StringBuilder sb = new StringBuilder();
+
+		// 1) List all slices
+		sb.append("Model Slices (").append(slicesMap.size()).append("):\n");
 		for (Slice sl : slicesMap.values()) {
-			result += sl.toString();
-			result += "\n\n\n";
+			sb.append("  - ").append(sl.getMetaData().getFullName()).append(": \n")
+					.append(sl.toString().replaceAll("(?m)^", "    ")) // indent slice.toString()
+					.append("\n\n");
 		}
-		return result;
+
+		// 2) Print the inheritance graph
+		sb.append("Inheritance Graph (").append(inheritanceGraph.size()).append(" nodes):\n");
+		// sort keys for stable output
+		inheritanceGraph.keySet().stream().sorted().forEach(parent -> {
+			sb.append("  ").append(parent).append("\n");
+			List<InheritanceRelation> relations = inheritanceGraph.get(parent);
+			// group by relation type for nicer grouping, or just list
+			relations.forEach(rel -> {
+				sb.append("    ").append(rel.type().name().toLowerCase()).append(" → ").append(rel.name()).append("\n");
+			});
+			sb.append("\n");
+		});
+
+		return sb.toString();
 	}
+
 }
