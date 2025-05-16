@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspo terminal</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <h1>Aspo</h1>
+        <div class="command-form">
+            <span class="prompt">aspo@USTHB:~$ </span>
+            <input type="text" id="command" placeholder="Enter command (e.g., ls)" autofocus>
+        </div>
+        <div class="info">
+            
+        </div>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        const outputDiv = document.getElementById('output');
+        const commandInput = document.getElementById('command');
+
+        function executeCommand() {
+            const command = commandInput.value.trim();
+            if (!command) return; // Ignore empty commands
+
+            if(command === 'clear'){
+                outputDiv.textContent = '';
+                commandInput = ''
+            }
+
+            fetch('/api/command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ command })
+            })
+
+            fetch('./data/OutPut.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch OutPut.json');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Display stdout and stderr from JSON
+                    if (data.stdout) {
+                        outputDiv.textContent += `${data.stdout}\n`;
+                    }
+                    if (data.stderr) {
+                        outputDiv.textContent += `<span class="error">${data.stderr}</span>\n`;
+                    }
+                    if (!data.stdout && !data.stderr) {
+                        outputDiv.textContent += 'No output\n';
+                    }
+                })
+                .catch(error => {
+                    outputDiv.textContent += `<span class="error">${error.message}</span>\n`;
+                });
+            }
+            outputDiv.textContent += `Aspo@USTHB:~$ ${command}\n`;
+
+            commandInput.value = '';
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                executeCommand();
+            }
+        });
+    </script>
+</body>
+</html>

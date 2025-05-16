@@ -2,10 +2,13 @@ package com.aspodev.utils;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.ConcurrentMap;
+
 import com.aspodev.utils.URL;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import picocli.CommandLine;
 
 
 public class JsonReader {
@@ -42,6 +45,7 @@ public class JsonReader {
         return null;
     }
 
+
     /*
      *
      *
@@ -50,8 +54,8 @@ public class JsonReader {
     */
 
 
-    public static void main(String[] args) {
-       URL url = readUrl(".\\jj.json");
-        System.out.print(url.getUrl());
-   }
+//    public static void main(String[] args) {
+//       URL url = readUrl(".\\jj.json");
+//        System.out.print(url.getUrl());
+//   }
 }

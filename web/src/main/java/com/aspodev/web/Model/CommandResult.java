@@ -1,12 +1,13 @@
-package com.aspodev.web.Service;
+package com.aspodev.web.Model;
 
 public class CommandResult {
-    private String command;
+
+    private Command command;
     private String stdout;
     private String stderr;
     private int exitCode;
 
-    CommandResult(String command, String stdout, String stderr, int exitCode) {
+    public CommandResult(Command command, String stdout, String stderr, int exitCode) {
         this.command = command;
         this.stdout = stdout;
         this.stderr = stderr;
@@ -14,7 +15,7 @@ public class CommandResult {
     }
 
     public CommandResult() {
-        this.command = "";
+        this.command = null;
         this.stdout = "";
         this.stderr = "";
         this.exitCode = 0;
@@ -25,7 +26,7 @@ public class CommandResult {
     }
 
     public String getCommand() {
-        return command;
+        return command.getCommand();
     }
 
     public String getStderr() {
@@ -37,7 +38,7 @@ public class CommandResult {
     }
 
     public void setCommand(String command) {
-        this.command = command;
+        this.command.setCommand(command);
     }
 
     public void setExitCode(int exitCode) {
@@ -51,4 +52,5 @@ public class CommandResult {
     public void setStdout(String stdout) {
         this.stdout = stdout;
     }
+
 }
