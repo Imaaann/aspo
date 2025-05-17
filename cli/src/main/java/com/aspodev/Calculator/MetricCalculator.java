@@ -1,4 +1,4 @@
-package Calculator;
+package com.aspodev.Calculator;
 
 import java.util.Map;
 import com.aspodev.SCAR.Model;
