@@ -63,6 +63,10 @@ public class Method {
 		return this.accessor;
 	}
 
+	public List<String> getArguments() {
+		return this.arguments;
+	}
+
 	public Set<Modifier> getModifiers() {
 		return this.modifiers;
 	}
