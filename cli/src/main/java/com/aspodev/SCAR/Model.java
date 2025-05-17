@@ -31,6 +31,10 @@ public class Model {
 		return slicesMap.get(pkgName + "." + name);
 	}
 
+	public Map<String, Slice> getSliceMap() {
+		return slicesMap;
+	}
+
 	public void createInheritanceGraph() {
 
 		for (Slice slice : slicesMap.values()) {
