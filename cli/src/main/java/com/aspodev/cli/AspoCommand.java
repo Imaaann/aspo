@@ -8,7 +8,7 @@ import com.aspodev.Calculator.DAMCalculator;
 import com.aspodev.Calculator.NSMCalculator;
 import com.aspodev.Calculator.DITCalculator;
 import com.aspodev.Calculator.MITCalculator;
-import com.aspodev.Calculator.TLOCCalculation;
+import com.aspodev.Calculator.TLOCCalculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
