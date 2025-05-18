@@ -24,6 +24,8 @@ public class Slice {
 	private final Set<String> handledExceptions;
 	private final Set<String> thrownExceptions;
 
+	private long instructionNumber;
+
 	public Slice(TypeToken metaData, String outerClassName) {
 		this.metaData = metaData;
 		this.outerClassName = outerClassName;
@@ -71,6 +73,14 @@ public class Slice {
 
 	public Set<Method> getMethods() {
 		return methods;
+	}
+
+	public long getInstructionNumber() {
+		return instructionNumber;
+	}
+
+	public void setInstructionNumber(long instructionNumber) {
+		this.instructionNumber = instructionNumber;
 	}
 
 	public void setParentName(String parentName) {
@@ -146,6 +156,7 @@ public class Slice {
 		return """
 				Slice{
 				  metaData=%s,
+				  instructionNumber=%d
 				  outerClassName='%s',
 				  parentName='%s',
 				  interfaces=%s,
@@ -157,7 +168,7 @@ public class Slice {
 				  dependencies={
 				  	%s}
 				}
-				""".formatted(metaData, outerClassName, parentName, interfaceNames, permitsNames, accessor, modifiers,
-				attributes, methods, depString);
+				""".formatted(metaData, instructionNumber, outerClassName, parentName, interfaceNames, permitsNames,
+				accessor, modifiers, attributes, methods, depString);
 	}
 }
