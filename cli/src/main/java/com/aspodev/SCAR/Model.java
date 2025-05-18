@@ -53,6 +53,9 @@ public class Model {
 		}
 	}
 
+	public Map<String, List<InheritanceRelation>> getInheritanceGraph() {
+		return inheritanceGraph;
+	}
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
