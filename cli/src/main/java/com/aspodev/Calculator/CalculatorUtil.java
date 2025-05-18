@@ -14,10 +14,9 @@ public class CalculatorUtil {
             current = slicesMap.get(current.getParentName());
             if (current == null)
                 break;
-
+            result.addAll(current.getMethods());
         }
-        result.addAll(current.getMethods());
-
+        
         return result;
     }
 }
