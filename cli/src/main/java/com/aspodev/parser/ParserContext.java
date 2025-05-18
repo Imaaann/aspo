@@ -30,6 +30,8 @@ public class ParserContext {
 	private Method currentMethod;
 	private LocalVariableMap localVariables;
 
+	private long instructionNumber;
+
 	public ParserContext(TypeParser parser, Model model) {
 		this.model = model;
 		this.parser = parser;
@@ -39,6 +41,7 @@ public class ParserContext {
 		this.slices = new Stack<>();
 		this.staticFunctions = new ArrayList<>();
 		this.staticClasses = new ArrayList<>();
+		instructionNumber = 0;
 	}
 
 	// #region Scope methods
@@ -105,6 +108,7 @@ public class ParserContext {
 
 		Slice current = slices.pop();
 		resolveTypes(current);
+		current.setInstructionNumber(instructionNumber);
 		model.addSlice(current);
 	}
 
@@ -128,7 +132,7 @@ public class ParserContext {
 				continue;
 			}
 
-			if (isAmbigous(slice)) {
+			if (isAmbiguous(slice)) {
 				String ambiguous = slice.getParentName();
 				for (String staticClass : staticClasses) {
 					String[] components = staticClass.split("\\.");
@@ -231,7 +235,7 @@ public class ParserContext {
 		localVariables.removeScope(getScopeCount());
 	}
 
-	public boolean isAmbigous(Slice slice) {
+	public boolean isAmbiguous(Slice slice) {
 		if (staticClasses.size() > 1)
 			return true;
 		if (staticClasses.size() == 1 && slice.getParentName() != null)
@@ -248,6 +252,14 @@ public class ParserContext {
 				return components[size - 2];
 		}
 		return null;
+	}
+
+	public long getInstructionNumber() {
+		return instructionNumber;
+	}
+
+	public void increaseInstruction() {
+		instructionNumber++;
 	}
 
 	// #endregion

@@ -43,8 +43,9 @@ public class Parser {
 			// Classify the tokens and instruction
 			InstructionClassifier classifier = new InstructionClassifier(rawInstruction);
 			Instruction instruction = classifier.classify(this.context);
+			context.increaseInstruction();
 
-			// §Execute behavior assosiated with the instruction
+			// §Execute behavior associated with the instruction
 			manager.execute(this.context, instruction);
 		}
 
