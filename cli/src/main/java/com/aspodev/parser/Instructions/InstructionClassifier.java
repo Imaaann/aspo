@@ -41,7 +41,6 @@ public class InstructionClassifier {
 	}
 
 	private InstructionTypes classifyInstruction(ParserContext context) {
-		// TODO: make this function work ffs
 		if (isStaticImport())
 			return InstructionTypes.STATIC_IMPORT_STATEMENT;
 

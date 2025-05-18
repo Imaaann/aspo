@@ -13,7 +13,6 @@ import com.aspodev.SCAR.Method;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.TypeParser.TypeToken;
-import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.Scope;
 import com.aspodev.parser.Scope.ScopeEnum;
 

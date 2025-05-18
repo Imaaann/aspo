@@ -131,6 +131,7 @@ public class Slice {
 
 	public Set<Dependency> getDependencies() {
 		Set<Dependency> dependencies = new HashSet<>();
+		dependencies.addAll(this.dependencies);
 		for (Method method : methods) {
 			Set<Dependency> methodDependencies = method.getDependencies();
 			dependencies.addAll(methodDependencies);
