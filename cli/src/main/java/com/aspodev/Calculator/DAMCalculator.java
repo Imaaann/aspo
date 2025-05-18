@@ -32,7 +32,13 @@ public class DAMCalculator implements MetricCalculator {
                     NumOfEncapsulation++;
 
             }
-            result.put(i.getKey(), Double.valueOf(NumOfEncapsulation / attributes.size()));
+
+            if (attributes.size() == 0) {
+                result.put(i.getKey(), Double.valueOf(0));
+            } else {
+                result.put(i.getKey(), Double.valueOf(NumOfEncapsulation / attributes.size()));
+            }
+
         }
 
         return result;
