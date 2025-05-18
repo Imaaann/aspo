@@ -1,6 +1,5 @@
 package com.aspodev.Calculator;
 
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,6 +9,7 @@ import com.aspodev.SCAR.Attribute;
 import com.aspodev.SCAR.Method;
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.Slice;
+import com.aspodev.SCAR.Modifier;
 
 public class NSMCalculator implements MetricCalculator {
 
