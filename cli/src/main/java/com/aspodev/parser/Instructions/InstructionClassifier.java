@@ -51,7 +51,6 @@ public class InstructionClassifier {
 			return InstructionTypes.PACKAGE_STATEMENT;
 
 		if (classifiedTokens.contains(new Token("class"))) {
-			System.out.println("[DEBUG] Class declaration found: " + classifiedTokens);
 			return InstructionTypes.CLASS_DECLARATION;
 		}
 

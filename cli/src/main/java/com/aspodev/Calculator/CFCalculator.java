@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Model;
@@ -16,24 +17,19 @@ public class CFCalculator implements MetricCalculator {
         Map<String, Slice> slicesMap = SCAR.getSliceMap();
         for (Map.Entry<String, Slice> i : slicesMap.entrySet()) {
             Set<Dependency> dependencies = i.getValue().getDependencies();
-            Set<String> filteredDependecies = new HashSet<>();
-            ;
-            if (dependencies.size() > 0) {
-                for (Dependency d : dependencies) {
-                    String callerType = d.getCallerType();
-                    if (!isDependencyValid(i.getValue().getMetaData().name(), callerType, slicesMap)) {
-                        filteredDependecies.add(callerType);
-                    }
-                }
-                result.put(i.getKey(), Double.valueOf(filteredDependecies.size() / slicesMap.size()));
-            }
+            Set<String> filteredDependencies = new HashSet<>();
+
+            filteredDependencies = dependencies.stream().map(d -> d.getCallerType().replace(".construct", ""))
+                    .flatMap(s -> SCAR.getApplicationTypes(s).stream())
+                    .filter(s -> !s.equals(i.getValue().getMetaData().name())).collect(Collectors.toSet());
+
+            Double CF = (double) filteredDependencies.size() / (slicesMap.size() - 1);
+
+            result.put(i.getKey(), CF);
 
         }
-        return result;
-    }
 
-    private boolean isDependencyValid(String key, String callerType, Map<String, Slice> slicesMap) {
-        return slicesMap.containsKey(callerType) && callerType.contains(".construct") && callerType.contains(key);
+        return result;
     }
 
 }

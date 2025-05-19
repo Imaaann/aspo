@@ -83,6 +83,7 @@ public class InstructionUtil {
     }
 
     public static Token getGenericHeader(Iterator<Token> iterator, Token startToken) {
+        final Token spaceToken = new Token(" ");
         Token temp;
         int sign = 0;
         int pos = startToken.getPosition();
@@ -102,6 +103,7 @@ public class InstructionUtil {
 
             counter = counter + sign * length;
             token.append(temp);
+            token.append(spaceToken);
 
             if (counter == 0) {
                 pos = temp.getPosition();

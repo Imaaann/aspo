@@ -11,13 +11,11 @@ public class CalculatorUtil {
     public Set<Method> getParentsMethods(Map<String, Slice> slicesMap, String parentName) {
         try {
             Slice current = slicesMap.get(parentName);
-            System.out.println("[DEBUG] current: " + current);
             Set<Method> result = current.getMethods();
             while (!(current.getParentName() == null)) {
                 current = slicesMap.get(current.getParentName());
                 if (current == null)
                     break;
-                System.out.println("[DEBUG] current: " + current);
                 result.addAll(current.getMethods());
             }
 
