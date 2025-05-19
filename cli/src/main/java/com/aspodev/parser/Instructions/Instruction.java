@@ -109,11 +109,21 @@ public class Instruction {
 		return null;
 	}
 
-	public List<Token> getInterfaceNames() {
+	public List<Token> getInterfaceNames(ParserContext context) {
 		if (!this.isTypeDeclaration())
 			return null;
 
-		return InstructionUtil.getCommaSeperatedList(this, "implements");
+		List<Token> interfaces = InstructionUtil.getCommaSeperatedList(this, "implements");
+
+		if (interfaces == null)
+			return List.of();
+
+		interfaces = interfaces.stream().map(i -> {
+			TypeToken interfaceType = context.getTypeToken(i.getValue());
+			return new Token(interfaceType == null ? i.getValue() : interfaceType.getFullName());
+		}).toList();
+
+		return interfaces;
 	}
 
 	public List<Token> getPermittedNames() {

@@ -27,7 +27,7 @@ public class EnumBehavior implements Behavior {
 
 		Slice enumSlice = context.getSlice();
 
-		List<Token> interfaceList = instruction.getInterfaceNames();
+		List<Token> interfaceList = instruction.getInterfaceNames(context);
 
 		enumSlice.setAccessor(accessors);
 		enumSlice.addModifier(modifiers);
