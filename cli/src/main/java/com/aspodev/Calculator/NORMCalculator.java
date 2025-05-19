@@ -16,26 +16,17 @@ public class NORMCalculator implements MetricCalculator {
         Map<String, Double> result = new HashMap<>();
         Map<String, Slice> slicesMap = SCAR.getSliceMap();
         Set<Method> parentMethods;
-        Double numOfOverridenMethods;
+        double numOfOverridenMethods;
 
         for (Map.Entry<String, Slice> i : slicesMap.entrySet()) {
             Set<Method> methods = i.getValue().getMethods();
             String parentName = i.getValue().getParentName();
             if (parentName == null || slicesMap.get(parentName) == null) {
+                System.out.println();
                 result.put(i.getKey(), Double.valueOf(0));
             } else {
                 parentMethods = new CalculatorUtil().getParentsMethods(slicesMap, parentName);
-                numOfOverridenMethods = 0.0;
-                for (Method method : methods) {
-                    Iterator<Method> parentMethodsIterator = parentMethods.iterator();
-                    while (parentMethodsIterator.hasNext()) {
-                        Method parentMethod = parentMethodsIterator.next();
-                        if (method.getName().equals(parentMethod.getName())) {
-                            numOfOverridenMethods++;
-                            break;
-                        }
-                    }
-                }
+                numOfOverridenMethods = new CalculatorUtil().getOverridenMethodsCount(methods, parentMethods);
                 result.put(i.getKey(), Double.valueOf(numOfOverridenMethods / methods.size()));
             }
 
