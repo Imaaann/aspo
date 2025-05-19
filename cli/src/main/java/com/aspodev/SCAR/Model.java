@@ -3,6 +3,7 @@ package com.aspodev.SCAR;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -81,6 +82,23 @@ public class Model {
 		}
 
 		return false;
+	}
+
+	public Set<String> getApplicationTypes(String typeName) {
+		Set<String> result = new HashSet<>();
+		Set<String> typeNameSet = InstructionUtil.extractNames(typeName);
+		Set<String> applicationTypes = slicesMap.keySet().stream().map(type -> {
+			String last = Arrays.stream(type.split("\\.")).reduce((a, b) -> b).orElse("");
+			return last;
+		}).collect(Collectors.toSet());
+
+		for (String type : typeNameSet) {
+			if (applicationTypes.contains(type)) {
+				result.add(type);
+			}
+		}
+
+		return result;
 	}
 
 	@Override

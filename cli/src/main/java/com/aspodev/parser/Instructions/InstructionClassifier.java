@@ -50,8 +50,9 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("package")))
 			return InstructionTypes.PACKAGE_STATEMENT;
 
-		if (classifiedTokens.contains(new Token("class")))
+		if (classifiedTokens.contains(new Token("class"))) {
 			return InstructionTypes.CLASS_DECLARATION;
+		}
 
 		if (classifiedTokens.contains(new Token("enum")))
 			return InstructionTypes.ENUM_DECLARTION;

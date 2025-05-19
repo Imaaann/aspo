@@ -51,7 +51,6 @@ public class TypeSpace {
 
 			// Check if package is from the java library
 			if (!basePkg.startsWith("java") && !basePkg.startsWith("javax")) {
-				System.out.println("[DEBUG] Added local wild package: " + basePkg);
 				addPackage(basePkg, globalTypeSpace);
 				return;
 			}

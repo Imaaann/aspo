@@ -60,6 +60,10 @@ public class Instruction {
 			if (isModifier(token))
 				result.add(Modifier.convert(token.getValue()));
 
+			if (type == InstructionTypes.METHOD_DECLARATION && token.getValue().equals("default")) {
+				result.add(Modifier.convert(token.getValue()));
+			}
+
 			if (normalClassDeclaration) {
 				if (token.getValue().equals("sealed") && !nonSealed)
 					result.add(Modifier.SEALED);
@@ -100,9 +104,7 @@ public class Instruction {
 		if (extendsToken != null) {
 			Token parentToken = this.getToken(extendsToken.getPosition() + 1);
 			TypeToken parentType = context.getTypeToken(parentToken.getValue());
-			System.out.println("[DEBUG] parent type token: \n" + parentType);
 			Token result = new Token(parentType == null ? parentToken.getValue() : parentType.getFullName());
-			System.out.println("[DEBUG] result token" + result);
 			return result;
 		}
 

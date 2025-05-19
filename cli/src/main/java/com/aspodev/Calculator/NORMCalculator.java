@@ -22,7 +22,6 @@ public class NORMCalculator implements MetricCalculator {
             Set<Method> methods = i.getValue().getMethods();
             String parentName = i.getValue().getParentName();
             if (parentName == null || slicesMap.get(parentName) == null) {
-                System.out.println("[DEBUG] NORM result: 0 For class: " + i.getKey());
                 result.put(i.getKey(), Double.valueOf(0));
             } else {
                 parentMethods = new CalculatorUtil().getParentsMethods(slicesMap, parentName);
@@ -37,8 +36,6 @@ public class NORMCalculator implements MetricCalculator {
                         }
                     }
                 }
-                System.out.println(
-                        "[DEBUG] NORM result:" + numOfOverridenMethods / methods.size() + " For class: " + i.getKey());
                 result.put(i.getKey(), Double.valueOf(numOfOverridenMethods / methods.size()));
             }
 
