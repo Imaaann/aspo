@@ -20,13 +20,9 @@ public class MITCalculator implements MetricCalculator {
         for (Map.Entry<String, Slice> i : slicesMap.entrySet()) {
             parentName = i.getValue().getParentName();
             if (parentName == null || slicesMap.get(parentName) == null) {
-                System.out.println("[DEBUG] MIT result: 0 For class: " + i.getKey() + " " + parentName + " "
-                        + slicesMap.get(parentName));
                 result.put(i.getKey(), Double.valueOf(0));
             } else {
                 parentMethods = new CalculatorUtil().getParentsMethods(slicesMap, parentName);
-                System.out.println("parents exists" + parentMethods);
-                System.out.println("[DEBUG] MIT result: " + parentMethods.size() + " For class: " + i.getKey());
                 result.put(i.getKey(), Double.valueOf(parentMethods.size()));
             }
         }
