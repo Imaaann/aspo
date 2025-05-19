@@ -79,6 +79,14 @@ public class Slice {
 		return instructionNumber;
 	}
 
+	public Set<String> getHandledExceptions() {
+		return handledExceptions;
+	}
+
+	public Set<String> getThrownExceptions() {
+		return thrownExceptions;
+	}
+
 	public void setInstructionNumber(long instructionNumber) {
 		this.instructionNumber = instructionNumber;
 	}
