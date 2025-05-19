@@ -1,9 +1,15 @@
 package com.aspodev.SCAR;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import com.aspodev.parser.Instructions.InstructionUtil;
 
 public class Model {
 	private final Map<String, Slice> slicesMap;
@@ -56,6 +62,27 @@ public class Model {
 	public Map<String, List<InheritanceRelation>> getInheritanceGraph() {
 		return inheritanceGraph;
 	}
+
+	public boolean isApplicationType(String typeName) {
+		// Case1: full type name like com.aspodev.SCAR.Slice
+		if (slicesMap.containsKey(typeName))
+			return true;
+
+		Set<String> typeNameSet = InstructionUtil.extractNames(typeName);
+
+		Set<String> applicationTypes = slicesMap.keySet().stream().map(type -> {
+			String last = Arrays.stream(type.split("\\.")).reduce((a, b) -> b).orElse("");
+			return last;
+		}).collect(Collectors.toSet());
+
+		for (String name : typeNameSet) {
+			if (applicationTypes.contains(name))
+				return true;
+		}
+
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
