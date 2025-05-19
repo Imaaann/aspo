@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Accessors;
 import com.aspodev.SCAR.Modifier;
+import com.aspodev.TypeParser.TypeToken;
+import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
 import com.aspodev.parser.TokenNotFoundException;
 
@@ -89,14 +91,19 @@ public class Instruction {
 		return this.tokens;
 	}
 
-	public Token getParentClassName() {
+	public Token getParentClassName(ParserContext context) {
 		if (!this.isTypeDeclaration())
 			return null;
 
 		Token extendsToken = this.getToken("extends");
 
 		if (extendsToken != null) {
-			return this.getToken(extendsToken.getPosition() + 1);
+			Token parentToken = this.getToken(extendsToken.getPosition() + 1);
+			TypeToken parentType = context.getTypeToken(parentToken.getValue());
+			System.out.println("[DEBUG] parent type token: \n" + parentType);
+			Token result = new Token(parentType == null ? parentToken.getValue() : parentType.getFullName());
+			System.out.println("[DEBUG] result token" + result);
+			return result;
 		}
 
 		return null;

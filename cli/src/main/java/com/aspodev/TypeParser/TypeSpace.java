@@ -35,6 +35,14 @@ public class TypeSpace {
 		typeSpace.add(typeToken);
 	}
 
+	public TypeToken getTypeToken(String typeName) {
+		for (TypeToken token : typeSpace) {
+			if (token.name().equals(typeName))
+				return token;
+		}
+		return null;
+	}
+
 	public void addWildCardPackage(String pkg, TypeParser globalTypeSpace) {
 		String basePkg = pkg.replace(".*", "");
 		String jsonResourcePath = "/Library.json";

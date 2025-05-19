@@ -29,7 +29,7 @@ public class InterfaceBehavior implements Behavior {
 		interfaceSlice.setAccessor(accessor);
 		interfaceSlice.addModifier(modifiers);
 
-		Token parentClassToken = instruction.getParentClassName();
+		Token parentClassToken = instruction.getParentClassName(context);
 		List<Token> interfaceList = instruction.getInterfaceNames();
 		List<Token> permitsList = instruction.getPermittedNames();
 

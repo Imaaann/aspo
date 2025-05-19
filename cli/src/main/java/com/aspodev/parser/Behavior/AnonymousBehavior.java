@@ -31,7 +31,8 @@ public class AnonymousBehavior implements Behavior {
 		String anonClassName = "%s$%d".formatted(className, anonNumber);
 		context.createSlice(new TypeToken(anonClassName, context.getPackage(), TypeTokenEnum.CLASS));
 		Slice newSlice = context.getSlice();
-		newSlice.setParentName(constructorName);
+		TypeToken constructorType = context.getTypeToken(constructorName);
+		newSlice.setParentName(constructorType == null ? constructorName : constructorType.getFullName());
 		context.changeScope(ScopeEnum.CLASS);
 		context.addLocalVariable(anonClassName, "this");
 		context.addLocalVariable(constructorName, "super");
