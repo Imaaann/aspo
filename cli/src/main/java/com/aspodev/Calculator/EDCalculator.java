@@ -6,7 +6,7 @@ import java.util.Map;
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.Slice;
 
-public class ERCalculator implements MetricCalculator {
+public class EDCalculator implements MetricCalculator {
 
 	@Override
 	public Map<String, Double> calculate(Model SCAR) {
