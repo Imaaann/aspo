@@ -1,6 +1,8 @@
 package com.aspodev.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -31,6 +33,7 @@ public class ParserContext {
 	private LocalVariableMap localVariables;
 
 	private long instructionNumber;
+	private Set<String> calledMethods;
 
 	public ParserContext(TypeParser parser, Model model) {
 		this.model = model;
@@ -42,6 +45,7 @@ public class ParserContext {
 		this.staticFunctions = new ArrayList<>();
 		this.staticClasses = new ArrayList<>();
 		instructionNumber = 0;
+		this.calledMethods = new HashSet<>();
 	}
 
 	// #region Scope methods
@@ -117,6 +121,7 @@ public class ParserContext {
 		Slice current = slices.pop();
 		resolveTypes(current);
 		current.setInstructionNumber(instructionNumber);
+		current.setCallNumber(calledMethods.size());
 		model.addSlice(current);
 	}
 
@@ -268,6 +273,14 @@ public class ParserContext {
 
 	public void increaseInstruction() {
 		instructionNumber++;
+	}
+
+	public Set<String> getCalledMethods() {
+		return calledMethods;
+	}
+
+	public void addCalledMethods(Collection<String> coll) {
+		calledMethods.addAll(coll);
 	}
 
 	// #endregion
