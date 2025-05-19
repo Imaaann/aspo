@@ -79,6 +79,10 @@ public class ParserContext {
 		this.space.addPackage(pkgName, parser);
 	}
 
+	public void addWildCardPackage(String pkgName) {
+		this.space.addWildCardPackage(pkgName, parser);
+	}
+
 	public boolean isType(Token token) {
 		return space.isType(token);
 	}

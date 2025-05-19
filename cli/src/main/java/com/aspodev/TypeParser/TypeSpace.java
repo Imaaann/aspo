@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.aspodev.parser.Token;
 import com.aspodev.utils.JsonTools;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 public class TypeSpace {
 	private Set<TypeToken> typeSpace;
@@ -21,6 +22,7 @@ public class TypeSpace {
 	}
 
 	public void addPackage(String pkg, TypeParser globalTypeSpace) {
+		;
 		List<TypeToken> foundTypes = globalTypeSpace.findPackageTypes(pkg);
 		typeSpace.addAll(foundTypes);
 	}
@@ -38,10 +40,19 @@ public class TypeSpace {
 		String jsonResourcePath = "/Library.json";
 
 		try {
+
+			// Check if package is from the java library
+			if (!basePkg.startsWith("java") && !basePkg.startsWith("javax")) {
+				System.out.println("[DEBUG] Added local wild package: " + basePkg);
+				addPackage(basePkg, globalTypeSpace);
+				return;
+			}
+
 			// 1) Read the entire root as a Map<packageName, LibraryTypes>
-			Map<String, LibraryTypes> allPackages = JsonTools.readJsonObject(jsonResourcePath,
-					new com.fasterxml.jackson.core.type.TypeReference<Map<String, LibraryTypes>>() {
-					});
+			TypeReference<Map<String, LibraryTypes>> typeRef = new TypeReference<Map<String, LibraryTypes>>() {
+			};
+
+			Map<String, LibraryTypes> allPackages = JsonTools.readJsonObject(jsonResourcePath, typeRef);
 
 			// 2) For each entry whose key startsWith our basePkg, extract and add
 			allPackages.entrySet().stream().filter(entry -> entry.getKey().startsWith(basePkg)).forEach(entry -> {
