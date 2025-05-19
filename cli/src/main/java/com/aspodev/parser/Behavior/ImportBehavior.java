@@ -18,6 +18,10 @@ public class ImportBehavior implements Behavior {
 		String typeName = components.get(size - 1);
 		String pkgName = components.stream().limit(size - 1).collect(Collectors.joining("."));
 
+		if (identifier.getValue().endsWith(".")) {
+			context.addWildCardPackage(identifier.getValue() + "*");
+		}
+
 		TypeToken newType = new TypeToken(typeName, pkgName, TypeTokenEnum.IMPORTED);
 		context.addType(newType);
 

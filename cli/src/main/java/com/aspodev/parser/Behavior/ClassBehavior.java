@@ -27,8 +27,8 @@ public class ClassBehavior implements Behavior {
 
 		Slice classSlice = context.getSlice();
 
-		Token parentClassToken = instruction.getParentClassName();
-		List<Token> interfaceList = instruction.getInterfaceNames();
+		Token parentClassToken = instruction.getParentClassName(context);
+		List<Token> interfaceList = instruction.getInterfaceNames(context);
 		List<Token> permitsList = instruction.getPermittedNames();
 
 		classSlice.setAccessor(accessor);

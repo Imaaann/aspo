@@ -4,6 +4,7 @@ import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.aspodev.Calculator.*
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
@@ -53,6 +54,8 @@ public class AspoCommand implements Runnable {
         SCARModel.createInheritanceGraph();
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
+
+        new MITCalculator().calculate(SCARModel);
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

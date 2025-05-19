@@ -3,6 +3,8 @@ package com.aspodev.cleaner;
 import static java.lang.System.*;
 import static java.lang.Math.pow;
 import static java.util.stream.Collectors.*;
+import com.aspodev.Calculator.*;
+import java.util.*;
 
 public class Test {
 	public static void main(String[] args) {
