@@ -60,6 +60,10 @@ public class Instruction {
 			if (isModifier(token))
 				result.add(Modifier.convert(token.getValue()));
 
+			if (type == InstructionTypes.METHOD_DECLARATION && token.getValue().equals("default")) {
+				result.add(Modifier.convert(token.getValue()));
+			}
+
 			if (normalClassDeclaration) {
 				if (token.getValue().equals("sealed") && !nonSealed)
 					result.add(Modifier.SEALED);
