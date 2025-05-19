@@ -19,8 +19,6 @@ public class NOLMCalculator implements MetricCalculator {
         int numOfOverLoadedMethods = 0;
         for (Map.Entry<String, Slice> i : slicesMap.entrySet()) {
             numOfOverLoadedMethods = getOverloadedMethodsCount(i.getValue());
-
-            System.out.println("[DEBUG] NOLM result: " + numOfOverLoadedMethods + " For class: " + i.getKey());
             result.put(i.getKey(), Double.valueOf(numOfOverLoadedMethods));
         }
         return result;
