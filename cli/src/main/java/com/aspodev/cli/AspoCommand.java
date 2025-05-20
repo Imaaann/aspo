@@ -3,11 +3,16 @@ package com.aspodev.cli;
 import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
+import com.aspodev.Calculator.CalculatorUtil;
 import com.aspodev.SCAR.Model;
+import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
+import com.aspodev.utils.GraphTools;
+
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -53,6 +58,12 @@ public class AspoCommand implements Runnable {
         SCARModel.createInheritanceGraph();
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
+
+        for (Slice slice : SCARModel.getSliceMap().values()) {
+            Map<String, List<String>> cohesionGraph = CalculatorUtil.getCohesionMap(slice);
+            System.out.println("[DEBUG] Cohesion graph for: " + slice.getMetaData().getFullName());
+            GraphTools.displayGraph(cohesionGraph, null);
+        }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
