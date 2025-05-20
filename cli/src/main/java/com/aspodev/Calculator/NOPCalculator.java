@@ -19,11 +19,20 @@ public class NOPCalculator implements MetricCalculator {
             Iterator<Method> method = i.getValue().getMethods().iterator();
             Method temp;
             int NOP = 0;
+
+            double methodCount = (i.getValue().getMethods().size());
+
+            if (methodCount == 0) {
+                result.put(i.getKey(), 0.0);
+                continue;
+            }
+
             while (method.hasNext()) {
                 temp = method.next();
                 NOP += temp.getArguments().size();
             }
-            result.put(i.getKey(), Double.valueOf(NOP / (i.getValue().getMethods().size())));
+
+            result.put(i.getKey(), Double.valueOf(NOP / methodCount));
         }
 
         return result;
