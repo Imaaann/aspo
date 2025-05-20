@@ -5,15 +5,18 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
 import com.aspodev.Calculator.NOCCalculator;
 import com.aspodev.Calculator.PFCalculator;
-import com.aspodev.Calculator.CalculatorUtil;
-import com.aspodev.Calculator.LCCCalculator;
-import com.aspodev.Calculator.LCOM4Calculator;
+import com.aspodev.Calculator.MetricCalculator;
+import com.aspodev.Calculator.Metrics;
+import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
+import com.aspodev.utils.OtherTools;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -61,11 +64,12 @@ public class AspoCommand implements Runnable {
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
 
-        new LCCCalculator().calculate(SCARModel);
-
-        new PFCalculator().calculate(SCARModel, new NOCCalculator().calculate(SCARModel));
-        System.out.println("[DEBUG] == Animal class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Animal"));
-        System.out.println("[DEBUG] == Bird class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Bird"));
+        // Next step is to execute the metric calculation and get our results map
+        int threads = Runtime.getRuntime().availableProcessors();
+        SystemCalculator calculator = new SystemCalculator(threads);
+        Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
+        System.out.println("[DEBUG] Results map: ");
+        System.out.println(OtherTools.resultMapToString(results));
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
