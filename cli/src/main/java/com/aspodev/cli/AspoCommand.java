@@ -8,6 +8,7 @@ import java.util.Map;
 import com.aspodev.Calculator.NOCCalculator;
 import com.aspodev.Calculator.PFCalculator;
 import com.aspodev.Calculator.CalculatorUtil;
+import com.aspodev.Calculator.LCCCalculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeParser;
@@ -61,11 +62,7 @@ public class AspoCommand implements Runnable {
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
 
-        for (Slice slice : SCARModel.getSliceMap().values()) {
-            Map<String, List<String>> cohesionGraph = CalculatorUtil.getCohesionMap(slice);
-            System.out.println("[DEBUG] Cohesion graph for: " + slice.getMetaData().getFullName());
-            GraphTools.displayGraph(cohesionGraph, null);
-        }
+        new LCCCalculator().calculate(SCARModel);
 
         new PFCalculator().calculate(SCARModel, new NOCCalculator().calculate(SCARModel));
         System.out.println("[DEBUG] == Animal class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Animal"));

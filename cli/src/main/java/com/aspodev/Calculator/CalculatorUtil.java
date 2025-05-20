@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Method;
@@ -78,28 +79,36 @@ public class CalculatorUtil {
         String sliceName = slice.getMetaData().getFullName();
         Map<String, List<String>> graph = new HashMap<>();
 
-        // Add all methods as nodes.
+        // 1. Initialize a list for every method and every attribute
         for (Method m : slice.getMethods()) {
             graph.put(m.getName(), new ArrayList<>());
         }
+        for (String attr : slice.getAttributes().stream().map(a -> a.getName()).toList()) {
+            graph.put("@" + attr, new ArrayList<>());
+        }
 
-        // Create edges
+        // 2. Helper to add an undirected edge u <-> v
+        BiConsumer<String, String> addEdge = (u, v) -> {
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        };
+
+        // 3. Populate edges
         for (Method m : slice.getMethods()) {
             String caller = m.getName();
-            List<String> edges = graph.get(caller);
 
-            // Add cases where a method calls another in class method
+            // 3a. Method→Method calls
             m.getDependencies().stream().filter(d -> sliceName.equals(d.getCallerType())).map(Dependency::getName)
-                    .distinct().forEach(edges::add);
+                    .distinct().forEach(callee -> addEdge.accept(caller, callee));
 
-            // Add cases where a method accesses an attribute
-            m.getAttributeDependencies().stream().distinct().map(a -> "@" + a).forEach(edges::add);
-
-            // Remove duplicates from overloaded methods and stuff
-            edges = edges.stream().distinct().toList();
+            // 3b. Method→Attribute accesses
+            m.getAttributeDependencies().stream().distinct().map(a -> "@" + a)
+                    .forEach(attrNode -> addEdge.accept(caller, attrNode));
         }
+
+        // 4. Deduplicate each adjacency list
+        graph.replaceAll((node, neighbors) -> neighbors.stream().distinct().toList());
 
         return graph;
     }
-
 }

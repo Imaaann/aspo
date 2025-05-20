@@ -1,7 +1,13 @@
 package com.aspodev.utils;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 import java.util.function.Function;
 
 public class GraphTools {
@@ -63,4 +69,68 @@ public class GraphTools {
 			System.out.println();
 		});
 	}
+
+	public static <N> boolean isReachable(Map<N, List<N>> graph, N start, N target) {
+		if (start.equals(target))
+			return true;
+
+		Set<N> visited = new HashSet<>();
+		Queue<N> queue = new ArrayDeque<>();
+		visited.add(start);
+		queue.add(start);
+
+		while (!queue.isEmpty()) {
+			N current = queue.poll();
+			for (N neighbor : graph.getOrDefault(current, List.of())) {
+				if (!visited.contains(neighbor)) {
+					if (neighbor.equals(target)) {
+						return true;
+					}
+					visited.add(neighbor);
+					queue.add(neighbor);
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Precompute, for each node, the full set of nodes reachable from it.
+	 * 
+	 * @param graph adjacency-list graph
+	 * @param <N>   node type
+	 * @return map from each node → set of all nodes reachable from it
+	 */
+	public static <N> Map<N, Set<N>> computeReachabilityMap(Map<N, List<N>> graph) {
+		Map<N, Set<N>> reachableFrom = new HashMap<>();
+
+		for (N start : graph.keySet()) {
+			// If we've already computed it (e.g. due to SCC compression), skip.
+			if (reachableFrom.containsKey(start))
+				continue;
+
+			// Do one BFS/DFS from 'start'
+			Set<N> visited = new HashSet<>();
+			Deque<N> stack = new ArrayDeque<>();
+			visited.add(start);
+			stack.push(start);
+
+			while (!stack.isEmpty()) {
+				N curr = stack.pop();
+				for (N nbr : graph.getOrDefault(curr, List.of())) {
+					if (visited.add(nbr)) {
+						stack.push(nbr);
+					}
+				}
+			}
+
+			// Remove self if you don't count m→m
+			visited.remove(start);
+
+			reachableFrom.put(start, visited);
+		}
+
+		return reachableFrom;
+	}
+
 }
