@@ -283,5 +283,14 @@ public class ParserContext {
 		calledMethods.addAll(coll);
 	}
 
+	public void addAttributeDependency(String varName) {
+		currentMethod.addAttributeDependency(varName);
+	}
+
+	public boolean isAttribute(String varName) {
+		Slice current = getSlice();
+		return current.getAttributes().stream().map(a -> a.getName()).collect(Collectors.toSet()).contains(varName);
+	}
+
 	// #endregion
 }

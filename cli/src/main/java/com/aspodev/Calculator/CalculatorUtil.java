@@ -1,5 +1,6 @@
 package com.aspodev.Calculator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -73,17 +74,27 @@ public class CalculatorUtil {
 
     public Map<String, List<String>> getCohesionMap(Slice slice) {
         String sliceName = slice.getMetaData().getFullName();
-        Map<String, List<String>> cohesionMap = new HashMap<>();
+        Map<String, List<String>> graph = new HashMap<>();
 
-        for (Method method : slice.getMethods()) {
-            String methodName = method.getName();
-            List<String> selfDependencies = method.getDependencies().stream()
-                    .filter(d -> d.getCallerType().equals(sliceName)).map(Dependency::getName).distinct().toList();
-
-            cohesionMap.put(methodName, selfDependencies);
+        // Add all methods as nodes.
+        for (Method m : slice.getMethods()) {
+            graph.put(m.getName(), new ArrayList<>());
         }
 
-        return cohesionMap;
+        // Create edges
+        for (Method m : slice.getMethods()) {
+            String caller = m.getName();
+            List<String> edges = graph.get(caller);
+
+            // Add cases where a method calls another in class method
+            m.getDependencies().stream().filter(d -> sliceName.equals(d.getCallerType())).map(Dependency::getName)
+                    .distinct().forEach(edges::add);
+
+            // Add cases where a method accesses an attribute
+            m.getAttributeDependencies().stream().distinct().map(a -> "@" + a).forEach(edges::add);
+        }
+
+        return graph;
     }
 
 }
