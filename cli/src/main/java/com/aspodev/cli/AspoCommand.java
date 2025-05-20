@@ -3,13 +3,18 @@ package com.aspodev.cli;
 import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import com.aspodev.Calculator.NOCCalculator;
 import com.aspodev.Calculator.PFCalculator;
+import com.aspodev.Calculator.CalculatorUtil;
 import com.aspodev.SCAR.Model;
+import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
+import com.aspodev.utils.GraphTools;
+
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -56,9 +61,14 @@ public class AspoCommand implements Runnable {
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
 
+        for (Slice slice : SCARModel.getSliceMap().values()) {
+            Map<String, List<String>> cohesionGraph = CalculatorUtil.getCohesionMap(slice);
+            System.out.println("[DEBUG] Cohesion graph for: " + slice.getMetaData().getFullName());
+            GraphTools.displayGraph(cohesionGraph, null);
+        }
+
         new PFCalculator().calculate(SCARModel, new NOCCalculator().calculate(SCARModel));
-        System.out.println(
-                "[DEBUG] == Animal class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Animal"));
+        System.out.println("[DEBUG] == Animal class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Animal"));
         System.out.println("[DEBUG] == Bird class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Bird"));
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

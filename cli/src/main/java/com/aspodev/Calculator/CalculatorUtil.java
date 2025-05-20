@@ -74,7 +74,7 @@ public class CalculatorUtil {
         return numOfOverridenMethods;
     }
 
-    public Map<String, List<String>> getCohesionMap(Slice slice) {
+    public static Map<String, List<String>> getCohesionMap(Slice slice) {
         String sliceName = slice.getMetaData().getFullName();
         Map<String, List<String>> graph = new HashMap<>();
 
@@ -94,6 +94,9 @@ public class CalculatorUtil {
 
             // Add cases where a method accesses an attribute
             m.getAttributeDependencies().stream().distinct().map(a -> "@" + a).forEach(edges::add);
+
+            // Remove duplicates from overloaded methods and stuff
+            edges = edges.stream().distinct().toList();
         }
 
         return graph;
