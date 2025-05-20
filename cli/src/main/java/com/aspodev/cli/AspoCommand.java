@@ -9,12 +9,11 @@ import com.aspodev.Calculator.NOCCalculator;
 import com.aspodev.Calculator.PFCalculator;
 import com.aspodev.Calculator.CalculatorUtil;
 import com.aspodev.Calculator.LCCCalculator;
+import com.aspodev.Calculator.LCOM4Calculator;
 import com.aspodev.SCAR.Model;
-import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
-import com.aspodev.utils.GraphTools;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;

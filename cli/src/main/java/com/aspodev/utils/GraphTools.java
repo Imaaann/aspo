@@ -133,4 +133,43 @@ public class GraphTools {
 		return reachableFrom;
 	}
 
+	/**
+	 * Counts the number of connected components in an undirected graph.
+	 *
+	 * @param graph an adjacency list representation of the graph
+	 * @return the number of connected components
+	 */
+	public static <N> int countConnectedComponents(Map<N, List<N>> graph) {
+		Set<N> visited = new HashSet<>();
+		int components = 0;
+
+		for (N node : graph.keySet()) {
+			if (!visited.contains(node)) {
+				components++;
+				dfs(node, graph, visited);
+			}
+		}
+
+		return components;
+	}
+
+	/**
+	 * Depth-first traversal to visit all nodes in the same component.
+	 */
+	private static <N> void dfs(N start, Map<N, List<N>> graph, Set<N> visited) {
+		Deque<N> stack = new ArrayDeque<>();
+		stack.push(start);
+
+		while (!stack.isEmpty()) {
+			N node = stack.pop();
+			if (visited.add(node)) {
+				for (N neighbor : graph.getOrDefault(node, List.of())) {
+					if (!visited.contains(neighbor)) {
+						stack.push(neighbor);
+					}
+				}
+			}
+		}
+	}
+
 }
