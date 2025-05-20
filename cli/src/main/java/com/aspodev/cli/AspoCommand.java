@@ -7,12 +7,11 @@ import java.util.Map;
 
 import com.aspodev.Calculator.CalculatorUtil;
 import com.aspodev.Calculator.LCCCalculator;
+import com.aspodev.Calculator.LCOM4Calculator;
 import com.aspodev.SCAR.Model;
-import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
-import com.aspodev.utils.GraphTools;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -59,8 +58,6 @@ public class AspoCommand implements Runnable {
         SCARModel.createInheritanceGraph();
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
-
-        new LCCCalculator().calculate(SCARModel);
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
