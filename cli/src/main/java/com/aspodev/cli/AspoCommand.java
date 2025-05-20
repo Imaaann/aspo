@@ -57,6 +57,9 @@ public class AspoCommand implements Runnable {
         System.out.println("[DEBUG] == Output model: " + SCARModel);
 
         new PFCalculator().calculate(SCARModel, new NOCCalculator().calculate(SCARModel));
+        System.out.println(
+                "[DEBUG] == Animal class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Animal"));
+        System.out.println("[DEBUG] == Bird class" + SCARModel.getSliceMap().get("com.aspodev.inheritance.Bird"));
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
