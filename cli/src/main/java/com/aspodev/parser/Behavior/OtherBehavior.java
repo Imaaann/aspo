@@ -20,6 +20,9 @@ public class OtherBehavior implements Behavior {
 			if (!t.isIdentifier())
 				return false;
 
+			if (context.isAttribute(t.getValue()))
+				return true;
+
 			String next = instruction.getToken(t.getPosition() + 1).getValue();
 			boolean chainIdf = t.getType() == TokenTypes.CHAINED_IDENTIFIER && (next.equals("(") || next.contains("<"));
 
@@ -35,6 +38,11 @@ public class OtherBehavior implements Behavior {
 		List<Token> tokens = instruction.getTokens();
 
 		for (Token idf : identifiers) {
+
+			if (context.isAttribute(idf.getValue())) {
+				context.addAttributeDependency(idf.getValue());
+				continue;
+			}
 
 			/**
 			 * This means they are part of a chain call like "instruction.getTokens" ()
@@ -56,11 +64,17 @@ public class OtherBehavior implements Behavior {
 				}
 
 				context.addDependency(components[1], varType);
+
+				if (context.isAttribute(components[0]))
+					context.addAttributeDependency(components[0]);
+				else if (components[0].equals("this") && context.isAttribute(components[1]))
+					context.addAttributeDependency(components[1]);
+
 			} else {
 				String callerType = "RESOLVE";
 
 				if (context.isType(idf)) {
-					callerType = idf.getValue() + ".static";
+					callerType = idf.getValue();
 				}
 
 				if (instruction.getToken(idf.getPosition() - 1).equals(new Token("new"))) {
