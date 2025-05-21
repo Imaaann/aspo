@@ -223,8 +223,8 @@ public class InstructionUtil {
                 }
 
                 if (varType == null) {
-                    varType = "UNKOWN";
-                    System.out.println("[WARN] Unkown dependency: " + Arrays.asList(components));
+                    varType = "UNKNOWN";
+                    System.out.println("[WARN] Unknown dependency: " + Arrays.asList(components));
                 }
 
                 dependencies.add(new Dependency(components[1], varType));
