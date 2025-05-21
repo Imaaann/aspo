@@ -23,7 +23,7 @@ public class PFCalculator {
             } else {
 
                 Set<Method> methods = i.getValue().getMethods();
-                Set<Method> parentMethods = new CalculatorUtil().getAllTreeMethods(slicesMap, parentName);
+                Set<Method> parentMethods = new CalculatorUtil().getParentsMethods(slicesMap, parentName);
 
                 double OverridenMethods = new CalculatorUtil().getOverridenMethodsCount(methods, parentMethods);
                 double newMethods = methods.size() - OverridenMethods;
