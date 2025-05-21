@@ -1,6 +1,6 @@
 package com.aspodev.web.Service;
 
-import com.aspodev.utils.JsonReader;
+import com.aspodev.utils.JsonRead;
 import com.aspodev.web.Model.Command;
 import com.aspodev.web.Model.CommandResult;
 import org.json.simple.JSONObject;
@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class JsonRead extends JsonReader {
+public class JsonReading extends JsonRead {
     public static Command readCommand(String filePath) {
         JSONParser parser = new JSONParser();
         try(FileReader jsonfile = new FileReader(filePath)){

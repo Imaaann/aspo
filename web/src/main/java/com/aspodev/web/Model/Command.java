@@ -17,9 +17,7 @@ public class Command {
         return command;
     }
 
-    public void setCommand(String command) {
-        this.command = command;
-    }
+    public void setCommand(String command) {this.command = command;}
 
     @Override
     public String toString(){

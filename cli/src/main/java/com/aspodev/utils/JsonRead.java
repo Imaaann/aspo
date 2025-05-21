@@ -2,16 +2,13 @@ package com.aspodev.utils;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.concurrent.ConcurrentMap;
 
-import com.aspodev.utils.URL;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import picocli.CommandLine;
 
 
-public class JsonReader {
+public class JsonRead {
     public static URL readUrl(String filePath) {
         JSONParser parser = new JSONParser();
         try(FileReader jsonfile = new FileReader(filePath)){
