@@ -93,8 +93,7 @@ public class SystemCalculator {
 				namedResults.put(name, allResults.get(i));
 			}
 
-			// Handle the other non canonical metrics
-			// Current: PF, SIX
+
 			Map<String, Double> NOC = namedResults.get("NOC");
 			Map<String, Double> DIT = namedResults.get("DIT");
 

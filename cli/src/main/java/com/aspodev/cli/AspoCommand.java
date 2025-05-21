@@ -72,7 +72,7 @@ public class AspoCommand implements Runnable {
         Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
         System.out.println("[DEBUG] Results map: ");
         System.out.println(OtherTools.resultMapToString(results));
-
+      
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
