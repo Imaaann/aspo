@@ -1,5 +1,6 @@
 package com.aspodev.cli;
 
+import java.io.IOException;
 import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
@@ -65,8 +66,17 @@ public class AspoCommand implements Runnable {
         int threads = Runtime.getRuntime().availableProcessors();
         SystemCalculator calculator = new SystemCalculator(threads);
         Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
+
         System.out.println("[DEBUG] Results map: ");
         System.out.println(OtherTools.resultMapToString(results));
+
+        // Next step now Is to write the csv file
+        try {
+            CsvWriter.writeCsv(results);
+        } catch (IOException e) {
+            System.out.println("[ERROR] IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

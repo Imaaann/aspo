@@ -3,6 +3,7 @@ package com.aspodev.Calculator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Metrics {
@@ -24,13 +25,12 @@ public class Metrics {
 		return values.get(metricName);
 	}
 
+	public Set<String> keySet() {
+		return values.keySet();
+	}
+
 	@Override
 	public String toString() {
-		// produces:
-		// {
-		// "accuracy": 0.1,
-		// "precision": 0.87
-		// }
 		return values.entrySet().stream().map(e -> "  \"" + e.getKey() + "\": " + e.getValue())
 				.collect(Collectors.joining(",\n", "{\n", "\n}"));
 	}
