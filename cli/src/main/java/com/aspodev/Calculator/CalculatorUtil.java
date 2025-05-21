@@ -63,6 +63,8 @@ public class CalculatorUtil {
             Iterator<Method> parentMethodsIterator = parentMethods.iterator();
             while (parentMethodsIterator.hasNext()) {
                 Method parentMethod = parentMethodsIterator.next();
+                System.out.println(
+                        "Debug: method name: " + method.getName() + " parentMethod name: " + parentMethod.getName());
                 if (method.getName().equals(parentMethod.getName())) {
                     numOfOverridenMethods++;
                     break;

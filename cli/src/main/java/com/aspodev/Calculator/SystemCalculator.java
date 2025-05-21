@@ -21,12 +21,11 @@ public class SystemCalculator {
 
 	public SystemCalculator(int threadCount) {
 
-		// TODO: Add NOC HERE DONT FORGET
 		calculators = List.of(new CBOCalculator(), new CFCalculator(), new DACCalculator(), new DAMCalculator(),
 				new DITCalculator(), new EDCalculator(), new LCCCalculator(), new LCOM4Calculator(),
 				new MITCalculator(), new MPCCalculator(), new NOACalculator(), new NOLMCalculator(),
 				new NOMCalculator(), new NOPCalculator(), new NORMCalculator(), new NSMCalculator(),
-				new TLOCCalculator());
+				new TLOCCalculator(), new NOCCalculator());
 
 		executor = Executors.newFixedThreadPool(threadCount);
 	}
@@ -94,10 +93,8 @@ public class SystemCalculator {
 				namedResults.put(name, allResults.get(i));
 			}
 
-			// TODO: Bring back PF when NOC is implemented above
-			// Handle the other non canonical metrics
-			// Current: PF, SIX
-			// Map<String, Double> NOC = namedResults.get("NOC");
+
+			Map<String, Double> NOC = namedResults.get("NOC");
 			Map<String, Double> DIT = namedResults.get("DIT");
 
 			System.out.println("[DEBUG] NaN List: "
@@ -106,14 +103,10 @@ public class SystemCalculator {
 			Map<String, Double> NOM = namedResults.get("NOM");
 			Map<String, Double> NORM = namedResults.get("NORM");
 
-			// Map<String, Double> PF = new PFCalculator().calculate(SCAR, NOC);
+			Map<String, Double> PF = new PFCalculator().calculate(SCAR, NOC);
 			Map<String, Double> SIX = new SIXCalculator().calculate(DIT, NORM, NOM);
 			namedResults.put("SIX", SIX);
-
-			System.out.println("[DEBUG] NaN List: "
-					+ DIT.entrySet().stream().filter(e -> e.getValue().isNaN()).map(e -> e.getKey()).toList());
-
-			// namedResults.put("PF", PF);
+			namedResults.put("PF", PF);
 
 			// Group by class instead of by metrics & Return
 			return normalizeNamedMap(namedResults);
