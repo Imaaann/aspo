@@ -43,4 +43,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 
+.aspo/
+
 *.txt

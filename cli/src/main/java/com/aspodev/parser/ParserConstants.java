@@ -11,7 +11,7 @@ public class ParserConstants {
 	public static Set<String> operators = Set.of("=", "!", "~", "==", ">=", "<=", "!=", "&&", "||", "++", "--", "+",
 			"-", "*", "/", "&", "|", "^", "%", "<<", ">>", ">>>", "+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "<<=",
 			">>=", ">>>=", "<", ">", "?", ":", "->");
-	public static Set<String> seperators = Set.of("(", ")", "{", "}", "[", "]", ";", ",", ".", "...", "@", "::");
+	public static Set<String> separators = Set.of("(", ")", "{", "}", "[", "]", ";", ",", ".", "...", "@", "::");
 
 	public static Set<String> assignmentOperators = Set.of("+=", "-=", "*=", "/=", "&=", "|=", "^=", "%=", "<<=", ">>=",
 			">>>=", "=");

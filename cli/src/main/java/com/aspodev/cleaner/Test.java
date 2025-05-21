@@ -2,10 +2,16 @@ package com.aspodev.cleaner;
 
 import static java.lang.System.*;
 import static java.lang.Math.pow;
-import static java.util.stream.Collectors.*;
+import com.aspodev.tokenizer.Tokenizer;
+import com.aspodev.inheritance.Parrot;
+
+import java.util.*;
 
 public class Test {
 	public static void main(String[] args) {
+
+		Map<? extends Comparable<? super Parrot>, List<? super List<? extends Tokenizer>>> insaneMap = new HashMap<>();
+		insaneMap.isEmpty();
 		currentTimeMillis();
 		pow(3, 3);
 
@@ -19,9 +25,7 @@ public class Test {
 		r.run();
 
 		process(new Object() {
-			void greet() {
-				System.out.println("Hello from inline anonymous class");
-			}
+
 		});
 
 		// Anonymous class extending a concrete class

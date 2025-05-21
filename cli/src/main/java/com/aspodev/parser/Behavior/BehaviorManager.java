@@ -46,7 +46,7 @@ public class BehaviorManager {
 			if (i.getType() == InstructionTypes.OTHER)
 				return;
 
-			System.out.println("[DEBUG] == unhandled instruction: " + instruction);
+			System.out.println("[WARN] == unhandled instruction: " + instruction);
 		}).apply(context, instruction);
 	}
 

@@ -25,7 +25,7 @@ public class RecordBehavior implements Behavior {
 		Accessors accessor = instruction.getAccessor();
 		int recordTokenPos = instruction.getToken("record").getPosition();
 		Token recordName = instruction.getToken(recordTokenPos + 1);
-		List<Token> interfaceList = instruction.getInterfaceNames();
+		List<Token> interfaceList = instruction.getInterfaceNames(context);
 
 		Iterator<Token> iterator = instruction.getTokens().iterator();
 

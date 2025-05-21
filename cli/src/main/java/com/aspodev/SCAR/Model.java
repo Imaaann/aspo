@@ -1,8 +1,15 @@
 package com.aspodev.SCAR;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import com.aspodev.parser.Instructions.InstructionUtil;
 
 public class Model {
 	private final Map<String, Slice> slicesMap;
@@ -30,7 +37,103 @@ public class Model {
 		return slicesMap.get(pkgName + "." + name);
 	}
 
-	public void createInheritanceGraph() {
-		// TODO: make this the scar finalizer
+	public Map<String, Slice> getSliceMap() {
+		return slicesMap;
 	}
+
+	public void createInheritanceGraph() {
+
+		for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
+			Slice slice = entry.getValue();
+			String childFullName = entry.getKey();
+
+			List<InheritanceRelation> relations = inheritanceGraph.computeIfAbsent(childFullName,
+					key -> new ArrayList<>());
+
+			if (slice.getParentName() != null) {
+				relations.add(new InheritanceRelation(slice.getParentName(), RelationTypes.EXTENDS));
+			}
+
+			for (String interfaceName : slice.getInterfaces()) {
+				relations.add(new InheritanceRelation(interfaceName, RelationTypes.IMPLEMENTS));
+			}
+		}
+	}
+
+	public Map<String, List<InheritanceRelation>> getInheritanceGraph() {
+		return inheritanceGraph;
+	}
+
+	public boolean isApplicationType(String typeName) {
+		// Case1: full type name like com.aspodev.SCAR.Slice
+		if (slicesMap.containsKey(typeName))
+			return true;
+
+		Set<String> typeNameSet = InstructionUtil.extractNames(typeName);
+
+		Set<String> applicationTypes = slicesMap.keySet().stream().map(type -> {
+			String last = Arrays.stream(type.split("\\.")).reduce((a, b) -> b).orElse("");
+			return last;
+		}).collect(Collectors.toSet());
+
+		for (String name : typeNameSet) {
+			if (applicationTypes.contains(name))
+				return true;
+		}
+
+		return false;
+	}
+
+	public Set<String> getApplicationTypes(String typeName) {
+		Set<String> result = new HashSet<>();
+		Set<String> typeNameSet = InstructionUtil.extractNames(typeName);
+		Set<String> applicationTypes = slicesMap.keySet().stream().map(type -> {
+			String last = Arrays.stream(type.split("\\.")).reduce((a, b) -> b).orElse("");
+			return last;
+		}).collect(Collectors.toSet());
+
+		for (String type : typeNameSet) {
+			if (applicationTypes.contains(type)) {
+				result.add(type);
+			}
+		}
+
+		return result;
+	}
+
+	public Set<String> getCohesionBreaker() {
+		Set<String> inheritanceKeys = inheritanceGraph.keySet();
+		Set<String> sliceMapKeys = slicesMap.keySet();
+
+		return inheritanceKeys.stream().filter(k -> !sliceMapKeys.contains(k)).collect(Collectors.toSet());
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		// 1) List all slices
+		sb.append("Model Slices (").append(slicesMap.size()).append("):\n");
+		for (Slice sl : slicesMap.values()) {
+			sb.append("  - ").append(sl.getMetaData().getFullName()).append(": \n")
+					.append(sl.toString().replaceAll("(?m)^", "    ")) // indent slice.toString()
+					.append("\n\n");
+		}
+
+		// 2) Print the inheritance graph
+		sb.append("Inheritance Graph (").append(inheritanceGraph.size()).append(" nodes):\n");
+		// sort keys for stable output
+		inheritanceGraph.keySet().stream().sorted().forEach(parent -> {
+			sb.append("  ").append(parent).append("\n");
+			List<InheritanceRelation> relations = inheritanceGraph.get(parent);
+			// group by relation type for nicer grouping, or just list
+			relations.forEach(rel -> {
+				sb.append("    ").append(rel.type().name().toLowerCase()).append(" → ").append(rel.name()).append("\n");
+			});
+			sb.append("\n");
+		});
+
+		return sb.toString();
+	}
+
 }

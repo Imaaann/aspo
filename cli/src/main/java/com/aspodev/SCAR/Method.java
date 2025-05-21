@@ -16,6 +16,7 @@ public class Method {
 	private final List<String> arguments;
 	private final Set<Modifier> modifiers;
 	private final Set<Dependency> dependencies;
+	private final Set<String> attributeDependencies;
 
 	public Method(String name, String returnType, Accessors accessor, String genericHeader) {
 		this.name = name;
@@ -25,6 +26,7 @@ public class Method {
 		this.modifiers = new HashSet<>();
 		this.arguments = new ArrayList<>();
 		this.dependencies = new HashSet<>();
+		this.attributeDependencies = new HashSet<>();
 	}
 
 	public void addModifier(String modifier) {
@@ -47,6 +49,10 @@ public class Method {
 		this.dependencies.add(new Dependency(methodName, callerType));
 	}
 
+	public void addAttributeDependency(String attributeName) {
+		this.attributeDependencies.add(attributeName);
+	}
+
 	public Set<Dependency> getDependencies() {
 		return dependencies;
 	}
@@ -63,8 +69,16 @@ public class Method {
 		return this.accessor;
 	}
 
+	public List<String> getArguments() {
+		return this.arguments;
+	}
+
 	public Set<Modifier> getModifiers() {
 		return this.modifiers;
+	}
+
+	public Set<String> getAttributeDependencies() {
+		return attributeDependencies;
 	}
 
 	public String getGenericHeader() {
@@ -84,7 +98,8 @@ public class Method {
 		String prefix = Stream.of(access, mods).filter(s -> !s.isBlank()).collect(Collectors.joining(" "));
 		String dependenciesString = dependencies.stream().map(Dependency::toString).collect(Collectors.joining(" "));
 		return "\n\t\t" + (prefix.isBlank() ? "" : prefix + " ") + generics + returnType + " " + name + "(" + args + ")"
-				+ "{\n" + dependenciesString + "\t\t}";
+				+ "{\n" + dependenciesString + "\t\t}" + "\t\t\nAttribute Dependencies: " + attributeDependencies
+				+ "\n";
 	}
 
 }

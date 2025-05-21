@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.aspodev.SCAR.Dependency;
@@ -82,6 +83,7 @@ public class InstructionUtil {
     }
 
     public static Token getGenericHeader(Iterator<Token> iterator, Token startToken) {
+        final Token spaceToken = new Token(" ");
         Token temp;
         int sign = 0;
         int pos = startToken.getPosition();
@@ -101,6 +103,7 @@ public class InstructionUtil {
 
             counter = counter + sign * length;
             token.append(temp);
+            token.append(spaceToken);
 
             if (counter == 0) {
                 pos = temp.getPosition();
@@ -266,5 +269,11 @@ public class InstructionUtil {
 
     public static String getChainedElementsExcept(String element) {
         return InstructionUtil.getChainedElementsExcept(element, 1);
+    }
+
+    public static Set<String> extractNames(String typeName) {
+        final Set<String> Skip = Set.of("extends", "super", "?");
+        return Arrays.stream(typeName.split("[^A-Za-z0-9_$]+"))
+                .filter(token -> !token.isBlank() && !Skip.contains(token)).collect(Collectors.toSet());
     }
 }

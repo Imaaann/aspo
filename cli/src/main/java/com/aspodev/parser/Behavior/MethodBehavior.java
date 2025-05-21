@@ -50,6 +50,8 @@ public class MethodBehavior implements Behavior {
 		context.setMethod(method);
 		currentSlice.addMethod(method);
 
-		context.changeScope(ScopeEnum.INSTRUCTION);
+		if (instruction.contains(new Token("{"))) {
+			context.changeScope(ScopeEnum.INSTRUCTION);
+		}
 	}
 }

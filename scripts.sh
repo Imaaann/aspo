@@ -33,6 +33,9 @@ case "$ACTION" in
     elif [ "$MODULE" == "web" ]; then
       echo "Running Web module..."
       mvn -pl web exec:java -Dexec.mainClass="$WEB_MAINCLASS"
+    elif [ "$MODULE" == "CLI" ]; then
+      echo "Running cli module with file output"
+      mvn -pl cli exec:java -Dexec.mainClass="$CLI_MAINCLASS" -Dexec.args="$ARGUMENTS" > aspo.debug.output.log
     else
       echo "Invalid module specified: $MODULE"
       usage

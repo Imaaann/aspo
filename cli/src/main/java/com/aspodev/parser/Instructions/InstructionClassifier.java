@@ -41,7 +41,6 @@ public class InstructionClassifier {
 	}
 
 	private InstructionTypes classifyInstruction(ParserContext context) {
-		// TODO: make this function work ffs
 		if (isStaticImport())
 			return InstructionTypes.STATIC_IMPORT_STATEMENT;
 
@@ -51,8 +50,9 @@ public class InstructionClassifier {
 		if (classifiedTokens.contains(new Token("package")))
 			return InstructionTypes.PACKAGE_STATEMENT;
 
-		if (classifiedTokens.contains(new Token("class")))
+		if (classifiedTokens.contains(new Token("class"))) {
 			return InstructionTypes.CLASS_DECLARATION;
+		}
 
 		if (classifiedTokens.contains(new Token("enum")))
 			return InstructionTypes.ENUM_DECLARTION;

@@ -1,6 +1,8 @@
 package com.aspodev.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -13,7 +15,6 @@ import com.aspodev.SCAR.Method;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.TypeParser.TypeSpace;
 import com.aspodev.TypeParser.TypeToken;
-import com.aspodev.parser.Instructions.InstructionUtil;
 import com.aspodev.parser.Scope.Scope;
 import com.aspodev.parser.Scope.ScopeEnum;
 
@@ -31,6 +32,9 @@ public class ParserContext {
 	private Method currentMethod;
 	private LocalVariableMap localVariables;
 
+	private long instructionNumber;
+	private Set<String> calledMethods;
+
 	public ParserContext(TypeParser parser, Model model) {
 		this.model = model;
 		this.parser = parser;
@@ -40,6 +44,8 @@ public class ParserContext {
 		this.slices = new Stack<>();
 		this.staticFunctions = new ArrayList<>();
 		this.staticClasses = new ArrayList<>();
+		instructionNumber = 0;
+		this.calledMethods = new HashSet<>();
 	}
 
 	// #region Scope methods
@@ -77,6 +83,14 @@ public class ParserContext {
 		this.space.addPackage(pkgName, parser);
 	}
 
+	public void addWildCardPackage(String pkgName) {
+		this.space.addWildCardPackage(pkgName, parser);
+	}
+
+	public TypeToken getTypeToken(String typeName) {
+		return this.space.getTypeToken(typeName);
+	}
+
 	public boolean isType(Token token) {
 		return space.isType(token);
 	}
@@ -106,7 +120,8 @@ public class ParserContext {
 
 		Slice current = slices.pop();
 		resolveTypes(current);
-		System.out.println("[DEBUG] Slice created: " + current);
+		current.setInstructionNumber(instructionNumber);
+		current.setCallNumber(calledMethods.size());
 		model.addSlice(current);
 	}
 
@@ -130,7 +145,7 @@ public class ParserContext {
 				continue;
 			}
 
-			if (isAmbigous(slice)) {
+			if (isAmbiguous(slice)) {
 				String ambiguous = slice.getParentName();
 				for (String staticClass : staticClasses) {
 					String[] components = staticClass.split("\\.");
@@ -233,7 +248,7 @@ public class ParserContext {
 		localVariables.removeScope(getScopeCount());
 	}
 
-	public boolean isAmbigous(Slice slice) {
+	public boolean isAmbiguous(Slice slice) {
 		if (staticClasses.size() > 1)
 			return true;
 		if (staticClasses.size() == 1 && slice.getParentName() != null)
@@ -250,6 +265,31 @@ public class ParserContext {
 				return components[size - 2];
 		}
 		return null;
+	}
+
+	public long getInstructionNumber() {
+		return instructionNumber;
+	}
+
+	public void increaseInstruction() {
+		instructionNumber++;
+	}
+
+	public Set<String> getCalledMethods() {
+		return calledMethods;
+	}
+
+	public void addCalledMethods(Collection<String> coll) {
+		calledMethods.addAll(coll);
+	}
+
+	public void addAttributeDependency(String varName) {
+		currentMethod.addAttributeDependency(varName);
+	}
+
+	public boolean isAttribute(String varName) {
+		Slice current = getSlice();
+		return current.getAttributes().stream().map(a -> a.getName()).collect(Collectors.toSet()).contains(varName);
 	}
 
 	// #endregion

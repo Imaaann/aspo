@@ -24,6 +24,9 @@ public class Slice {
 	private final Set<String> handledExceptions;
 	private final Set<String> thrownExceptions;
 
+	private long instructionNumber;
+	private long callNumber;
+
 	public Slice(TypeToken metaData, String outerClassName) {
 		this.metaData = metaData;
 		this.outerClassName = outerClassName;
@@ -71,6 +74,30 @@ public class Slice {
 
 	public Set<Method> getMethods() {
 		return methods;
+	}
+
+	public long getInstructionNumber() {
+		return instructionNumber;
+	}
+
+	public Set<String> getHandledExceptions() {
+		return handledExceptions;
+	}
+
+	public Set<String> getThrownExceptions() {
+		return thrownExceptions;
+	}
+
+	public long getCallNumber() {
+		return callNumber;
+	}
+
+	public void setCallNumber(long callNumber) {
+		this.callNumber = callNumber;
+	}
+
+	public void setInstructionNumber(long instructionNumber) {
+		this.instructionNumber = instructionNumber;
 	}
 
 	public void setParentName(String parentName) {
@@ -131,6 +158,7 @@ public class Slice {
 
 	public Set<Dependency> getDependencies() {
 		Set<Dependency> dependencies = new HashSet<>();
+		dependencies.addAll(this.dependencies);
 		for (Method method : methods) {
 			Set<Dependency> methodDependencies = method.getDependencies();
 			dependencies.addAll(methodDependencies);
@@ -145,6 +173,8 @@ public class Slice {
 		return """
 				Slice{
 				  metaData=%s,
+				  instructionNumber=%d,
+				  callerCount:%d
 				  outerClassName='%s',
 				  parentName='%s',
 				  interfaces=%s,
@@ -156,7 +186,7 @@ public class Slice {
 				  dependencies={
 				  	%s}
 				}
-				""".formatted(metaData, outerClassName, parentName, interfaceNames, permitsNames, accessor, modifiers,
-				attributes, methods, depString);
+				""".formatted(metaData, instructionNumber, callNumber, outerClassName, parentName, interfaceNames,
+				permitsNames, accessor, modifiers, attributes, methods, depString);
 	}
 }

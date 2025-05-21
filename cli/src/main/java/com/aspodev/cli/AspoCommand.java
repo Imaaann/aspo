@@ -1,13 +1,19 @@
 package com.aspodev.cli;
 
+import java.io.IOException;
 import java.lang.Runnable;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
+import com.aspodev.Calculator.Metrics;
+import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
+import com.aspodev.utils.OtherTools;
+
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -48,6 +54,28 @@ public class AspoCommand implements Runnable {
                 Parser parser = new Parser(p, typeParser, SCARModel);
                 parser.parse();
             }
+        }
+
+        SCARModel.createInheritanceGraph();
+
+        System.out.println("[DEBUG] == Output model: " + SCARModel);
+
+        System.out.println("[DEBUG] Model cohesion: " + SCARModel.getCohesionBreaker());
+
+        // Next step is to execute the metric calculation and get our results map
+        int threads = Runtime.getRuntime().availableProcessors();
+        SystemCalculator calculator = new SystemCalculator(threads);
+        Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
+
+        System.out.println("[DEBUG] Results map: ");
+        System.out.println(OtherTools.resultMapToString(results));
+
+        // Next step now Is to write the csv file
+        try {
+            CsvWriter.writeCsv(results);
+        } catch (IOException e) {
+            System.out.println("[ERROR] IOException: " + e.getMessage());
+            e.printStackTrace();
         }
 
         // Temporary Timing for checking the execute time
