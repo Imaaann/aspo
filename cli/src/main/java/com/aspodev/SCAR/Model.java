@@ -44,8 +44,9 @@ public class Model {
 
 	public void createInheritanceGraph() {
 
-		for (Slice slice : slicesMap.values()) {
-			String childFullName = slice.getMetaData().getFullName();
+		for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
+			Slice slice = entry.getValue();
+			String childFullName = entry.getKey();
 
 			List<InheritanceRelation> relations = inheritanceGraph.computeIfAbsent(childFullName,
 					key -> new ArrayList<>());
@@ -99,6 +100,13 @@ public class Model {
 		}
 
 		return result;
+	}
+
+	public Set<String> getCohesionBreaker() {
+		Set<String> inheritanceKeys = inheritanceGraph.keySet();
+		Set<String> sliceMapKeys = slicesMap.keySet();
+
+		return inheritanceKeys.stream().filter(k -> !sliceMapKeys.contains(k)).collect(Collectors.toSet());
 	}
 
 	@Override

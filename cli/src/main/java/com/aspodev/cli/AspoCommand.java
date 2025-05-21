@@ -64,6 +64,8 @@ public class AspoCommand implements Runnable {
 
         System.out.println("[DEBUG] == Output model: " + SCARModel);
 
+        System.out.println("[DEBUG] Model cohesion: " + SCARModel.getCohesionBreaker());
+
         // Next step is to execute the metric calculation and get our results map
         int threads = Runtime.getRuntime().availableProcessors();
         SystemCalculator calculator = new SystemCalculator(threads);

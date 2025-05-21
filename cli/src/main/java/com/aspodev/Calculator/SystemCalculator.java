@@ -13,6 +13,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import com.aspodev.SCAR.Model;
+import com.aspodev.utils.OtherTools;
 
 public class SystemCalculator {
 	private List<MetricCalculator> calculators;
@@ -52,15 +53,33 @@ public class SystemCalculator {
 
 	}
 
-	private Map<String, Metrics> normalizeNamedMap(Map<String, Map<String, Double>> nameMap, Set<String> sliceNames) {
-		Map<String, Metrics> results = new HashMap<>();
-		for (String sliceName : sliceNames) {
-			Metrics sliceMetrics = new Metrics();
-			for (Map.Entry<String, Map<String, Double>> entry : nameMap.entrySet()) {
-				sliceMetrics.insertMetric(entry.getKey(), entry.getValue().get(sliceName));
+	/**
+	 * Transpose a map of metricName → (sliceName → metricValue) into sliceName →
+	 * Metrics Only the actual entries in each metric map get inserted.
+	 */
+	private Map<String, Metrics> normalizeNamedMap(Map<String, Map<String, Double>> metricMap) {
+		Map<String, Metrics> results = new LinkedHashMap<>();
+
+		for (var metricEntry : metricMap.entrySet()) {
+			String metricName = metricEntry.getKey(); // e.g. "DIT"
+			Map<String, Double> sliceValues = metricEntry.getValue();
+
+			for (var sliceEntry : sliceValues.entrySet()) {
+				String sliceName = sliceEntry.getKey(); // e.g. "MyClass"
+				Double value = sliceEntry.getValue(); // maybe NaN, maybe real
+
+				// if you want to drop NaNs here:
+				if (value != null && value.isNaN()) {
+					System.out.println("[WARN] NaN for metric " + metricName + " on slice " + sliceName);
+					continue;
+				}
+
+				// get-or-create the Metrics object for this slice
+				Metrics m = results.computeIfAbsent(sliceName, k -> new Metrics());
+				m.insertMetric(metricName, value);
 			}
-			results.put(sliceName, sliceMetrics);
 		}
+
 		return results;
 	}
 
@@ -80,16 +99,24 @@ public class SystemCalculator {
 			// Current: PF, SIX
 			// Map<String, Double> NOC = namedResults.get("NOC");
 			Map<String, Double> DIT = namedResults.get("DIT");
+
+			System.out.println("[DEBUG] NaN List: "
+					+ DIT.entrySet().stream().filter(e -> e.getValue().isNaN()).map(e -> e.getKey()).toList());
+
 			Map<String, Double> NOM = namedResults.get("NOM");
 			Map<String, Double> NORM = namedResults.get("NORM");
 
 			// Map<String, Double> PF = new PFCalculator().calculate(SCAR, NOC);
 			Map<String, Double> SIX = new SIXCalculator().calculate(DIT, NORM, NOM);
 			namedResults.put("SIX", SIX);
+
+			System.out.println("[DEBUG] NaN List: "
+					+ DIT.entrySet().stream().filter(e -> e.getValue().isNaN()).map(e -> e.getKey()).toList());
+
 			// namedResults.put("PF", PF);
 
 			// Group by class instead of by metrics & Return
-			return normalizeNamedMap(namedResults, SCAR.getSliceMap().keySet());
+			return normalizeNamedMap(namedResults);
 		} catch (InterruptedException ie) {
 			Thread.currentThread().interrupt();
 			System.err.println("[ERROR] Thread was interrupted");

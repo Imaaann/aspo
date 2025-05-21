@@ -3,10 +3,13 @@ package com.aspodev.Calculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.SCAR.InheritanceRelation;
 import com.aspodev.SCAR.RelationTypes;
+import com.aspodev.utils.OtherTools;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DITCalculator implements MetricCalculator {
 
@@ -16,11 +19,9 @@ public class DITCalculator implements MetricCalculator {
         Map<String, List<InheritanceRelation>> inheritanceGraph = SCAR.getInheritanceGraph();
 
         for (String sliceName : inheritanceGraph.keySet()) {
-            int depth = calculateDepth(sliceName, inheritanceGraph);
-            result.put(sliceName,Double.valueOf(depth));
+            double depth = calculateDepth(sliceName, inheritanceGraph);
+            result.put(sliceName, depth);
         }
-
-
         return result;
     }
 
