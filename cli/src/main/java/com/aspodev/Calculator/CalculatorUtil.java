@@ -19,25 +19,7 @@ public class CalculatorUtil {
         try {
             Slice current = slicesMap.get(parentName);
             Set<Method> result = new HashSet<>();
-            while (!(current.getParentName() == null)) {
-                current = slicesMap.get(current.getParentName());
-                if (current == null)
-                    break;
-                result.addAll(current.getMethods());
-            }
-
-            return result;
-        } catch (NullPointerException e) {
-            System.out.println(
-                    "[ERROR] NullPointerException: the parentName: " + parentName + " is not in the slicesMap");
-            return null;
-        }
-    }
-
-    public Set<Method> getAllTreeMethods(Map<String, Slice> slicesMap, String parentName) {
-        try {
-            Slice current = slicesMap.get(parentName);
-            Set<Method> result = current.getMethods();
+            result.addAll(current.getMethods());
             while (!(current.getParentName() == null)) {
                 current = slicesMap.get(current.getParentName());
                 if (current == null)

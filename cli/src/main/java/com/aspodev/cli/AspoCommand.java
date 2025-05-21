@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.aspodev.Calculator.Metrics;
+import com.aspodev.Calculator.NOCCalculator;
+import com.aspodev.Calculator.NORMCalculator;
+import com.aspodev.Calculator.PFCalculator;
 import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
@@ -77,7 +80,7 @@ public class AspoCommand implements Runnable {
             System.out.println("[ERROR] IOException: " + e.getMessage());
             e.printStackTrace();
         }
-
+        new NORMCalculator().calculate(SCARModel);
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
