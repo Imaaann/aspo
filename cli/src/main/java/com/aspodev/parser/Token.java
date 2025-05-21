@@ -59,7 +59,7 @@ public class Token {
 			return TokenTypes.KEYWORD;
 		} else if (ParserConstants.operators.contains(token)) {
 			return TokenTypes.OPERATOR;
-		} else if (ParserConstants.seperators.contains(token)) {
+		} else if (ParserConstants.separators.contains(token)) {
 			return TokenTypes.SEPERATOR;
 		} else if (isJavaNumber(token) || ParserConstants.literals.contains(token)) {
 			return TokenTypes.LITERAL;
