@@ -22,7 +22,7 @@ public class SystemCalculator {
 				new DITCalculator(), new EDCalculator(), new LCCCalculator(), new LCOM4Calculator(),
 				new MITCalculator(), new MPCCalculator(), new NOACalculator(), new NOLMCalculator(),
 				new NOMCalculator(), new NOPCalculator(), new NORMCalculator(), new NSMCalculator(),
-				new TLOCCalculator(), new NOCCalculator());
+				new TLOCCalculator(), new NOCCalculator(), new RFCCalculator());
 
 		executor = Executors.newFixedThreadPool(threadCount);
 	}
