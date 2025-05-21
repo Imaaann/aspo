@@ -42,7 +42,7 @@ public class ClassInfoDTO {
 
     }
 
-    public Map<String, List<DependencyDTO>> createDependencyDTO(Slice slice) {
+    private Map<String, List<DependencyDTO>> createDependencyDTO(Slice slice) {
         Map<String, List<DependencyDTO>> dependencies = new HashMap<>();
         Set<Method> methods = slice.getMethods();
         for (Method method : methods) {
