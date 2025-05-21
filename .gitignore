@@ -44,5 +44,6 @@ Thumbs.db
 *.tmp
 
 .aspo/
+.venv/
 
 *.txt

@@ -21,7 +21,6 @@ public class NORMCalculator implements MetricCalculator {
             Set<Method> methods = i.getValue().getMethods();
             String parentName = i.getValue().getParentName();
             if (parentName == null || slicesMap.get(parentName) == null) {
-                System.out.println();
                 result.put(i.getKey(), Double.valueOf(0));
             } else {
                 parentMethods = new CalculatorUtil().getParentsMethods(slicesMap, parentName);

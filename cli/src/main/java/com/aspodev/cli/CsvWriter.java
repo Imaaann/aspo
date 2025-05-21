@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,7 +22,8 @@ public class CsvWriter {
 	private static final String BASE_DIR = "./.aspo";
 
 	// Timestamp formatter for folder names
-	private static final DateTimeFormatter FOLDER_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+	private static final DateTimeFormatter FOLDER_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final DateTimeFormatter NAME_FORMATTER = DateTimeFormatter.ofPattern("HH-mm-ss");
 
 	/**
 	 * Writes the given metrics map to CSV at ./​.aspo/{current-date}/out.csv
@@ -33,8 +33,9 @@ public class CsvWriter {
 	 */
 	public static void writeCsv(Map<String, Metrics> data) throws IOException {
 		// 1) Determine current date directory
-		String timestamp = LocalDateTime.now().format(FOLDER_FORMATTER);
-		Path dirPath = Path.of(BASE_DIR, timestamp);
+		String date = LocalDateTime.now().format(FOLDER_FORMATTER);
+		String time = LocalDateTime.now().format(NAME_FORMATTER);
+		Path dirPath = Path.of(BASE_DIR, date);
 		Files.createDirectories(dirPath);
 
 		// 2) Collect all metric names (union) in sorted order for consistent columns
@@ -53,7 +54,7 @@ public class CsvWriter {
 				.setSkipHeaderRecord(false).build();
 
 		// 5) Create printer and write rows
-		Path csvPath = dirPath.resolve("out.csv");
+		Path csvPath = dirPath.resolve("out-" + time + ".csv");
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvPath.toFile()));
 				CSVPrinter printer = new CSVPrinter(writer, format)) {
 			for (Map.Entry<String, Metrics> entry : data.entrySet()) {
@@ -72,6 +73,6 @@ public class CsvWriter {
 			printer.flush();
 		}
 
-		System.out.println("Written CSV to: " + csvPath.toAbsolutePath());
+		System.out.println("[INFO] --- Written CSV to: " + csvPath.toAbsolutePath());
 	}
 }
