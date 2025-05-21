@@ -5,11 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.attribute.standard.MediaSize.Other;
-
-import com.aspodev.Calculator.NOCCalculator;
-import com.aspodev.Calculator.PFCalculator;
-import com.aspodev.Calculator.MetricCalculator;
 import com.aspodev.Calculator.Metrics;
 import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.SCAR.Model;
@@ -72,7 +67,7 @@ public class AspoCommand implements Runnable {
         Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
         System.out.println("[DEBUG] Results map: ");
         System.out.println(OtherTools.resultMapToString(results));
-      
+
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
         System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));

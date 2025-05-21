@@ -1,11 +1,9 @@
 package com.aspodev.Calculator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,7 +11,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import com.aspodev.SCAR.Model;
-import com.aspodev.utils.OtherTools;
 
 public class SystemCalculator {
 	private List<MetricCalculator> calculators;
@@ -93,13 +90,8 @@ public class SystemCalculator {
 				namedResults.put(name, allResults.get(i));
 			}
 
-
 			Map<String, Double> NOC = namedResults.get("NOC");
 			Map<String, Double> DIT = namedResults.get("DIT");
-
-			System.out.println("[DEBUG] NaN List: "
-					+ DIT.entrySet().stream().filter(e -> e.getValue().isNaN()).map(e -> e.getKey()).toList());
-
 			Map<String, Double> NOM = namedResults.get("NOM");
 			Map<String, Double> NORM = namedResults.get("NORM");
 
