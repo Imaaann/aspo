@@ -10,34 +10,33 @@ import com.aspodev.SCAR.Slice;
 
 public class PFCalculator {
     public Map<String, Double> calculate(Model SCAR, Map<String, Double> NOC) {
-        {
-            Map<String, Double> result = new HashMap<>();
-            Map<String, Slice> slicesMap = SCAR.getSliceMap();
-            for (Map.Entry<String, Slice> i : slicesMap.entrySet()) {
-                String parentName = i.getValue().getParentName();
-                if (parentName == null || slicesMap.get(parentName) == null) {
-                    System.out.println("Debug : PF 0 for class" + i.getKey());
-                    result.put(i.getKey(), Double.valueOf(0));
-                } else {
-                    Set<Method> methods = i.getValue().getMethods();
-                    Set<Method> parentMethods = new CalculatorUtil().getAllTreeMethods(slicesMap, parentName);
-                    System.out.println("Debug : Override for class " + i.getKey());
-                    double OverridenMethods = new CalculatorUtil().getOverridenMethodsCount(methods, parentMethods);
-                    double newmethods = methods.size() - OverridenMethods;
-                    if (newmethods == 0 || NOC.get(i.getKey()) == 0) {
-                        System.out.println("Debug : PF 1 for class" + i.getKey());
-                        result.put(i.getKey(), Double.valueOf(1));
-                    } else {
-                        System.out.println("Debug : PF " + OverridenMethods / (newmethods * NOC.get(i.getKey()))
-                                + "for class " + i.getKey() + " OveriddenMethods " + OverridenMethods + " New Methods: "
-                                + newmethods + " NOC value " + NOC.get(i.getKey()));
-                        result.put(i.getKey(), Double.valueOf(OverridenMethods / (newmethods * NOC.get(i.getKey()))));
-                    }
-                }
-            }
+        Map<String, Double> result = new HashMap<>();
+        Map<String, Slice> slicesMap = SCAR.getSliceMap();
 
-            return result;
+        for (Map.Entry<String, Slice> i : slicesMap.entrySet()) {
+            String parentName = i.getValue().getParentName();
+
+            if (parentName == null || slicesMap.get(parentName) == null) {
+
+                result.put(i.getKey(), Double.valueOf(0));
+
+            } else {
+
+                Set<Method> methods = i.getValue().getMethods();
+                Set<Method> parentMethods = new CalculatorUtil().getAllTreeMethods(slicesMap, parentName);
+
+                double OverridenMethods = new CalculatorUtil().getOverridenMethodsCount(methods, parentMethods);
+                double newMethods = methods.size() - OverridenMethods;
+
+                if (newMethods == 0 || NOC.get(i.getKey()) == 0) {
+                    result.put(i.getKey(), Double.valueOf(1));
+                } else {
+                    result.put(i.getKey(), Double.valueOf(OverridenMethods / (newMethods * NOC.get(i.getKey()))));
+                }
+
+            }
         }
 
+        return result;
     }
 }

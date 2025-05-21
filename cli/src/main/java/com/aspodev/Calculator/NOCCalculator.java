@@ -28,7 +28,6 @@ public class NOCCalculator implements MetricCalculator {
                     }
                 }
             }
-            System.out.println("Debug: NOC for " + i.getKey() + " is " + (childSet.size() - 1));
             result.put(i.getKey(), Double.valueOf(childSet.size() - 1));
         }
         return result;
