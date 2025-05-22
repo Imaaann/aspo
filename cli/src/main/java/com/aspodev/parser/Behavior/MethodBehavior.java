@@ -47,6 +47,10 @@ public class MethodBehavior implements Behavior {
 
 		Slice currentSlice = context.getSlice();
 
+		if (currentSlice == null) {
+			return;
+		}
+
 		context.setMethod(method);
 		currentSlice.addMethod(method);
 

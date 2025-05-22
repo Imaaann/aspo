@@ -24,6 +24,7 @@ public class ClassBehavior implements Behavior {
 		Token className = instruction.getIdentifier(classNameIndex);
 
 		context.createSlice(new TypeToken(className.getValue(), context.getPackage(), TypeTokenEnum.CLASS));
+		context.setClassName(className.getValue() + "." + context.getPackage());
 
 		Slice classSlice = context.getSlice();
 

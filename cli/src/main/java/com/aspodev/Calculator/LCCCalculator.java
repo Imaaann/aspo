@@ -17,6 +17,12 @@ public class LCCCalculator implements MetricCalculator {
 
 		for (Map.Entry<String, Slice> entry : SCAR.getSliceMap().entrySet()) {
 			Map<String, List<String>> cohesionMap = CalculatorUtil.getCohesionMap(entry.getValue());
+
+			if (cohesionMap.isEmpty() || cohesionMap == null) {
+				result.put(entry.getKey(), 0.0);
+				continue;
+			}
+
 			Map<String, Set<String>> reachMap = GraphTools.computeReachabilityMap(cohesionMap);
 
 			long reachablePairs = reachMap.values().stream().mapToLong(Set::size).sum();

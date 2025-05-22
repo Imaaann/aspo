@@ -23,6 +23,7 @@ public class InterfaceBehavior implements Behavior {
 		Token interfaceName = instruction.getIdentifier(interfaceNamePosition);
 
 		context.createSlice(new TypeToken(interfaceName.getValue(), context.getPackage(), TypeTokenEnum.INTERFACE));
+		context.setClassName(interfaceName.getValue() + "." + context.getPackage());
 
 		Slice interfaceSlice = context.getSlice();
 

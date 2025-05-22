@@ -18,6 +18,9 @@ import com.aspodev.parser.TokenTypes;
 public class InstructionUtil {
 
     public static Token resolveType(List<Token> tokens, int typePos) {
+        if (typePos + 1 >= tokens.size())
+            return tokens.get(typePos);
+
         Token type = tokens.get(typePos);
         Token temp = tokens.get(typePos + 1);
 
@@ -52,6 +55,10 @@ public class InstructionUtil {
     }
 
     public static int resolveTypeLength(List<Token> tokens, int typePos) {
+        if (typePos + 1 >= tokens.size()) {
+            return 0;
+        }
+
         Token temp = tokens.get(typePos + 1);
         int finalPos = typePos;
 
@@ -90,7 +97,7 @@ public class InstructionUtil {
         int counter = startToken.getValue().length();
         int length;
         Token token = new Token(startToken.getValue());
-        do {
+        while (!(counter == 0) && iterator.hasNext()) {
             temp = iterator.next();
             length = temp.getValue().length();
             sign = 0;
@@ -109,7 +116,7 @@ public class InstructionUtil {
                 pos = temp.getPosition();
             }
 
-        } while (!(counter == 0) && iterator.hasNext());
+        }
 
         token.setPosition(pos);
         return token;
@@ -119,29 +126,48 @@ public class InstructionUtil {
     public static Map<String, String> getParameterList(Iterator<Token> iterator, Token startToken) {
         Token token1, token2;
         Map<String, String> ParmaterMap = new LinkedHashMap<>();
+        if (!iterator.hasNext())
+            return ParmaterMap;
+
         token1 = iterator.next();
         while (!(token1.getValue().equals(")")) && iterator.hasNext()) {
-            if (token1.getValue().equals(","))
+
+            if (token1.getValue().equals(",") && iterator.hasNext())
                 token1 = iterator.next();
-            token2 = iterator.next();
-            if (token2.getValue().contains("<")) {
+
+            if (iterator.hasNext())
+                token2 = iterator.next();
+            else
+                break;
+
+            if (token2.getValue().contains("<") && iterator.hasNext()) {
+
                 token1.append(getGenericHeader(iterator, token2));
-                token2 = iterator.next();
+
+                if (iterator.hasNext()) {
+                    token2 = iterator.next();
+                }
+
             }
 
-            if (token2.getValue().equals("[")) {
+            if (token2.getValue().equals("[") && iterator.hasNext()) {
                 token1.append(new Token("[]"));
-                iterator.next();
-                token2 = iterator.next();
+
+                while (iterator.hasNext() && !token2.getValue().equals("]")) {
+                    token2 = iterator.next();
+                }
             }
 
-            if (token2.getValue().equals("...")) {
+            if (token2.getValue().equals("...") && iterator.hasNext()) {
                 token1.append(token2);
                 token2 = iterator.next();
             }
 
             ParmaterMap.put(token2.getValue(), token1.getValue());
-            token1 = iterator.next();
+
+            if (iterator.hasNext()) {
+                token1 = iterator.next();
+            }
         }
 
         return ParmaterMap;

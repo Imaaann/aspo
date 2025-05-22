@@ -37,6 +37,7 @@ public class RecordBehavior implements Behavior {
 		Map<String, String> headerTypes = InstructionUtil.getParameterList(iterator, temp);
 
 		context.createSlice(new TypeToken(recordName.getValue(), context.getPackage(), TypeTokenEnum.RECORD));
+		context.setClassName(recordName.getValue() + "." + context.getPackage());
 
 		Slice recordSlice = context.getSlice();
 
