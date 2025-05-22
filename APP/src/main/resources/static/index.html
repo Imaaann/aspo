@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspo terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="terminal">
+    <h1>Aspo</h1>
+    <div class="command-form">
+        <span class="prompt" id="currentPrompt">aspo@USTHB:~$ </span>
+        <input type="text" id="commandInput" placeholder="Enter command (e.g., ls)" autofocus>
+    </div>
+    <div class="output" id="output"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const outputDiv = document.getElementById('output');
+        const commandInput = document.getElementById('commandInput');
+        const promptSpan = document.getElementById('currentPrompt');
+
+        let currentPath = "~"; 
+
+        function updatePromptDisplay() {
+            promptSpan.textContent = `${currentPath}@USTHB:~$ `;
+        }
+
+        function executeCommand() {
+            const command = commandInput.value.trim();
+            commandInput.value = ''; 
+            outputDiv.textContent += updatePromptDisplay() + command + '\n'; 
+
+            if (!command) {
+                outputDiv.textContent += 'Veuillez entrer une commande.\n';
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+                return;
+            }
+
+            if (command === 'clear') {
+                outputDiv.textContent = ''; 
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+                return;
+            }
+
+            fetch('http://localhost:8080/api/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(`Erreur HTTP! Statut: ${response.status}. ${errorData.stderr || errorData.stdout || ''}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.stdout) {
+                    if (command.startsWith("cd ")) {
+                        const newPath = data.stdout.trim();
+                        if (newPath.length > 0) {
+                            const pathParts = newPath.split('/');
+                            currentPath = pathParts[pathParts.length - 1] || '/';
+                            if (currentPath === '') currentPath = '/';
+                        } else {
+                            currentPath = "~";
+                        }
+                        updatePromptDisplay(); 
+                    }
+                    outputDiv.textContent += `${data.stdout}\n`;
+                }
+                if (data.stderr) {
+                    outputDiv.textContent += `${data.stderr}\n`;
+                }
+                if (!data.stdout && !data.stderr && data.exitCode === 0) {
+                    outputDiv.textContent += 'Commande exécutée avec succès, pas de sortie.\n';
+                } else if (!data.stdout && !data.stderr && data.exitCode !== 0) {
+                    outputDiv.textContent += `La commande a échoué avec le code de sortie ${data.exitCode}, pas de sortie spécifique.\n`;
+                }
+            })
+            .catch(error => {
+                outputDiv.textContent += `Erreur: ${error.message}\n`;
+                console.error('Erreur Fetch:', error);
+            })
+            .finally(() => {
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+            });
+        }
+
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); 
+                executeCommand();
+            }
+        });
+
+
+        updatePromptDisplay();
+        commandInput.focus();
+    });
+</script>
+</body>
+</html>
