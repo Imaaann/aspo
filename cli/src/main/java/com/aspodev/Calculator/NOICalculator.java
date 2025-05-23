@@ -7,8 +7,8 @@ import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeTokenEnum;
 
 public class NOICalculator {
-    public double calculate(Model SCAR) {
-        double NOI = 0.0;
+    public Double calculate(Model SCAR) {
+        Double NOI = 0.0;
         Map<String, Slice> slicesMap = SCAR.getSliceMap();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
             if (entry.getValue().getMetaData().type() == TypeTokenEnum.INTERFACE)

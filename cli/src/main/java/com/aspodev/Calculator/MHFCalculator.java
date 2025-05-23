@@ -9,8 +9,8 @@ import com.aspodev.SCAR.Accessors;
 
 public class MHFCalculator {
 
-    public double calculate(Model SCARModel) {
-        double MHF = 0.0;
+    public Double calculate(Model SCARModel) {
+        Double MHF = 0.0;
         Map<String, Slice> slicesMap = SCARModel.getSliceMap();
         int numOfMethods = 0;
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
@@ -53,11 +53,11 @@ public class MHFCalculator {
             numOfMethods += slice.getMethods().size();
         }
 
-        return (1 - MHF) / numOfMethods;
+        return Double.valueOf((1 - MHF) / numOfMethods);
     }
 
-    private double checkWithChildren(Slice slice, Map<String, Slice> slicesMap) {
-        double MHF = 0.0;
+    private Double checkWithChildren(Slice slice, Map<String, Slice> slicesMap) {
+        Double MHF = 0.0;
         String pkg = slice.getMetaData().pkg();
         String className = slice.getMetaData().getFullName();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
@@ -71,11 +71,11 @@ public class MHFCalculator {
             }
         }
         MHF = MHF / (slicesMap.size() - 1);
-        return MHF;
+        return Double.valueOf(MHF);
     }
 
-    private double checkWithPkg(Slice slice, Map<String, Slice> slicesMap) {
-        double MHF = 0.0;
+    private Double checkWithPkg(Slice slice, Map<String, Slice> slicesMap) {
+        Double MHF = 0.0;
         String pkg = slice.getMetaData().pkg();
         String className = slice.getMetaData().getFullName();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
@@ -86,11 +86,11 @@ public class MHFCalculator {
 
         }
         MHF = MHF / (slicesMap.size() - 1);
-        return MHF;
+        return Double.valueOf(MHF);
     }
 
-    private double checkWithOuterClass(Slice slice, Map<String, Slice> slicesMap) {
-        double MHF = 0.0;
+    private Double checkWithOuterClass(Slice slice, Map<String, Slice> slicesMap) {
+        Double MHF = 0.0;
         String outerClass = slice.getOuterClass();
         for (Method method : slicesMap.get(outerClass).getMethods()) {
             if (method.getAccessor() == Accessors.PRIVATE) {
@@ -99,6 +99,6 @@ public class MHFCalculator {
         }
 
         MHF = MHF / (slicesMap.size() - 1);
-        return MHF;
+        return Double.valueOf(MHF);
     }
 }

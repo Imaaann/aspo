@@ -9,8 +9,8 @@ import com.aspodev.SCAR.Accessors;
 
 public class AHFCalculator {
 
-    public double calculate(Model SCARModel) {
-        double AHF = 0.0;
+    public Double calculate(Model SCARModel) {
+        Double AHF = 0.0;
         Map<String, Slice> slicesMap = SCARModel.getSliceMap();
         int numOfAttributes = 0;
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
@@ -53,11 +53,11 @@ public class AHFCalculator {
             numOfAttributes += slice.getAttributes().size();
         }
 
-        return (1 - AHF) / numOfAttributes;
+        return Double.valueOf((1 - AHF) / numOfAttributes);
     }
 
-    private double checkWithChildren(Slice slice, Map<String, Slice> slicesMap) {
-        double AHF = 0.0;
+    private Double checkWithChildren(Slice slice, Map<String, Slice> slicesMap) {
+        Double AHF = 0.0;
         String pkg = slice.getMetaData().pkg();
         String className = slice.getMetaData().getFullName();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
@@ -74,8 +74,8 @@ public class AHFCalculator {
         return AHF;
     }
 
-    private double checkWithPkg(Slice slice, Map<String, Slice> slicesMap) {
-        double AHF = 0.0;
+    private Double checkWithPkg(Slice slice, Map<String, Slice> slicesMap) {
+        Double AHF = 0.0;
         String pkg = slice.getMetaData().pkg();
         String className = slice.getMetaData().getFullName();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
@@ -86,11 +86,11 @@ public class AHFCalculator {
 
         }
         AHF = AHF / (slicesMap.size() - 1);
-        return AHF;
+        return Double.valueOf(AHF);
     }
 
-    private double checkWithOuterClass(Slice slice, Map<String, Slice> slicesMap) {
-        double AHF = 0.0;
+    private Double checkWithOuterClass(Slice slice, Map<String, Slice> slicesMap) {
+        Double AHF = 0.0;
         String outerClass = slice.getOuterClass();
         for (Attribute attribute : slicesMap.get(outerClass).getAttributes()) {
             if (attribute.getAccessor() == Accessors.PRIVATE) {
@@ -99,6 +99,6 @@ public class AHFCalculator {
         }
 
         AHF = AHF / (slicesMap.size() - 1);
-        return AHF;
+        return Double.valueOf(AHF);
     }
 }
