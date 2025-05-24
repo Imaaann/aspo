@@ -1,5 +1,10 @@
 package com.aspodev.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DependencyDTO {
     private String with;
     private int amount;
@@ -7,6 +12,14 @@ public class DependencyDTO {
     public DependencyDTO(String with) {
         this.with = with;
         this.amount = 1;
+    }
+
+    public String getWith() {
+        return with;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     public void increaseAmount() {

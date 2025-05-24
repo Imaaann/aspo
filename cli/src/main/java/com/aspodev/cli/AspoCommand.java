@@ -10,6 +10,8 @@ import java.util.Map;
 
 import com.aspodev.Calculator.Metrics;
 import com.aspodev.Calculator.SystemCalculator;
+import com.aspodev.DTO.ClassInfoDTO;
+import com.aspodev.DTO.SystemResultDTO;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.cleaner.Cleaner;
@@ -71,6 +73,8 @@ public class AspoCommand implements Runnable {
             System.out.println("[ERROR] IOException: " + e.getMessage());
             e.printStackTrace();
         }
+
+        JsonWriter.writeJson(new SystemResultDTO("projectaName", SCARModel, results));
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

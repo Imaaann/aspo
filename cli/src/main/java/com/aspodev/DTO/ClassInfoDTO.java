@@ -11,7 +11,11 @@ import com.aspodev.Calculator.Metrics;
 import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Slice;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClassInfoDTO {
     private String name;
 
@@ -30,11 +34,11 @@ public class ClassInfoDTO {
     private Map<String, List<DependencyDTO>> dependencies;
     private ClassMetricsDTO metrics;
 
-    public ClassInfoDTO(Slice slice, double bugProbability, Metrics metric) {
+    public ClassInfoDTO(Slice slice, Metrics metric) {
         this.name = slice.getMetaData().name();
         this._package = slice.getMetaData().pkg();
         this.type = slice.getMetaData().type().toString();
-        this.bugProbability = 0;
+        this.bugProbability = metric.getMetricValue("BUGP");
         this.extendsClass = slice.getParentName();
         this.implementsInterfaces = slice.getInterfaces().stream().toList();
         this.dependencies = createDependencyDTO(slice);
@@ -74,6 +78,38 @@ public class ClassInfoDTO {
 
         }
         return dependencies;
-        // Getters and SettersS
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPackage() {
+        return _package;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getBugProbability() {
+        return bugProbability;
+    }
+
+    public String getExtendsClass() {
+        return extendsClass;
+    }
+
+    public List<String> getImplementsInterfaces() {
+        return implementsInterfaces;
+    }
+
+    public Map<String, List<DependencyDTO>> getDependencies() {
+        return dependencies;
+    }
+
+    public ClassMetricsDTO getMetrics() {
+        return metrics;
+    }
+
 }
