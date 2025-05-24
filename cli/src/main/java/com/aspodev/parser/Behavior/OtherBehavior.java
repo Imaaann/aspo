@@ -39,7 +39,8 @@ public class OtherBehavior implements Behavior {
 
 		for (Token idf : identifiers) {
 
-			if (context.isAttribute(idf.getValue())) {
+			if (context.isAttribute(idf.getValue()) && context.getCurrentScope() == ScopeEnum.INSTRUCTION
+					&& context.getCurrentMethod() != null) {
 				context.addAttributeDependency(idf.getValue());
 				continue;
 			}
@@ -63,13 +64,18 @@ public class OtherBehavior implements Behavior {
 					varType = "UNKNOWN";
 				}
 
-				context.addDependency(components[1], varType);
+				if (components.length > 1) {
+					context.addDependency(components[1], varType);
+				}
 
-				if (context.isAttribute(components[0]))
-					context.addAttributeDependency(components[0]);
-				else if (components[0].equals("this") && context.isAttribute(components[1]))
-					context.addAttributeDependency(components[1]);
+				if (context.getCurrentScope() == ScopeEnum.INSTRUCTION && context.getCurrentMethod() != null) {
 
+					if (context.isAttribute(components[0]))
+						context.addAttributeDependency(components[0]);
+					else if (components[0].equals("this") && context.isAttribute(components[1]))
+						context.addAttributeDependency(components[1]);
+
+				}
 			} else {
 				String callerType = "RESOLVE";
 

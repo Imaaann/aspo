@@ -2,24 +2,21 @@ package com.aspodev.cli;
 
 import java.io.IOException;
 import java.lang.Runnable;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.attribute.standard.MediaSize.Other;
-
 import com.aspodev.Calculator.Metrics;
-import com.aspodev.Calculator.NOCCalculator;
-import com.aspodev.Calculator.NORMCalculator;
-import com.aspodev.Calculator.PFCalculator;
 import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.DTO.ClassInfoDTO;
 import com.aspodev.DTO.SystemResultDTO;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.cleaner.Cleaner;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
-import com.aspodev.utils.OtherTools;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -57,7 +54,6 @@ public class AspoCommand implements Runnable {
             parser.parse();
         } else {
             for (Path p : javaFilePaths) {
-                System.out.println("[DEBUG] == File Parsing (" + p.getFileName() + ")");
                 Parser parser = new Parser(p, typeParser, SCARModel);
                 parser.parse();
             }
@@ -65,17 +61,10 @@ public class AspoCommand implements Runnable {
 
         SCARModel.createInheritanceGraph();
 
-        System.out.println("[DEBUG] == Output model: " + SCARModel);
-
-        System.out.println("[DEBUG] Model cohesion: " + SCARModel.getCohesionBreaker());
-
         // Next step is to execute the metric calculation and get our results map
         int threads = Runtime.getRuntime().availableProcessors();
         SystemCalculator calculator = new SystemCalculator(threads);
         Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
-
-        System.out.println("[DEBUG] Results map: ");
-        System.out.println(OtherTools.resultMapToString(results));
 
         // Next step now Is to write the csv file
         try {
@@ -89,6 +78,6 @@ public class AspoCommand implements Runnable {
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();
-        System.out.println("[DEBUG] == EXECUTION TIME: " + (end - start));
+        System.out.println("[INFO] --- EXECUTION TIME: " + (end - start));
     }
 }

@@ -21,6 +21,11 @@ public class EnumeratorBehavior implements Behavior {
 	@Override
 	public void apply(ParserContext context, Instruction instruction) {
 		Slice enumSlice = context.getSlice();
+
+		if (enumSlice == null) {
+			return;
+		}
+
 		String enumName = enumSlice.getMetaData().name();
 
 		List<Token> enumeratorNames = new ArrayList<>();
@@ -38,9 +43,10 @@ public class EnumeratorBehavior implements Behavior {
 
 			if (temp.getValue().equals("(")) {
 				int count = 1;
-				while (count > 0) {
+				while (count > 0 && iterator.hasNext()) {
 					instructionTokens.add(temp);
 					temp = iterator.next();
+
 					String tempValue = temp.getValue();
 
 					if (tempValue.equals("("))
@@ -78,7 +84,15 @@ public class EnumeratorBehavior implements Behavior {
 
 	private void enumeratorClassDeclaration(String name, ParserContext context, String enumName) {
 		context.createSlice(new TypeToken(name, context.getPackage(), TypeTokenEnum.CLASS));
+
 		Slice newSlice = context.getSlice();
+
+		if (newSlice == null) {
+			return;
+		}
+
+		context.setClassName(name + "." + context.getPackage());
+
 		newSlice.setParentName(enumName);
 		newSlice.addModifier("final");
 		context.changeScope(ScopeEnum.CLASS);

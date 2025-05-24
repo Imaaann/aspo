@@ -16,6 +16,12 @@ public class LCOM4Calculator implements MetricCalculator {
 
 		for (Map.Entry<String, Slice> entry : SCAR.getSliceMap().entrySet()) {
 			Map<String, List<String>> cohesionMap = CalculatorUtil.getCohesionMap(entry.getValue());
+
+			if (cohesionMap.isEmpty() || cohesionMap == null) {
+				result.put(entry.getKey(), 0.0);
+				continue;
+			}
+
 			int componentCount = GraphTools.countConnectedComponents(cohesionMap);
 			result.put(entry.getKey(), Double.valueOf(componentCount));
 		}

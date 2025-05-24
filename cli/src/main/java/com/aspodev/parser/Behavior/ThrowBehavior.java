@@ -24,6 +24,10 @@ public class ThrowBehavior implements Behavior {
 
 		Slice currentSlice = context.getSlice();
 
+		if (currentSlice == null) {
+			return;
+		}
+
 		if (instruction.getToken(exceptionId.getPosition() - 1).equals(new Token("new"))) {
 			currentSlice.addException(exceptionId.getValue());
 		} else {
