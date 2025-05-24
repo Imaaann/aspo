@@ -35,8 +35,32 @@
             <artifactId>commons-csv</artifactId>
             <version>1.10.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.jpmml</groupId>
+            <artifactId>pmml-evaluator</artifactId>
+            <version>1.6.3</version> <!-- Use latest if needed -->
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.1</version> <!-- or 4.x if you're using Jakarta 10+ -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
 
+  
     <build>
     <plugins>
         <plugin>

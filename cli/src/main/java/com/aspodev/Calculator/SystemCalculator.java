@@ -104,7 +104,11 @@ public class SystemCalculator {
 
 			// Group by class instead of by metrics & Return
 			Map<String, Metrics> result = normalizeNamedMap(namedResults);
-			calculateBug(result); // delete when the ML gets integrated
+
+			// // Add BUGP metric from the model
+			// new BugPredictor().calculateBug(result);
+
+			calculateBug(result);
 			return result;
 		} catch (InterruptedException ie) {
 			Thread.currentThread().interrupt();

@@ -73,6 +73,6 @@ public class CsvWriter {
 			printer.flush();
 		}
 
-		System.out.println("[INFO] --- Written CSV to: " + csvPath.toAbsolutePath());
+		System.out.println("[INFO] Written CSV to: " + csvPath.toAbsolutePath());
 	}
 }

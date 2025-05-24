@@ -12,7 +12,6 @@ import java.util.function.BiConsumer;
 import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Method;
 import com.aspodev.SCAR.Slice;
-import com.aspodev.utils.GraphTools;
 
 public class CalculatorUtil {
 
