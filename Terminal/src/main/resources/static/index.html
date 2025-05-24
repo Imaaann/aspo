@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspo terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./images/Logo Aspo.png">
+</head>
+<body>
+<div class="terminal">
+    <div class="command-form">
+        <span class="prompt" id="currentPrompt">aspo@USTHB:~$ </span>
+        <input type="text" id="commandInput" placeholder="Enter command (e.g., ls)" autofocus>
+    </div>
+    <div class="output" id="output"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const outputDiv = document.getElementById('output');
+        const commandInput = document.getElementById('commandInput');
+        const promptSpan = document.getElementById('currentPrompt');
+
+        
+        let currentPath = "~";
+
+        function updatePromptDisplay() {
+            promptSpan.textContent = `aspo@USTHB:${currentPath}$ `; 
+        }
+
+        function executeCommand() {
+            const command = commandInput.value.trim();
+            commandInput.value = ''; 
+
+            outputDiv.textContent += promptSpan.textContent + command + '\n';
+
+            if (!command) {
+                outputDiv.textContent += 'Command not recognized.\n';
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+                return;
+            }
+
+            if (command === 'clear') {
+                outputDiv.textContent = '';
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+                updatePromptDisplay();
+                return;
+            }
+
+            fetch('http://localhost:8080/api/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    
+                    return response.json().then(errorData => {
+                        const errorMessage = errorData.stderr || errorData.stdout || JSON.stringify(errorData);
+                        throw new Error(`Erreur HTTP! Statut: ${response.status}. ${errorMessage}`);
+                    }).catch(() => {
+                        throw new Error(`Erreur HTTP! Statut: ${response.status}. Impossible to read details.`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle cd
+                if (command.startsWith("cd")) {
+                    if (data.stdout && data.stdout.trim().length > 0) {
+                        currentPath = data.stdout.trim();
+                        if (currentPath === '/') {
+                        } else if (currentPath === '~' || currentPath === '/home/aspo') { 
+                            currentPath = '~';
+                        } else {
+                            const pathParts = currentPath.split('/');
+                            currentPath = pathParts[pathParts.length - 1];
+                            if (currentPath === '') { // Handle case like /some/path/
+                                currentPath = pathParts[pathParts.length - 2] || '/';
+                            }
+                        }
+                    } else if (data.exitCode === 0) {
+                        outputDiv.textContent += "Path successfuly founded\n";
+                    }
+                    updatePromptDisplay();
+                }
+                if (data.stdout) {
+                    outputDiv.textContent += `${data.stdout}\n`;
+                }
+                if (data.stderr) {
+                    outputDiv.textContent += `${data.stderr}\n`;
+                }
+                if (!data.stdout && !data.stderr && data.exitCode === 0) {
+                    outputDiv.textContent += 'Command successfuly executed\n';
+                } else if (!data.stdout && !data.stderr && data.exitCode !== 0) {
+                    outputDiv.textContent += `Error --> ${data.exitCode}.\n`;
+                }
+            })
+            .catch(error => {
+                outputDiv.textContent += `Erreur: ${error.message}\n`;
+                console.error('Erreur Fetch:', error);
+            })
+            .finally(() => {
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+                commandInput.focus(); // Keep focus on input
+            });
+        }
+
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                executeCommand();
+            }
+        });
+
+        // Initial prompt display
+        updatePromptDisplay();
+        commandInput.focus();
+    });
+</script>
+</body>
+</html>
