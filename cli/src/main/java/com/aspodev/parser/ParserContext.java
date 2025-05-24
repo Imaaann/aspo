@@ -24,6 +24,7 @@ public class ParserContext {
 	private Scope scope;
 	private Model model;
 	private Stack<Slice> slices;
+	private String className;
 
 	private String pkgName = "NONE";
 	private List<String> staticFunctions;
@@ -111,6 +112,9 @@ public class ParserContext {
 	}
 
 	public Slice getSlice() {
+		if (slices.isEmpty())
+			return null;
+
 		return slices.peek();
 	}
 
@@ -181,7 +185,11 @@ public class ParserContext {
 	}
 
 	public String getClassName() {
-		return this.getSlice().getMetaData().name();
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	// #endregion
@@ -289,6 +297,10 @@ public class ParserContext {
 
 	public boolean isAttribute(String varName) {
 		Slice current = getSlice();
+
+		if (current == null)
+			return false;
+
 		return current.getAttributes().stream().map(a -> a.getName()).collect(Collectors.toSet()).contains(varName);
 	}
 

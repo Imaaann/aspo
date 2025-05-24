@@ -12,6 +12,7 @@ import java.util.function.BiConsumer;
 import com.aspodev.SCAR.Dependency;
 import com.aspodev.SCAR.Method;
 import com.aspodev.SCAR.Slice;
+import com.aspodev.utils.GraphTools;
 
 public class CalculatorUtil {
 
@@ -69,8 +70,15 @@ public class CalculatorUtil {
 
         // 2. Helper to add an undirected edge u <-> v
         BiConsumer<String, String> addEdge = (u, v) -> {
-            graph.get(u).add(v);
-            graph.get(v).add(u);
+            List<String> uList = graph.get(u);
+            List<String> vList = graph.get(v);
+
+            if (uList == null || vList == null) {
+                return;
+            }
+
+            uList.add(v);
+            vList.add(u);
         };
 
         // 3. Populate edges

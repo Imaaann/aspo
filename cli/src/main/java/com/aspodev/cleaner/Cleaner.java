@@ -16,7 +16,9 @@ public class Cleaner {
     private static void cleanStrings(StringBuilder contents) {
         String singleLineString = "\"((?:\\\\.|[^\"\\\\])*)\"";
         String multiLineString = "\"\"\"((?:\\\\.|[^\\\\\"]|\"(?!\")|\"\"(?!\"))*?)\"\"\"";
+        String singleChar = "'\\\\''|'(.|\\\\.)'";
 
+        RegexTools.removePattern(contents, singleChar);
         RegexTools.removePattern(contents, multiLineString);
         RegexTools.removePattern(contents, singleLineString);
     }

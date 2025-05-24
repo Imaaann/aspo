@@ -2,7 +2,9 @@ package com.aspodev.cli;
 
 import java.io.IOException;
 import java.lang.Runnable;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import com.aspodev.Calculator.Metrics;
 import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
+import com.aspodev.cleaner.Cleaner;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
 

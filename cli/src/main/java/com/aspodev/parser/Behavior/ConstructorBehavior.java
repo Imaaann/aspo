@@ -41,6 +41,11 @@ public class ConstructorBehavior implements Behavior {
 				: new Token("none");
 
 		Slice currentSlice = context.getSlice();
+
+		if (currentSlice == null) {
+			return;
+		}
+
 		String className = currentSlice.getMetaData().name();
 		Method method = new Method(className, "special.constructor", accessor, genericToken.getValue());
 

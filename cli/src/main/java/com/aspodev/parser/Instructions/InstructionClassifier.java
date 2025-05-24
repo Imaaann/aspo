@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.aspodev.SCAR.Slice;
 import com.aspodev.TypeParser.TypeTokenEnum;
 import com.aspodev.parser.ParserContext;
 import com.aspodev.parser.Token;
@@ -207,7 +208,13 @@ public class InstructionClassifier {
 			Iterator<Token> iterator = classifiedTokens.iterator();
 			Token token;
 			Token lastToken = classifiedTokens.get(classifiedTokens.size() - 1);
-			String className = context.getSlice().getMetaData().name();
+			Slice currentSlice = context.getSlice();
+
+			if (currentSlice == null) {
+				return false;
+			}
+
+			String className = currentSlice.getMetaData().name();
 			while (iterator.hasNext()) {
 				token = iterator.next();
 				if (token.getValue().equals(className)) {
@@ -241,7 +248,8 @@ public class InstructionClassifier {
 		if (context.getCurrentScope() != ScopeEnum.CLASS)
 			return false;
 
-		if (context.getSlice().getMetaData().type() != TypeTokenEnum.ENUM)
+		Slice currentSlice = context.getSlice();
+		if (currentSlice == null || currentSlice.getMetaData().type() != TypeTokenEnum.ENUM)
 			return false;
 
 		try {

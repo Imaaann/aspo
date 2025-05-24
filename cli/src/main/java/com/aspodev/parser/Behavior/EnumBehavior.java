@@ -24,6 +24,7 @@ public class EnumBehavior implements Behavior {
 		Token enumName = instruction.getIdentifier(enumIndex);
 
 		context.createSlice(new TypeToken(enumName.getValue(), context.getPackage(), TypeTokenEnum.ENUM));
+		context.setClassName(enumName.getValue() + "." + context.getPackage());
 
 		Slice enumSlice = context.getSlice();
 

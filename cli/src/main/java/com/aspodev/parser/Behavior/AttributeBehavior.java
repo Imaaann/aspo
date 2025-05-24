@@ -24,6 +24,10 @@ public class AttributeBehavior implements Behavior {
 		List<Token> varNames = InstructionUtil.getCommaSeperatedList(instruction, typeName.getPosition() + 1);
 		Slice currentSlice = context.getSlice();
 
+		if (currentSlice == null) {
+			return;
+		}
+
 		for (Token var : varNames) {
 			Attribute attribute = new Attribute(var.getValue(), typeName.getValue(), accessor);
 			attribute.addModifier(modifiers);

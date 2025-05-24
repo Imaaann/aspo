@@ -34,6 +34,9 @@ public class GenericMethodBehavior implements Behavior {
 
 		Token genericToken = InstructionUtil.getGenericHeader(iterator, startToken);
 
+		if (!iterator.hasNext())
+			return;
+
 		returnType = iterator.next();
 		InstructionUtil.resolveType(tokens, returnType.getPosition());
 
@@ -57,6 +60,10 @@ public class GenericMethodBehavior implements Behavior {
 		}
 
 		Slice currentSlice = context.getSlice();
+
+		if (currentSlice == null) {
+			return;
+		}
 
 		context.setMethod(method);
 		currentSlice.addMethod(method);
