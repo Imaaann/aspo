@@ -14,6 +14,7 @@ import com.aspodev.Calculator.NORMCalculator;
 import com.aspodev.Calculator.PFCalculator;
 import com.aspodev.Calculator.SystemCalculator;
 import com.aspodev.DTO.ClassInfoDTO;
+import com.aspodev.DTO.SystemResultDTO;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
 import com.aspodev.parser.Parser;
@@ -83,6 +84,8 @@ public class AspoCommand implements Runnable {
             System.out.println("[ERROR] IOException: " + e.getMessage());
             e.printStackTrace();
         }
+
+        JsonWriter.writeJson(new SystemResultDTO("projectaName", SCARModel, results));
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

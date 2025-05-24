@@ -10,7 +10,7 @@ public class Metrics {
 	private final Map<String, Double> values;
 
 	public Metrics() {
-		values = new HashMap<>(21);
+		values = new HashMap<>(22);
 	}
 
 	public void insertMetric(String metricName, Double metricValue) {

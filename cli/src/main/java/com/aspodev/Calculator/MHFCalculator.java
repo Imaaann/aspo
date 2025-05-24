@@ -15,8 +15,11 @@ public class MHFCalculator {
         int numOfMethods = 0;
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
             Slice slice = entry.getValue();
+            if (slice.getMethods().isEmpty()) {
+                continue; // Skip slices with no methods
+            }
             for (Method method : slice.getMethods()) {
-                boolean isInnerClass = slice.getOuterClass() != null;
+                boolean isInnerClass = slice.isInnerClass();
                 boolean isOuterClasschecked = false;
                 switch (method.getAccessor()) {
                     case PUBLIC:
@@ -62,6 +65,9 @@ public class MHFCalculator {
         String className = slice.getMetaData().getFullName();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
             Slice externaSlice = entry.getValue();
+            if (entry.getValue().getParentName() == null) {
+                continue; // Skip slices without a parent
+            }
             if (!(externaSlice.getMetaData().getFullName().equals(className))
                     && !externaSlice.getMetaData().pkg().equals(pkg)) {
 
@@ -92,6 +98,12 @@ public class MHFCalculator {
     private Double checkWithOuterClass(Slice slice, Map<String, Slice> slicesMap) {
         Double MHF = 0.0;
         String outerClass = slice.getOuterClass();
+        if (outerClass == null) {
+            return MHF; // No outer class, return 0
+        }
+        if (slicesMap.get(outerClass).getMethods().isEmpty()) {
+            return MHF; // No methods in outer class, return 0
+        }
         for (Method method : slicesMap.get(outerClass).getMethods()) {
             if (method.getAccessor() == Accessors.PRIVATE) {
                 MHF++;

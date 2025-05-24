@@ -16,7 +16,7 @@ public class AHFCalculator {
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
             Slice slice = entry.getValue();
             for (Attribute attribute : slice.getAttributes()) {
-                boolean isInnerClass = slice.getOuterClass() != null;
+                boolean isInnerClass = slice.isInnerClass();
                 boolean isOuterClasschecked = false;
                 switch (attribute.getAccessor()) {
                     case PUBLIC:
@@ -61,6 +61,9 @@ public class AHFCalculator {
         String pkg = slice.getMetaData().pkg();
         String className = slice.getMetaData().getFullName();
         for (Map.Entry<String, Slice> entry : slicesMap.entrySet()) {
+            if (entry.getValue().getParentName() == null) {
+                continue; // Skip slices without a parent
+            }
             Slice externaSlice = entry.getValue();
             if (!(externaSlice.getMetaData().getFullName().equals(className))
                     && !externaSlice.getMetaData().pkg().equals(pkg)) {
