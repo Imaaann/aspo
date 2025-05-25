@@ -3,6 +3,7 @@ package com.aspodev.DTO;
 import com.aspodev.Calculator.Metrics;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -53,86 +54,107 @@ public class ClassMetricsDTO {
         NORM = metrics.getMetricValue("NORM");
     }
 
+    @JsonProperty("CBO")
     public double getCBO() {
         return CBO;
     }
 
+    @JsonProperty("RFC")
     public double getRFC() {
         return RFC;
     }
 
+    @JsonProperty("LCOM4")
     public double getLCOM() {
         return LCOM4;
     }
 
+    @JsonProperty("ED")
     public double getED() {
         return ED;
     }
 
+    @JsonProperty("NOC")
     public double getNOC() {
         return NOC;
     }
 
+    @JsonProperty("MPC")
     public double getMPC() {
         return MPC;
     }
 
+    @JsonProperty("NOA")
     public double getNOA() {
         return NOA;
     }
 
+    @JsonProperty("NOM")
     public double getNOM() {
         return NOM;
     }
 
+    @JsonProperty("NOP")
     public double getNOP() {
         return NOP;
     }
 
+    @JsonProperty("PF")
     public double getPF() {
         return PF;
     }
 
+    @JsonProperty("TLOC")
     public double getTLOC() {
         return TLOC;
     }
 
+    @JsonProperty("RSM")
     public double getNSM() {
         return NSM;
     }
 
+    @JsonProperty("MIT")
     public double getMIT() {
         return MIT;
     }
 
+    @JsonProperty("DAC")
     public double getDAC() {
         return DAC;
     }
 
+    @JsonProperty("DIT")
     public double getDIT() {
         return DIT;
     }
 
+    @JsonProperty("DAM")
     public double getDAM() {
         return DAM;
     }
 
+    @JsonProperty("SIX")
     public double getSIX() {
         return SIX;
     }
 
+    @JsonProperty("CF")
     public double getCF() {
         return CF;
     }
 
+    @JsonProperty("LCC")
     public double getLCC() {
         return LCC;
     }
 
+    @JsonProperty("NOLM")
     public double getNOLM() {
         return NOLM;
     }
 
+    @JsonProperty("NORM")
     public double getNORM() {
         return NORM;
     }

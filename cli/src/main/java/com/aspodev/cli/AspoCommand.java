@@ -5,6 +5,7 @@ import java.lang.Runnable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +27,11 @@ public class AspoCommand implements Runnable {
     @Option(names = { "-nf", "--no-files" }, description = "Makes the program not output any files")
     private boolean noFileOutputs;
 
-    @Option(names = { "-m", "--more" }, description = "Adds more statistics to the analysis")
-    private boolean moreMetrics;
-
     @Option(names = { "--dev", "-d" }, arity = "1", description = "Enables parsing of a certain file via index")
     private Integer devMode;
+
+    @Option(names = { "--amount", "-a" }, arity = "1", description = "The length of the suspect class list")
+    private Integer amount;
 
     @Parameters(index = "0", description = "The PATH/URL of the repository to scan")
     private String targetPath;
@@ -41,6 +42,24 @@ public class AspoCommand implements Runnable {
             path = path.getParent(); // Fallback to parent directory
         }
         return path != null ? path.getFileName().toString() : "";
+    }
+
+    public void showTopClasses(Map<String, Metrics> results) {
+        System.out.println("[INFO] --- < Aspo Analysis Results > ---");
+        List<Map.Entry<String, Double>> topClasses = results.entrySet().stream().sorted((a, b) -> {
+            Double bugA = a.getValue().getMetricValue("BUGP");
+            Double bugB = b.getValue().getMetricValue("BUGP");
+            return Double.compare(bugB, bugA);
+        }).limit(amount == null ? 5 : amount).map(e -> Map.entry(e.getKey(), e.getValue().getMetricValue("BUGP")))
+                .toList();
+
+        int index = 0;
+        for (Map.Entry<String, Double> classEntry : topClasses) {
+            String className = Arrays.stream(classEntry.getKey().split("\\.")).reduce((a, b) -> b).orElse("");
+            System.out.printf("[%d] --- ClassName: %s, Bug probability: %.3f\n", index + 1, className,
+                    classEntry.getValue());
+            index++;
+        }
     }
 
     @Override
@@ -72,15 +91,18 @@ public class AspoCommand implements Runnable {
         SystemCalculator calculator = new SystemCalculator(threads);
         Map<String, Metrics> results = calculator.calculateMetrics(SCARModel);
 
-        // Next step now Is to write the csv file
-        try {
-            CsvWriter.writeCsv(results);
-        } catch (IOException e) {
-            System.out.println("[ERROR] IOException: " + e.getMessage());
-            e.printStackTrace();
-        }
+        showTopClasses(results);
 
-        JsonWriter.writeJson(new SystemResultDTO(getProjectName(), SCARModel, results));
+        // Next step now Is to write the csv file
+        if (!noFileOutputs) {
+            try {
+                CsvWriter.writeCsv(results);
+                JsonWriter.writeJson(new SystemResultDTO(getProjectName(), SCARModel, results));
+            } catch (IOException e) {
+                System.out.println("[ERROR] IOException: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

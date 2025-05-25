@@ -14,6 +14,9 @@ public class QualityDTO {
     private RiskDTO mediumRisk;
     private RiskDTO highRisk;
 
+    private final Double LOW_RISK_THRESHOLD = 0.3;
+    private final Double MEDIUM_RISK_THRESHOLD = 0.6;
+
     public QualityDTO(Map<String, Metrics> metrics) {
         RiskDTO lowRisk = new RiskDTO();
         RiskDTO mediumRisk = new RiskDTO();
@@ -22,10 +25,10 @@ public class QualityDTO {
         for (Map.Entry<String, Metrics> entry : metrics.entrySet()) {
             Double BugP = entry.getValue().getMetricValue("BUGP");
             if (BugP != null) {
-                if (BugP < 0.1) {
+                if (BugP <= LOW_RISK_THRESHOLD) {
                     lowRisk.increaseNOC();
 
-                } else if (BugP < 0.3) {
+                } else if (BugP <= MEDIUM_RISK_THRESHOLD) {
                     mediumRisk.increaseNOC();
 
                 } else {
