@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PMML version="4.4" xmlns="http://www.dmg.org/PMML-4_4">
+  <Header copyright="Generated from Python sklearn model"
+    description="Logistic Regression Model for Defect Prediction">
+    <Application name="Python sklearn" version="1.0" />
+  </Header>
+
+  <DataDictionary numberOfFields="17">
+    <DataField name="CBO" optype="continuous" dataType="double" />
+    <DataField name="CF" optype="continuous" dataType="double" />
+    <DataField name="DAC" optype="continuous" dataType="double" />
+    <DataField name="DAM" optype="continuous" dataType="double" />
+    <DataField name="DIT" optype="continuous" dataType="double" />
+    <DataField name="ED" optype="continuous" dataType="double" />
+    <DataField name="LCC" optype="continuous" dataType="double" />
+    <DataField name="LCOM4" optype="continuous" dataType="double" />
+    <DataField name="MIT" optype="continuous" dataType="double" />
+    <DataField name="NOM" optype="continuous" dataType="double" />
+    <DataField name="NOA" optype="continuous" dataType="double" />
+    <DataField name="NOC" optype="continuous" dataType="double" />
+    <DataField name="NOLM" optype="continuous" dataType="double" />
+    <DataField name="NOP" optype="continuous" dataType="double" />
+    <DataField name="SIX" optype="continuous" dataType="double" />
+    <DataField name="NSM" optype="continuous" dataType="double" />
+    <DataField name="defect" optype="categorical" dataType="string">
+      <Value value="0" />
+      <Value value="1" />
+    </DataField>
+  </DataDictionary>
+
+  <RegressionModel modelName="DefectPredictionModel" functionName="classification"
+    normalizationMethod="logit">
+    <MiningSchema>
+      <MiningField name="CBO" usageType="active" />
+      <MiningField name="CF" usageType="active" />
+      <MiningField name="DAC" usageType="active" />
+      <MiningField name="DAM" usageType="active" />
+      <MiningField name="DIT" usageType="active" />
+      <MiningField name="ED" usageType="active" />
+      <MiningField name="LCC" usageType="active" />
+      <MiningField name="LCOM4" usageType="active" />
+      <MiningField name="MIT" usageType="active" />
+      <MiningField name="NOM" usageType="active" />
+      <MiningField name="NOA" usageType="active" />
+      <MiningField name="NOC" usageType="active" />
+      <MiningField name="NOLM" usageType="active" />
+      <MiningField name="NOP" usageType="active" />
+      <MiningField name="SIX" usageType="active" />
+      <MiningField name="NSM" usageType="active" />
+      <MiningField name="defect" usageType="target" />
+    </MiningSchema>
+
+    <LocalTransformations>
+      <DerivedField name="scaled_CBO" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="CBO" />
+            <Constant>8.542427497314716</Constant>
+          </Apply>
+          <Constant>8.157754089648135</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_CF" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="CF" />
+            <Constant>0.020444596145356743</Constant>
+          </Apply>
+          <Constant>0.037239798836250435</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_DAC" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="DAC" />
+            <Constant>0.8560687432867884</Constant>
+          </Apply>
+          <Constant>1.6745755386968217</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_DAM" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="DAM" />
+            <Constant>0.45864661654135336</Constant>
+          </Apply>
+          <Constant>0.49828696318138016</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_DIT" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="DIT" />
+            <Constant>0.7357679914070892</Constant>
+          </Apply>
+          <Constant>0.9493052046213061</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_ED" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="ED" />
+            <Constant>-0.4822771213748657</Constant>
+          </Apply>
+          <Constant>1.2026008212344688</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_LCC" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="LCC" />
+            <Constant>0.42975815086915276</Constant>
+          </Apply>
+          <Constant>0.39192733480519776</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_LCOM4" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="LCOM4" />
+            <Constant>9.308270676691729</Constant>
+          </Apply>
+          <Constant>13.850922032685059</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_MIT" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="MIT" />
+            <Constant>11.508055853920515</Constant>
+          </Apply>
+          <Constant>31.666540799549846</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_NOM" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="NOM" />
+            <Constant>16.56283566058002</Constant>
+          </Apply>
+          <Constant>21.2118128255139</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_NOA" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="NOA" />
+            <Constant>5.500537056928034</Constant>
+          </Apply>
+          <Constant>9.189656407548577</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_NOC" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="NOC" />
+            <Constant>0.5585392051557465</Constant>
+          </Apply>
+          <Constant>1.8351969995604018</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_NOLM" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="NOLM" />
+            <Constant>3.147153598281418</Constant>
+          </Apply>
+          <Constant>6.832257472206805</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_NOP" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="NOP" />
+            <Constant>1.3583927835841034</Constant>
+          </Apply>
+          <Constant>1.1081158448878117</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_SIX" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="SIX" />
+            <Constant>0.05672863958506884</Constant>
+          </Apply>
+          <Constant>0.2255102460666964</Constant>
+        </Apply>
+      </DerivedField>
+      <DerivedField name="scaled_NSM
+" optype="continuous" dataType="double">
+        <Apply function="/">
+          <Apply function="-">
+            <FieldRef field="NSM
+      " />
+            <Constant>5.317937701396348</Constant>
+          </Apply>
+          <Constant>13.229929388410481</Constant>
+        </Apply>
+      </DerivedField>
+    </LocalTransformations>
+
+    <RegressionTable intercept="0.0">
+      <NumericPredictor name="Intercept" coefficient="0.3344085378006903" />
+      <NumericPredictor name="scaled_CBO" coefficient="0.7411926616622658" />
+      <NumericPredictor name="scaled_CF" coefficient="-0.035813404772221696" />
+      <NumericPredictor name="scaled_DAC" coefficient="0.11343257326536062" />
+      <NumericPredictor name="scaled_DAM" coefficient="0.11485522173290282" />
+      <NumericPredictor name="scaled_DIT" coefficient="-0.08612324583510061" />
+      <NumericPredictor name="scaled_ED" coefficient="-0.515516577730948" />
+      <NumericPredictor name="scaled_LCC" coefficient="-0.29539054316675756" />
+      <NumericPredictor name="scaled_LCOM4" coefficient="-1.056414491723633" />
+      <NumericPredictor name="scaled_MIT" coefficient="0.45438501091574435" />
+      <NumericPredictor name="scaled_NOM" coefficient="1.801702185792859" />
+      <NumericPredictor name="scaled_NOA" coefficient="0.6907643491631099" />
+      <NumericPredictor name="scaled_NOC" coefficient="0.030353913407472465" />
+      <NumericPredictor name="scaled_NOLM" coefficient="-0.2536379459684217" />
+      <NumericPredictor name="scaled_NOP" coefficient="0.5569107410752394" />
+      <NumericPredictor name="scaled_SIX" coefficient="-0.3273865121834064" />
+      <NumericPredictor name="scaled_NSM
+" coefficient="0.268402283168138" />
+    </RegressionTable>
+  </RegressionModel>
+</PMML>

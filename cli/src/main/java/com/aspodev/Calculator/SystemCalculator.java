@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.Random; // delete when the ML gets integrated
 
 import com.aspodev.SCAR.Model;
+import com.aspodev.cli.BugPredictor;
 
 public class SystemCalculator {
 	private List<MetricCalculator> calculators;
@@ -105,10 +106,10 @@ public class SystemCalculator {
 			// Group by class instead of by metrics & Return
 			Map<String, Metrics> result = normalizeNamedMap(namedResults);
 
-			// // Add BUGP metric from the model
-			// new BugPredictor().calculateBug(result);
+			// Add BUGP metric from the model
+			new BugPredictor().calculateBug(result);
 
-			calculateBug(result);
+			// calculateBug(result);
 			return result;
 		} catch (InterruptedException ie) {
 			Thread.currentThread().interrupt();

@@ -11,6 +11,7 @@ import org.dmg.pmml.PMML;
 import org.jpmml.evaluator.FieldValue;
 import org.jpmml.evaluator.InputField;
 import org.jpmml.evaluator.ModelEvaluator;
+import org.jpmml.evaluator.ModelEvaluatorBuilder;
 import org.jpmml.evaluator.ModelEvaluatorFactory;
 import org.jpmml.model.PMMLUtil;
 import org.jpmml.model.visitors.VisitorBattery;
@@ -30,20 +31,16 @@ public class BugPredictor {
 			VisitorBattery visitors = new VisitorBattery();
 			visitors.applyTo(pmml);
 
-			Model pmmlModel = pmml.getModels().get(0);
-			this.modelEvaluator = ModelEvaluatorFactory.newInstance().newModelEvaluator(pmml, pmmlModel);
-			this.modelEvaluator.verify();
+			this.modelEvaluator = new ModelEvaluatorBuilder(pmml).build();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("Failed to load PMML model");
+			throw new RuntimeException("[ERROR] Failed to load PMML model");
 		}
 	}
 
 	public void calculateBug(Map<String, Metrics> result) {
 		for (Entry<String, Metrics> entry : result.entrySet()) {
-			System.out.println("Target Fields: " + modelEvaluator.getTargetFields());
-			System.out.println("Output Fields: " + modelEvaluator.getOutputFields());
 
 			Metrics metrics = entry.getValue();
 
@@ -53,19 +50,18 @@ public class BugPredictor {
 				Double value = metrics.getMetricValue(feature);
 
 				if (value == null) {
-					throw new IllegalStateException("Missing value for feature: " + feature);
+					throw new IllegalStateException("[ERROR] Missing value for feature: " + feature);
 				}
 
 				rawInput.put(feature, value);
 			}
 
 			Map<String, FieldValue> arguments = new LinkedHashMap<>();
-			System.out.println("[DEBUG] === Model Expected Inputs ===");
 			for (InputField inputField : modelEvaluator.getInputFields()) {
 				String name = inputField.getName();
-				System.out.println("Expecting: " + name + " (" + inputField.getDataType() + ")");
+
 				if (!rawInput.containsKey(name)) {
-					System.err.println("❌ Missing input: " + name);
+					System.err.println("[ERROR] Missing input: " + name);
 				}
 
 				Object rawValue = rawInput.get(name);
@@ -73,14 +69,9 @@ public class BugPredictor {
 				arguments.put(inputField.getName(), fieldValue);
 			}
 
-			System.out.println("=== Actual arguments to evaluate() ===");
-			for (Map.Entry<String, FieldValue> arg : arguments.entrySet()) {
-				System.out.println(arg.getKey() + " = " + arg.getValue());
-			}
-
 			Map<String, ?> prediction = modelEvaluator.evaluate(arguments);
 
-			Object resultObject = prediction.get("Probability");
+			Object resultObject = prediction.get("probability_defect");
 			double bugProbability = 0.0;
 
 			if (resultObject instanceof Map<?, ?> map) {
