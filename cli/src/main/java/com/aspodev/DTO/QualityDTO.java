@@ -20,7 +20,6 @@ public class QualityDTO {
         RiskDTO highRisk = new RiskDTO();
         Double totalClasses = Double.valueOf(metrics.size());
         for (Map.Entry<String, Metrics> entry : metrics.entrySet()) {
-            String key = entry.getKey();
             Double BugP = entry.getValue().getMetricValue("BUGP");
             if (BugP != null) {
                 if (BugP < 0.1) {

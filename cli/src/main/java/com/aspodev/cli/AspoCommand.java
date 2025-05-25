@@ -10,11 +10,9 @@ import java.util.Map;
 
 import com.aspodev.Calculator.Metrics;
 import com.aspodev.Calculator.SystemCalculator;
-import com.aspodev.DTO.ClassInfoDTO;
 import com.aspodev.DTO.SystemResultDTO;
 import com.aspodev.SCAR.Model;
 import com.aspodev.TypeParser.TypeParser;
-import com.aspodev.cleaner.Cleaner;
 import com.aspodev.parser.Parser;
 import com.aspodev.resolver.PathResolver;
 
@@ -36,6 +34,14 @@ public class AspoCommand implements Runnable {
 
     @Parameters(index = "0", description = "The PATH/URL of the repository to scan")
     private String targetPath;
+
+    public String getProjectName() {
+        Path path = Paths.get(targetPath).toAbsolutePath().normalize();
+        if (!Files.isDirectory(path)) {
+            path = path.getParent(); // Fallback to parent directory
+        }
+        return path != null ? path.getFileName().toString() : "";
+    }
 
     @Override
     public void run() {
@@ -74,7 +80,7 @@ public class AspoCommand implements Runnable {
             e.printStackTrace();
         }
 
-        JsonWriter.writeJson(new SystemResultDTO("projectaName", SCARModel, results));
+        JsonWriter.writeJson(new SystemResultDTO(getProjectName(), SCARModel, results));
 
         // Temporary Timing for checking the execute time
         long end = System.currentTimeMillis();

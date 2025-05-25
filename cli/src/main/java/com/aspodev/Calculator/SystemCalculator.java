@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.Random; // delete when the ML gets integrated
 
 import com.aspodev.SCAR.Model;
+import com.aspodev.cli.BugPredictor;
 
 public class SystemCalculator {
 	private List<MetricCalculator> calculators;
@@ -104,7 +103,10 @@ public class SystemCalculator {
 
 			// Group by class instead of by metrics & Return
 			Map<String, Metrics> result = normalizeNamedMap(namedResults);
-			calculateBug(result); // delete when the ML gets integrated
+
+			// Add BUGP metric from the model
+			new BugPredictor().calculateBug(result);
+
 			return result;
 		} catch (InterruptedException ie) {
 			Thread.currentThread().interrupt();
@@ -116,15 +118,6 @@ public class SystemCalculator {
 		}
 
 		return null;
-	}
-
-	private void calculateBug(Map<String, Metrics> result) {
-		for (Entry<String, Metrics> entry : result.entrySet()) {
-			Metrics metrics = entry.getValue();
-			Random rand = new Random();
-			double random = 0.05 + (0.5 - 0.05) * rand.nextDouble();
-			metrics.insertMetric("BUGP", random);
-		}
 	}
 
 }

@@ -12,16 +12,14 @@ import java.time.format.DateTimeFormatter;
 public class JsonWriter {
 
     // Formatter for timestamped folder names
-    private static final DateTimeFormatter FOLDER_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+    private static final DateTimeFormatter FOLDER_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * Serializes the DTO and writes it to
-     * .aspo/{timestamp}/{projectName}.json
+     * Serializes the DTO and writes it to .aspo/{timestamp}/{projectName}.json
      */
     public static void export(SystemResultDTO dto) throws IOException {
         // 1. Serialize DTO to pretty JSON
-        ObjectMapper mapper = new ObjectMapper()
-                .enable(SerializationFeature.INDENT_OUTPUT);
+        ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         String json = mapper.writeValueAsString(dto);
 
         // 2. Root .aspo directory
@@ -41,13 +39,9 @@ public class JsonWriter {
         Path target = timestampDir.resolve(fileName);
 
         // 6. Write JSON (create or overwrite)
-        Files.writeString(
-                target,
-                json,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING);
+        Files.writeString(target, json, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
-        System.out.println("Exported JSON to " + target.toAbsolutePath());
+        System.out.println("[INFO] Exported JSON to " + target.toAbsolutePath());
     }
 
     /** Safe wrapper around export(...) */
