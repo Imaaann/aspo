@@ -25,8 +25,8 @@ public class NORMCalculator implements MetricCalculator {
             } else {
                 parentMethods = new CalculatorUtil().getParentsMethods(slicesMap, parentName);
                 numOfOverridenMethods = new CalculatorUtil().getOverridenMethodsCount(methods, parentMethods);
-
-                result.put(i.getKey(), Double.valueOf(numOfOverridenMethods / methods.size()));
+                Double NORM = Double.valueOf(numOfOverridenMethods / methods.size());
+                result.put(i.getKey(), NORM.isNaN() ? 0.0 : NORM);
             }
 
         }

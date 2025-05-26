@@ -39,9 +39,9 @@ public class QualityDTO {
 
         }
 
-        lowRisk.setValue(lowRisk.getNOC() / totalClasses);
-        mediumRisk.setValue(mediumRisk.getNOC() / totalClasses);
-        highRisk.setValue(highRisk.getNOC() / totalClasses);
+        lowRisk.setValue((lowRisk.getNOC() / totalClasses) * 100);
+        mediumRisk.setValue((mediumRisk.getNOC() / totalClasses) * 100);
+        highRisk.setValue((highRisk.getNOC() / totalClasses) * 100);
 
         this.lowRisk = lowRisk;
         this.mediumRisk = mediumRisk;
