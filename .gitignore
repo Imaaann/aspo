@@ -47,3 +47,5 @@ Thumbs.db
 .venv/
 
 *.txt
+
+releases/
